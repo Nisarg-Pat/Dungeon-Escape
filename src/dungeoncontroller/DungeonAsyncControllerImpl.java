@@ -1,9 +1,10 @@
 package dungeoncontroller;
 
+import dungeonmodel.Direction;
 import dungeonmodel.DungeonModel;
 import dungeonview.DungeonView;
 
-public class DungeonAsyncControllerImpl implements DungeonAsyncController{
+public class DungeonAsyncControllerImpl implements DungeonAsyncController, Features{
 
   DungeonModel model;
   DungeonView view;
@@ -15,7 +16,13 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController{
 
   @Override
   public void start() {
-    view.addClickListener(this);
+    view.setFeatures(this);
     view.makeVisible();
+  }
+
+  @Override
+  public void movePlayer(Direction direction) {
+    model.movePlayer(direction);
+    view.refresh();
   }
 }

@@ -1,11 +1,10 @@
 package dungeonview;
 
-import dungeoncontroller.DungeonAsyncController;
+import dungeoncontroller.Features;
 
 public interface DungeonView {
 
-
-  void addClickListener(DungeonAsyncController listener);
+  void setFeatures(Features features);
 
   void refresh();
 
