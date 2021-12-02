@@ -27,7 +27,7 @@ class LocationGraphImpl implements LocationGraph {
   private final int rows;
   private final int columns;
   private final boolean isWrapped;
-  private final int degreeOfInterconnectivity;
+  private int degreeOfInterconnectivity;
   private final int percentageItems;
   private int numOtyughs;
 
@@ -118,8 +118,8 @@ class LocationGraphImpl implements LocationGraph {
         union(parent, x, y);
       }
     }
-    int max_degree = Math.min(degreeOfInterconnectivity, remainingEdges.size());
-    for (int i = 0; i < max_degree; i++) {
+    degreeOfInterconnectivity = Math.min(degreeOfInterconnectivity, remainingEdges.size());
+    for (int i = 0; i < degreeOfInterconnectivity; i++) {
       Edge edge = remainingEdges.get(i);
       connectLocations(edge.getFirst(), edge.getSecond());
     }
@@ -166,6 +166,16 @@ class LocationGraphImpl implements LocationGraph {
   @Override
   public int countOtyughs() {
     return numOtyughs;
+  }
+
+  @Override
+  public int getDegree() {
+    return degreeOfInterconnectivity;
+  }
+
+  @Override
+  public int getPercentageItems() {
+    return percentageItems;
   }
 
   @Override

@@ -1,8 +1,6 @@
 package dungeonview;
 
 import java.awt.*;
-import java.io.File;
-import java.util.Map;
 import java.util.Set;
 
 import javax.swing.*;
@@ -12,12 +10,12 @@ import dungeonmodel.DungeonModel;
 import structureddata.LocationDescription;
 import structureddata.Position;
 
-public class DungeonPanel extends JPanel {
+class DungeonPanel extends JPanel {
 
   //TODO change to read-only
   DungeonModel model;
 
-  public DungeonPanel(DungeonModel model) {
+  DungeonPanel(DungeonModel model) {
     this.model = model;
   }
 
@@ -57,5 +55,9 @@ public class DungeonPanel extends JPanel {
     }
     sb.append(".png");
     return sb.toString();
+  }
+
+  protected void setModel(DungeonModel model) {
+    this.model = model;
   }
 }

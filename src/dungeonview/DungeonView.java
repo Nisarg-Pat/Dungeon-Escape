@@ -1,6 +1,7 @@
 package dungeonview;
 
 import dungeoncontroller.Features;
+import dungeonmodel.DungeonModel;
 
 public interface DungeonView {
 
@@ -9,4 +10,8 @@ public interface DungeonView {
   void refresh();
 
   void makeVisible();
+
+  void setModel(DungeonModel model);
+
+  void showErrorMessage(String error);
 }

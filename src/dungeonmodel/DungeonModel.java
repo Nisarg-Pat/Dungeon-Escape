@@ -48,6 +48,12 @@ public interface DungeonModel {
    */
   int countOtyughs();
 
+  //TODO: Generate javaDoc
+  int getDegree();
+
+  //TODO: Generate javaDoc
+  int getPercentageItems();
+
   /**
    * Gets the description of starting Cave of the dungeon.
    *

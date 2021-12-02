@@ -18,6 +18,10 @@ interface LocationGraph {
 
   int countOtyughs();
 
+  int getDegree();
+
+  int getPercentageItems();
+
   Location getLocation(Position position);
 
   boolean hasEdge(Position first, Position second);

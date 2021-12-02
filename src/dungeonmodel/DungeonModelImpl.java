@@ -83,6 +83,16 @@ public class DungeonModelImpl implements DungeonModel {
   }
 
   @Override
+  public int getDegree() {
+    return locationGraph.getDegree();
+  }
+
+  @Override
+  public int getPercentageItems() {
+    return locationGraph.getPercentageItems();
+  }
+
+  @Override
   public LocationDescription getStartCave() {
     return getLocation(startLocation.getPosition());
   }
