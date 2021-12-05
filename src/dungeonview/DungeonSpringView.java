@@ -43,6 +43,13 @@ public class DungeonSpringView extends JFrame implements DungeonView {
     this.requestFocus();
   }
 
+  @Override
+  public void setModel(DungeonModel model) {
+    dungeonPanel.setModel(model);
+    locationPanel.setModel(model);
+    dungeonPopup.setModel(model);
+  }
+
 
   @Override
   public void setFeatures(Features features) {
@@ -84,13 +91,6 @@ public class DungeonSpringView extends JFrame implements DungeonView {
     openPopup();
   }
 
-  @Override
-  public void setModel(DungeonModel model) {
-    dungeonPanel.setModel(model);
-    locationPanel.setModel(model);
-    dungeonPopup.setModel(model);
-  }
-
   protected void openPopup() {
     dungeonPopup.initPopup(getX() + 200, getY() + 200);
   }
@@ -99,16 +99,16 @@ public class DungeonSpringView extends JFrame implements DungeonView {
 //    setExtendedState(JFrame.MAXIMIZED_BOTH);
 //    setUndecorated(true);
     setMinimumSize(new Dimension(500, 300));
-    setSize(64 * Math.min(columns, 16) + 200, 64 * Math.min(rows, 9) + 200);
+    setSize(228 + 64 * Math.min(columns, 16) + 115, 64 * Math.min(rows, 9) + 162);
     scrollPane.getVerticalScrollBar().setUnitIncrement(rows);
     scrollPane.getHorizontalScrollBar().setUnitIncrement(columns);
     dungeonPanel.setPreferredSize(new Dimension(64 * columns + 100, 64 * rows + 100));
-    locationPanel.setPreferredSize(new Dimension(64 * 2 + 100, 64 * 2 + 100));
+    locationPanel.setPreferredSize(new Dimension(128 + 100, 128 + 100));
   }
 
   @Override
   public void showErrorMessage(String error) {
     System.out.println("Error: " + error);
-    JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
+//    JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
   }
 }

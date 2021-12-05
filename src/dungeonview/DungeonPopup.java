@@ -89,6 +89,22 @@ class DungeonPopup extends JDialog {
     pack();
   }
 
+  protected void setModel(DungeonModel model) {
+    this.model = model;
+    if (hasModel()) {
+      setButton.setText("Reset");
+    }
+  }
+
+  private boolean hasModel() {
+    return model != null;
+  }
+
+  protected void initPopup(int x, int y) {
+    setLocation(x, y);
+    setVisible(true);
+  }
+
   protected void setFeatures(Features features) {
     closeButton.addActionListener(l -> {
       if (hasModel()) {
@@ -110,21 +126,5 @@ class DungeonPopup extends JDialog {
       view.setSizes(rows, columns);
       view.setVisible(true);
     });
-  }
-
-  protected void initPopup(int x, int y) {
-    setLocation(x, y);
-    setVisible(true);
-  }
-
-  protected void setModel(DungeonModel model) {
-    this.model = model;
-    if (hasModel()) {
-      setButton.setText("Reset");
-    }
-  }
-
-  private boolean hasModel() {
-    return model != null;
   }
 }
