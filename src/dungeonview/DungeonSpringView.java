@@ -15,11 +15,12 @@ import dungeonmodel.DungeonModel;
 public class DungeonSpringView extends JFrame implements DungeonView {
 
   DungeonPanel dungeonPanel;
+  LocationPanel locationPanel;
   JScrollPane scrollPane;
   DungeonMenuBar dungeonMenuBar;
   DungeonPopup dungeonPopup;
 
-  public DungeonSpringView(DungeonModel model) {
+  public DungeonSpringView() {
     super("Dungeon Game");
     this.setLocation(100, 100);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -27,11 +28,14 @@ public class DungeonSpringView extends JFrame implements DungeonView {
     dungeonMenuBar = new DungeonMenuBar(this);
     this.setJMenuBar(dungeonMenuBar);
 
-//    this.setLayout(new BorderLayout());
+    this.setLayout(new BorderLayout());
 
-    dungeonPanel = new DungeonPanel(model);
+    dungeonPanel = new DungeonPanel();
     scrollPane = new JScrollPane(dungeonPanel);
     add(scrollPane, BorderLayout.CENTER);
+
+    locationPanel = new LocationPanel();
+    add(locationPanel, BorderLayout.WEST);
 
     dungeonPopup = new DungeonPopup(this);
 
@@ -83,6 +87,7 @@ public class DungeonSpringView extends JFrame implements DungeonView {
   @Override
   public void setModel(DungeonModel model) {
     dungeonPanel.setModel(model);
+    locationPanel.setModel(model);
     dungeonPopup.setModel(model);
   }
 
@@ -91,19 +96,19 @@ public class DungeonSpringView extends JFrame implements DungeonView {
   }
 
   protected void setSizes(int rows, int columns) {
+//    setExtendedState(JFrame.MAXIMIZED_BOTH);
+//    setUndecorated(true);
     setMinimumSize(new Dimension(500, 300));
-//    setSize(64*Math.min(model.getColumns(), 16)+200, 64*Math.min(model.getRows(), 9)+200);
     setSize(64 * Math.min(columns, 16) + 200, 64 * Math.min(rows, 9) + 200);
     scrollPane.getVerticalScrollBar().setUnitIncrement(rows);
     scrollPane.getHorizontalScrollBar().setUnitIncrement(columns);
-//      setExtendedState(JFrame.MAXIMIZED_BOTH);
-//      setUndecorated(true);
     dungeonPanel.setPreferredSize(new Dimension(64 * columns + 100, 64 * rows + 100));
+    locationPanel.setPreferredSize(new Dimension(64 * 2 + 100, 64 * 2 + 100));
   }
 
   @Override
   public void showErrorMessage(String error) {
     System.out.println("Error: " + error);
-    JOptionPane.showMessageDialog(this,error,"Error",JOptionPane.ERROR_MESSAGE);
+    JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
   }
 }

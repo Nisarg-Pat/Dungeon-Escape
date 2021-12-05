@@ -10,8 +10,8 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
   DungeonModel model;
   DungeonView view;
 
-  public DungeonAsyncControllerImpl(DungeonModel model, DungeonView view) {
-    this.model = model;
+  public DungeonAsyncControllerImpl(DungeonView view) {
+    this.model = null;
     this.view = view;
   }
 

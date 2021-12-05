@@ -1,5 +1,8 @@
+import java.io.InputStreamReader;
+
 import dungeoncontroller.DungeonAsyncControllerImpl;
 import dungeoncontroller.DungeonController;
+import dungeoncontroller.DungeonControllerImpl;
 import dungeonmodel.DungeonModel;
 import dungeonmodel.DungeonModelImpl;
 import dungeonview.DungeonSpringView;
@@ -7,6 +10,20 @@ import dungeonview.DungeonView;
 
 public class SpringDriver {
   public static void main(String[] args) {
+    if (args.length != 0) {
+      startCommandLineController(args);
+    } else {
+      startSpringController();
+    }
+  }
+
+  private static void startSpringController() {
+    DungeonView dungeonView = new DungeonSpringView();
+    DungeonController dungeonController = new DungeonAsyncControllerImpl(dungeonView);
+    dungeonController.start();
+  }
+
+  private static void startCommandLineController(String[] args) {
     int rows;
     int columns;
     int degreeOfConnectivity;
@@ -27,8 +44,12 @@ public class SpringDriver {
 
     DungeonModel dungeonModel = new DungeonModelImpl(rows, columns,
             isWrapped, degreeOfConnectivity, percentageCavesWithTreasure, numOtyugh);
-    DungeonView dungeonView = new DungeonSpringView(dungeonModel);
-    DungeonController dungeonController = new DungeonAsyncControllerImpl(dungeonModel, dungeonView);
-    dungeonController.start();
+    DungeonController dungeonController = new DungeonControllerImpl(
+            new InputStreamReader(System.in), System.out, dungeonModel);
+    try {
+      dungeonController.start();
+    } catch (IllegalStateException e) {
+      System.out.println(e.getMessage());
+    }
   }
 }

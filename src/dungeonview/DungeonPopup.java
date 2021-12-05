@@ -2,8 +2,6 @@ package dungeonview;
 
 
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowListener;
 
 import javax.swing.*;
 
@@ -76,8 +74,8 @@ class DungeonPopup extends JDialog {
 
     JPanel otyughPanel = new JPanel();
     otyughPanel.setLayout(new GridLayout(1, 2));
-    otyughPanel.add(new JTextArea("Enter Number of Columns:"));
-    int numOtyughs = hasModel() ? model.countOtyughs() : 10;
+    otyughPanel.add(new JTextArea("Enter Number of Otyughs:"));
+    int numOtyughs = hasModel() ? model.countOtyughs() : 1;
     otyughInputField = new JTextField(String.valueOf(numOtyughs));
     otyughPanel.add(otyughInputField);
     this.add(otyughPanel);
