@@ -9,6 +9,8 @@ import java.util.Random;
  */
 public class RandomImpl {
 
+  private static long seed;
+
   private static final Random random = new Random();
 
   private static final Queue<Integer> queueOfNumbers = new LinkedList<>();
@@ -46,9 +48,14 @@ public class RandomImpl {
   /**
    * Sets a seed for non random behavior.
    *
-   * @param seed seed value
+   * @param newSeed seed value
    */
-  public static void setSeed(long seed) {
+  public static void setSeed(long newSeed) {
+    seed = newSeed;
     random.setSeed(seed);
+  }
+
+  public static long getSeed() {
+    return seed;
   }
 }

@@ -12,7 +12,9 @@ public interface Features {
 
   void exitProgram();
 
-  void resetModel(int rows, int columns, boolean isWrapped,
+  void createModel(int rows, int columns, boolean isWrapped,
                   int degreeOfInterconnectivity, int percentageItems,
                   int numOtyugh);
+
+  void resetModel();
 }

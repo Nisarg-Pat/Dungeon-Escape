@@ -12,7 +12,7 @@ class DungeonMenuBar extends JMenuBar {
   DungeonSpringView view;
 
   JMenu menu, submenu;
-  JMenuItem menuItem, resetMenuItem, quitMenuItem;
+  JMenuItem menuItem, resetMenuItem, createMenuItem, quitMenuItem;
   JRadioButtonMenuItem rbMenuItem;
   JCheckBoxMenuItem cbMenuItem;
 
@@ -28,6 +28,9 @@ class DungeonMenuBar extends JMenuBar {
     resetMenuItem = new JMenuItem("Reset Game");
     menu.add(resetMenuItem);
 
+    createMenuItem = new JMenuItem("Create New Game");
+    menu.add(createMenuItem);
+
     quitMenuItem = new JMenuItem("Quit");
     menu.add(quitMenuItem);
 
@@ -37,6 +40,9 @@ class DungeonMenuBar extends JMenuBar {
 
   protected void setFeatures(Features features) {
     resetMenuItem.addActionListener(l -> {
+      features.resetModel();
+    });
+    createMenuItem.addActionListener(l -> {
       view.openPopup();
     });
     quitMenuItem.addActionListener(l -> {

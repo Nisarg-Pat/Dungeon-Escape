@@ -153,37 +153,3 @@ class Utilities {
     }
   }
 }
-
-class AudioPlayerExample1 implements LineListener {
-
-  /**
-   * this flag indicates whether the playback completes or not.
-   */
-  boolean playCompleted;
-
-  /**
-   * Play a given audio file.
-   * @param audioFilePath Path of the audio file.
-   */
-  void play(String audioFilePath) {
-
-
-  }
-
-  /**
-   * Listens to the START and STOP events of the audio line.
-   */
-  @Override
-  public void update(LineEvent event) {
-    LineEvent.Type type = event.getType();
-
-    if (type == LineEvent.Type.START) {
-      System.out.println("Playback started.");
-
-    } else if (type == LineEvent.Type.STOP) {
-      playCompleted = true;
-      System.out.println("Playback completed.");
-    }
-
-  }
-}

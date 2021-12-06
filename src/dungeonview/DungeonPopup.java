@@ -120,7 +120,7 @@ class DungeonPopup extends JDialog {
       int degreeOfInterconnectivity = Integer.parseInt(degreeInputField.getText());
       int percentageItems = Integer.parseInt(itemInputField.getText());
       int numOtyughs = Integer.parseInt(otyughInputField.getText());
-      features.resetModel(rows, columns, isWrapped,
+      features.createModel(rows, columns, isWrapped,
               degreeOfInterconnectivity, percentageItems, numOtyughs);
       this.setVisible(false);
       view.setSizes(rows, columns);

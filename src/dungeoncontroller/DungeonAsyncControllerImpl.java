@@ -7,6 +7,7 @@ import dungeonmodel.DungeonModelImpl;
 import dungeonmodel.HitStatus;
 import dungeonmodel.Item;
 import dungeonview.DungeonView;
+import random.RandomImpl;
 
 public class DungeonAsyncControllerImpl implements DungeonAsyncController, Features {
 
@@ -70,11 +71,21 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
   }
 
   @Override
-  public void resetModel(int rows, int columns, boolean isWrapped,
+  public void createModel(int rows, int columns, boolean isWrapped,
                          int degreeOfInterconnectivity, int percentageItems,
                          int numOtyugh) {
+    RandomImpl.setSeed(RandomImpl.getIntInRange(0, 1000));
     this.model = new DungeonModelImpl(rows, columns, isWrapped,
             degreeOfInterconnectivity, percentageItems, numOtyugh);
+    view.setModel(model);
+    view.refresh();
+  }
+
+  @Override
+  public void resetModel() {
+    RandomImpl.setSeed(RandomImpl.getSeed());
+    this.model = new DungeonModelImpl(model.getRows(), model.getColumns(), model.getWrapped(),
+            model.getDegree(), model.getPercentageItems(), model.countOtyughs());
     view.setModel(model);
     view.refresh();
   }
