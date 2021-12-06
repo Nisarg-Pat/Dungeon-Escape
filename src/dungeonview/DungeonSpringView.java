@@ -6,12 +6,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import dungeoncontroller.Features;
@@ -40,6 +43,13 @@ public class DungeonSpringView extends JFrame implements DungeonView {
     this.setLocation(100, 100);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.isShootMode = false;
+
+    try {
+      BufferedImage image = ImageIO.read(new File("dungeonImages\\logo.png"));
+      setIconImage(image);
+    } catch (IOException e) {
+      // Ignore Logo
+    }
 
     dungeonPopup = new DungeonPopup(this);
 
