@@ -17,6 +17,4 @@ public interface DungeonView {
   void showErrorMessage(String error);
 
   void playSound(String s);
-
-  ReadOnlyDungeonModel getModel();
 }

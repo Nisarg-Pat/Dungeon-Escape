@@ -6,11 +6,9 @@ import java.awt.*;
 import javax.swing.*;
 
 import dungeoncontroller.Features;
-import dungeonmodel.DungeonModel;
 
 class DungeonPopup extends JFrame {
   DungeonSpringView view;
-  DungeonModel model;
 
   JButton setButton;
   JButton closeButton;
@@ -26,7 +24,7 @@ class DungeonPopup extends JFrame {
     JPanel rowPanel = new JPanel();
     rowPanel.setLayout(new GridLayout(1, 2));
     rowPanel.add(new JTextArea("Enter Number of Rows:"));
-    int rows = hasModel() ? model.getRows() : 6;
+    int rows = view.hasModel() ? view.getModel().getRows() : 6;
     rowInputField = new JTextField(String.valueOf(rows));
     rowPanel.add(rowInputField);
     this.add(rowPanel);
@@ -34,7 +32,7 @@ class DungeonPopup extends JFrame {
     JPanel columnPanel = new JPanel();
     columnPanel.setLayout(new GridLayout(1, 2));
     columnPanel.add(new JTextArea("Enter Number of Columns:"));
-    int columns = hasModel() ? model.getColumns() : 8;
+    int columns = view.hasModel() ? view.getModel().getColumns() : 8;
     columnInputField = new JTextField(String.valueOf(columns));
     columnPanel.add(columnInputField);
     this.add(columnPanel);
@@ -44,7 +42,7 @@ class DungeonPopup extends JFrame {
     isWrappedPanel.add(new JTextArea("Is the dungeon wrapped: "));
     isWrappedTrue = new JRadioButton("Yes");
     isWrappedFalse = new JRadioButton("No");
-    boolean isWrapped = hasModel() && model.getWrapped();
+    boolean isWrapped = view.hasModel() && view.getModel().getWrapped();
     if (isWrapped) {
       isWrappedTrue.setSelected(true);
     } else {
@@ -60,7 +58,7 @@ class DungeonPopup extends JFrame {
     JPanel degreePanel = new JPanel();
     degreePanel.setLayout(new GridLayout(1, 2));
     degreePanel.add(new JTextArea("Enter The Degree of Connectivity:"));
-    int degree = hasModel() ? model.getDegree() : 10;
+    int degree = view.hasModel() ? view.getModel().getDegree() : 10;
     degreeInputField = new JTextField(String.valueOf(degree));
     degreePanel.add(degreeInputField);
     this.add(degreePanel);
@@ -68,7 +66,7 @@ class DungeonPopup extends JFrame {
     JPanel itemPanel = new JPanel();
     itemPanel.setLayout(new GridLayout(1, 2));
     itemPanel.add(new JTextArea("Enter Percentage of Items:"));
-    int items = hasModel() ? model.getPercentageItems() : 50;
+    int items = view.hasModel() ? view.getModel().getPercentageItems() : 50;
     itemInputField = new JTextField(String.valueOf(items));
     itemPanel.add(itemInputField);
     this.add(itemPanel);
@@ -76,7 +74,7 @@ class DungeonPopup extends JFrame {
     JPanel otyughPanel = new JPanel();
     otyughPanel.setLayout(new GridLayout(1, 2));
     otyughPanel.add(new JTextArea("Enter Number of Otyughs:"));
-    int numOtyughs = hasModel() ? model.countOtyughs() : 1;
+    int numOtyughs = view.hasModel() ? view.getModel().countOtyughs() : 1;
     otyughInputField = new JTextField(String.valueOf(numOtyughs));
     otyughPanel.add(otyughInputField);
     this.add(otyughPanel);
@@ -90,18 +88,6 @@ class DungeonPopup extends JFrame {
     pack();
   }
 
-  protected void setModel(DungeonModel model) {
-    this.model = model;
-    if (hasModel()) {
-      setButton.setText("Create");
-      this.setDefaultCloseOperation(HIDE_ON_CLOSE);
-    }
-  }
-
-  private boolean hasModel() {
-    return model != null;
-  }
-
   protected void initPopup(int x, int y) {
     setLocation(x, y);
     setVisible(true);
@@ -109,7 +95,7 @@ class DungeonPopup extends JFrame {
 
   protected void setFeatures(Features features) {
     closeButton.addActionListener(l -> {
-      if (hasModel()) {
+      if (view.hasModel()) {
         this.setVisible(false);
       } else {
         features.exitProgram();

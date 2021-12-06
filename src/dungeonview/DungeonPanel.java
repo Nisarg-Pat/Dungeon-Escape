@@ -15,9 +15,9 @@ import structureddata.Position;
 
 class DungeonPanel extends JPanel {
 
-  DungeonView view;
+  DungeonSpringView view;
 
-  DungeonPanel(DungeonView view) {
+  DungeonPanel(DungeonSpringView view) {
     this.view = view;
   }
 

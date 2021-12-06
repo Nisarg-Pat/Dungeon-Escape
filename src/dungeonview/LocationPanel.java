@@ -18,9 +18,9 @@ import dungeonmodel.Treasure;
 import structureddata.LocationDescription;
 
 public class LocationPanel extends JPanel {
-  DungeonView view;
+  DungeonSpringView view;
 
-  public LocationPanel(DungeonView view) {
+  public LocationPanel(DungeonSpringView view) {
     this.view = view;
   }
 

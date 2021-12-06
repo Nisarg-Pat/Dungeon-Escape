@@ -12,13 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineEvent;
-import javax.sound.sampled.LineListener;
 import javax.swing.*;
 
 import dungeoncontroller.Features;
@@ -67,12 +60,19 @@ public class DungeonSpringView extends JFrame implements DungeonView {
 
   @Override
   public void setModel(ReadOnlyDungeonModel model) {
+    if(model == null) {
+      throw new IllegalArgumentException("Model cannot be null.");
+    }
     this.model = model;
+    dungeonPopup.setDefaultCloseOperation(HIDE_ON_CLOSE);
   }
 
-  @Override
-  public ReadOnlyDungeonModel getModel() {
+  protected ReadOnlyDungeonModel getModel() {
     return model;
+  }
+
+  protected boolean hasModel() {
+    return model != null;
   }
 
   @Override
