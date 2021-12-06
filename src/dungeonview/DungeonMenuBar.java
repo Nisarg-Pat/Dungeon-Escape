@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.*;
 
 import dungeoncontroller.Features;
+import dungeonmodel.DungeonModel;
 
 class DungeonMenuBar extends JMenuBar {
 
@@ -34,6 +35,12 @@ class DungeonMenuBar extends JMenuBar {
     quitMenuItem = new JMenuItem("Quit");
     menu.add(quitMenuItem);
 
+    this.add(menu);
+
+    menu = new JMenu("Player Description");
+    menuItem = new JMenuItem(String.format("Rubies %s", 6),
+            new ImageIcon("dungeonImages\\items\\ruby.png"));
+    menu.add(menuItem);
     this.add(menu);
   }
 

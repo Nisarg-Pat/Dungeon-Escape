@@ -26,6 +26,7 @@ import dungeonmodel.Arrow;
 import dungeonmodel.Direction;
 import dungeonmodel.DungeonModel;
 import dungeonmodel.Item;
+import dungeonmodel.ReadOnlyDungeonModel;
 import dungeonmodel.Treasure;
 
 public class DungeonSpringView extends JFrame implements DungeonView {
@@ -36,6 +37,8 @@ public class DungeonSpringView extends JFrame implements DungeonView {
   DungeonMenuBar dungeonMenuBar;
   DungeonPopup dungeonPopup;
 
+  ReadOnlyDungeonModel model;
+
   boolean isShootMode;
 
   public DungeonSpringView() {
@@ -44,29 +47,32 @@ public class DungeonSpringView extends JFrame implements DungeonView {
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.isShootMode = false;
 
-    dungeonMenuBar = new DungeonMenuBar(this);
-    this.setJMenuBar(dungeonMenuBar);
+    dungeonPopup = new DungeonPopup(this);
 
     this.setLayout(new BorderLayout());
 
-    dungeonPanel = new DungeonPanel();
+    dungeonMenuBar = new DungeonMenuBar(this);
+    this.setJMenuBar(dungeonMenuBar);
+
+    dungeonPanel = new DungeonPanel(this);
     scrollPane = new JScrollPane(dungeonPanel);
     add(scrollPane, BorderLayout.CENTER);
 
-    locationPanel = new LocationPanel();
+    locationPanel = new LocationPanel(this);
     add(locationPanel, BorderLayout.WEST);
-
-    dungeonPopup = new DungeonPopup(this);
 
     this.setFocusable(true);
     this.requestFocus();
   }
 
   @Override
-  public void setModel(DungeonModel model) {
-    dungeonPanel.setModel(model);
-    locationPanel.setModel(model);
-    dungeonPopup.setModel(model);
+  public void setModel(ReadOnlyDungeonModel model) {
+    this.model = model;
+  }
+
+  @Override
+  public ReadOnlyDungeonModel getModel() {
+    return model;
   }
 
   @Override

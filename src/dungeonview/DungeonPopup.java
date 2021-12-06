@@ -8,7 +8,7 @@ import javax.swing.*;
 import dungeoncontroller.Features;
 import dungeonmodel.DungeonModel;
 
-class DungeonPopup extends JDialog {
+class DungeonPopup extends JFrame {
   DungeonSpringView view;
   DungeonModel model;
 
@@ -21,7 +21,8 @@ class DungeonPopup extends JDialog {
     super();
     this.view = view;
     setLayout(new GridLayout(10, 0));
-    this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+    this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
     JPanel rowPanel = new JPanel();
     rowPanel.setLayout(new GridLayout(1, 2));
     rowPanel.add(new JTextArea("Enter Number of Rows:"));
@@ -92,7 +93,8 @@ class DungeonPopup extends JDialog {
   protected void setModel(DungeonModel model) {
     this.model = model;
     if (hasModel()) {
-      setButton.setText("Reset");
+      setButton.setText("Create");
+      this.setDefaultCloseOperation(HIDE_ON_CLOSE);
     }
   }
 

@@ -13,39 +13,32 @@ import javax.swing.*;
 
 import dungeoncontroller.Features;
 import dungeonmodel.Arrow;
-import dungeonmodel.DungeonModel;
 import dungeonmodel.Item;
 import dungeonmodel.Treasure;
 import structureddata.LocationDescription;
 
 public class LocationPanel extends JPanel {
-  DungeonModel model;
+  DungeonView view;
 
-  public LocationPanel() {
-    this.model = null;
-  }
-
-  protected void setModel(DungeonModel model) {
-    this.model = model;
+  public LocationPanel(DungeonView view) {
+    this.view = view;
   }
 
   @Override
   protected void paintComponent(Graphics g) {
-    if (model == null) {
+    if (view.getModel() == null) {
       throw new IllegalStateException("Model cannot be null when painting location.");
     }
 
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
 
-    LocationDescription currentLocation = model.getCurrentLocation();
-//    int currentRow = currentLocation.getPosition().getRow();
-//    int currentColumn = currentLocation.getPosition().getColumn();
+    LocationDescription currentLocation = view.getModel().getCurrentLocation();
     Map<Treasure, Integer> treasureMap = currentLocation.getTreasureMap();
 
     try {
       BufferedImage image = ImageIO.read(new File(Utilities.getImageName(currentLocation.getPossibleDirections())));
-      image = Utilities.getStenchedImage(model.detectSmell(), currentLocation.containsOtyugh(), image);
+      image = Utilities.getStenchedImage(view.getModel().detectSmell(), currentLocation.containsOtyugh(), image);
       g2d.drawImage(image, 50, 50, 128, 128, this);
       if(currentLocation.containsOtyugh()) {
         image = ImageIO.read(new File("dungeonImages\\otyugh.png"));
@@ -62,17 +55,17 @@ public class LocationPanel extends JPanel {
       for (Treasure treasure : treasureMap.keySet()) {
         image = ImageIO.read(new File(Utilities.getImageName(treasure)));
         g2d.setFont(new Font("default", Font.BOLD, 25));
-        g2d.drawString(String.valueOf(itemMap.get(treasure)+"."), 50, 225 + i * 50);
+        g2d.drawString(itemMap.get(treasure) + ".", 50, 225 + i * 50);
         g2d.drawImage(image, 100, 200 + i * 50, this);
-        g2d.drawString(String.valueOf(treasureMap.get(treasure)), 150, 225 + i * 50);
+        g2d.drawString("x" + treasureMap.get(treasure), 150, 225 + i * 50);
         i++;
       }
       if (currentLocation.countArrows() > 0) {
         image = ImageIO.read(new File(Utilities.getImageName(Arrow.CROOKED_ARROW)));
         g2d.setFont(new Font("default", Font.BOLD, 25));
-        g2d.drawString(String.valueOf(itemMap.get(Arrow.CROOKED_ARROW)+"."), 50, 225 + i * 50);
+        g2d.drawString(itemMap.get(Arrow.CROOKED_ARROW) + ".", 50, 225 + i * 50);
         g2d.drawImage(image, 100, 200 + i * 50 + 13, 30, 7, this);
-        g2d.drawString(String.valueOf(currentLocation.countArrows()), 150, 225 + i * 50);
+        g2d.drawString("x" + currentLocation.countArrows(), 150, 225 + i * 50);
       }
     } catch (IOException e) {
       e.printStackTrace();

@@ -15,35 +15,30 @@ import structureddata.Position;
 
 class DungeonPanel extends JPanel {
 
-  //TODO change to read-only
-  DungeonModel model;
+  DungeonView view;
 
-  DungeonPanel() {
-    this.model = null;
-  }
-
-  protected void setModel(DungeonModel model) {
-    this.model = model;
+  DungeonPanel(DungeonView view) {
+    this.view = view;
   }
 
   @Override
   protected void paintComponent(Graphics g) {
-    if (model == null) {
+    if (view.getModel() == null) {
       throw new IllegalStateException("Model cannot be null when painting dungeon.");
     }
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
 
-    LocationDescription currentLocation = model.getCurrentLocation();
+    LocationDescription currentLocation = view.getModel().getCurrentLocation();
     int currentRow = currentLocation.getPosition().getRow();
     int currentColumn = currentLocation.getPosition().getColumn();
 
-    for (int i = 0; i < model.getRows(); i++) {
-      for (int j = 0; j < model.getColumns(); j++) {
+    for (int i = 0; i < view.getModel().getRows(); i++) {
+      for (int j = 0; j < view.getModel().getColumns(); j++) {
         try {
-          BufferedImage image = ImageIO.read(new File(Utilities.getImageName(model.getLocation(new Position(i, j)).getPossibleDirections())));
+          BufferedImage image = ImageIO.read(new File(Utilities.getImageName(view.getModel().getLocation(new Position(i, j)).getPossibleDirections())));
           if(i == currentRow && j == currentColumn) {
-            image = Utilities.getStenchedImage(model.detectSmell(), currentLocation.containsOtyugh(), image);
+            image = Utilities.getStenchedImage(view.getModel().detectSmell(), currentLocation.containsOtyugh(), image);
           }
           Position getLocationPosition = Utilities.getLocationPosition(i, j);
           g2d.drawImage(image, getLocationPosition.getColumn(), getLocationPosition.getRow(), this);
