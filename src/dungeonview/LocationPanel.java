@@ -17,10 +17,10 @@ import dungeonmodel.Item;
 import dungeonmodel.Treasure;
 import structureddata.LocationDescription;
 
-public class LocationPanel extends JPanel {
+class LocationPanel extends JPanel {
   DungeonSpringView view;
 
-  public LocationPanel(DungeonSpringView view) {
+  LocationPanel(DungeonSpringView view) {
     this.view = view;
   }
 
@@ -68,7 +68,7 @@ public class LocationPanel extends JPanel {
         g2d.drawString("x" + currentLocation.countArrows(), 150, 225 + i * 50);
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      view.showErrorMessage(e.getMessage());
     }
   }
 

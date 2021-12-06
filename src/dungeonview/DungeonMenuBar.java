@@ -13,10 +13,8 @@ class DungeonMenuBar extends JMenuBar {
 
   DungeonSpringView view;
 
-  JMenu menu, submenu;
-  JMenuItem menuItem, resetMenuItem, createMenuItem, quitMenuItem;
-  JRadioButtonMenuItem rbMenuItem;
-  JCheckBoxMenuItem cbMenuItem;
+  JMenu menu;
+  JMenuItem resetMenuItem, createMenuItem, quitMenuItem;
 
   DungeonMenuBar(DungeonSpringView view){
     super();

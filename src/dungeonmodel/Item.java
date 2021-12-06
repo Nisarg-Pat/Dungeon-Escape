@@ -17,4 +17,7 @@ public interface Item {
    * @return the plural string.
    */
   String getPlural();
+
+  //TODO javadoc
+  String getStringFromNumber(int number);
 }

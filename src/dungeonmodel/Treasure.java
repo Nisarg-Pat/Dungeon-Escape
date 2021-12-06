@@ -41,4 +41,13 @@ public enum Treasure implements Item {
   public String toString() {
     return this.getSingular();
   }
+
+  @Override
+  public String getStringFromNumber(int number) {
+    if(number == 1) {
+      return getSingular();
+    } else {
+      return getPlural();
+    }
+  }
 }

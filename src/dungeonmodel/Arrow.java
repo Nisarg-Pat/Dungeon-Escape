@@ -18,6 +18,15 @@ public enum Arrow implements Item {
   }
 
   @Override
+  public String getStringFromNumber(int number) {
+    if(number == 1) {
+      return getSingular();
+    } else {
+      return getPlural();
+    }
+  }
+
+  @Override
   public String toString() {
     return getSingular();
   }

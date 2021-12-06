@@ -24,11 +24,12 @@ import dungeonmodel.Treasure;
 
 public class DungeonSpringView extends JFrame implements DungeonView {
 
-  DungeonPanel dungeonPanel;
-  LocationPanel locationPanel;
-  JScrollPane scrollPane;
-  DungeonMenuBar dungeonMenuBar;
   DungeonPopup dungeonPopup;
+  DungeonMenuBar dungeonMenuBar;
+  DungeonPanel dungeonPanel;
+  JScrollPane scrollPane;
+  LocationPanel locationPanel;
+  PlayerPanel playerPanel;
 
   ReadOnlyDungeonModel model;
 
@@ -53,6 +54,9 @@ public class DungeonSpringView extends JFrame implements DungeonView {
 
     locationPanel = new LocationPanel(this);
     add(locationPanel, BorderLayout.WEST);
+
+    playerPanel = new PlayerPanel(this);
+    add(playerPanel, BorderLayout.SOUTH);
 
     this.setFocusable(true);
     this.requestFocus();
@@ -80,6 +84,7 @@ public class DungeonSpringView extends JFrame implements DungeonView {
     dungeonPopup.setFeatures(features);
     dungeonMenuBar.setFeatures(features);
     locationPanel.setFeatures(features);
+    playerPanel.setFeatures(features);
 
     this.addKeyListener(new KeyListener() {
 
@@ -148,11 +153,12 @@ public class DungeonSpringView extends JFrame implements DungeonView {
 //    setExtendedState(JFrame.MAXIMIZED_BOTH);
 //    setUndecorated(true);
     setMinimumSize(new Dimension(500, 300));
-    setSize(228 + 64 * Math.min(columns, 16) + 115, 64 * Math.min(rows, 9) + 162);
+    setSize(228 + 64 * Math.min(columns, 16) + 115, 64 * Math.min(rows, 9) + 162+210);
     scrollPane.getVerticalScrollBar().setUnitIncrement(rows);
     scrollPane.getHorizontalScrollBar().setUnitIncrement(columns);
     dungeonPanel.setPreferredSize(new Dimension(64 * columns + 100, 64 * rows + 100));
     locationPanel.setPreferredSize(new Dimension(128 + 100, 128 + 100));
+    playerPanel.setPreferredSize(new Dimension(64 * columns + 100 + 128 + 100, 210));
   }
 
   @Override
