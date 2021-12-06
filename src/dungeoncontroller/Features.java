@@ -1,9 +1,14 @@
 package dungeoncontroller;
 
 import dungeonmodel.Direction;
+import dungeonmodel.Item;
 
 public interface Features {
   void movePlayer(Direction north);
+
+  void pickItem(Item item);
+
+  void shootArrow(Direction direction, int distance);
 
   void exitProgram();
 

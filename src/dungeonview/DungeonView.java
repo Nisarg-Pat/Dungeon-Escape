@@ -14,4 +14,6 @@ public interface DungeonView {
   void setModel(DungeonModel model);
 
   void showErrorMessage(String error);
+
+  void playSound(String s);
 }

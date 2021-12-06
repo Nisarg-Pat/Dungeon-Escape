@@ -1,6 +1,7 @@
 package structureddata;
 
 import dungeonmodel.Direction;
+import dungeonmodel.SmellLevel;
 import dungeonmodel.Treasure;
 
 import java.util.Map;

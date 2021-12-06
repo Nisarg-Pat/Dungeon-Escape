@@ -1,8 +1,12 @@
 package dungeonview;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Set;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import dungeonmodel.DungeonModel;
@@ -30,18 +34,26 @@ class DungeonPanel extends JPanel {
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
 
-    for (int i = 0; i < model.getRows(); i++) {
-      for (int j = 0; j < model.getColumns(); j++) {
-        ImageIcon icon = new ImageIcon(Utilities.getImageName(model.getLocation(new Position(i, j)).getPossibleDirections()));
-        Position getLocationPosition = Utilities.getLocationPosition(i, j);
-        g2d.drawImage(icon.getImage(), getLocationPosition.getColumn(), getLocationPosition.getRow(), this);
-      }
-    }
-
     LocationDescription currentLocation = model.getCurrentLocation();
     int currentRow = currentLocation.getPosition().getRow();
     int currentColumn = currentLocation.getPosition().getColumn();
-    System.out.println("Row: " + currentRow + ", Column: " + currentColumn);
+
+    for (int i = 0; i < model.getRows(); i++) {
+      for (int j = 0; j < model.getColumns(); j++) {
+        try {
+          BufferedImage image = ImageIO.read(new File(Utilities.getImageName(model.getLocation(new Position(i, j)).getPossibleDirections())));
+          if(i == currentRow && j == currentColumn) {
+            image = Utilities.getStenchedImage(model.detectSmell(), currentLocation.containsOtyugh(), image);
+          }
+          Position getLocationPosition = Utilities.getLocationPosition(i, j);
+          g2d.drawImage(image, getLocationPosition.getColumn(), getLocationPosition.getRow(), this);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+
+//    System.out.println("Row: " + currentRow + ", Column: " + currentColumn);
     g2d.setColor(Color.RED);
     Position getCurrentPosition = Utilities.getPointPosition(currentLocation);
     g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
