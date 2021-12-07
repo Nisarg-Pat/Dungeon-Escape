@@ -79,6 +79,7 @@ public class DungeonSpringView extends JFrame implements DungeonView {
       throw new IllegalArgumentException("Model cannot be null.");
     }
     this.model = model;
+    showString("");
     dungeonPopup.setDefaultCloseOperation(HIDE_ON_CLOSE);
   }
 
