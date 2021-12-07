@@ -1,6 +1,7 @@
 package dungeoncontroller;
 
 import dungeonmodel.Direction;
+import dungeonmodel.HitStatus;
 import dungeonmodel.Item;
 
 public interface Features {

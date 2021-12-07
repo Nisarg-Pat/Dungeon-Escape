@@ -21,6 +21,7 @@ import dungeoncontroller.Features;
 import dungeonmodel.Arrow;
 import dungeonmodel.Direction;
 import dungeonmodel.DungeonModel;
+import dungeonmodel.HitStatus;
 import dungeonmodel.Item;
 import dungeonmodel.ReadOnlyDungeonModel;
 import dungeonmodel.Treasure;
@@ -104,8 +105,9 @@ public class DungeonSpringView extends JFrame implements DungeonView {
 
       @Override
       public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_Z) {
+        if(e.getKeyCode() == KeyEvent.VK_S) {
           isShootMode = true;
+          playerPanel.showString("Click on direction to shoot.");
           return;
         }
         Map<Integer, Direction> keyDirectionMap = new HashMap<>();
@@ -118,7 +120,6 @@ public class DungeonSpringView extends JFrame implements DungeonView {
             features.shootArrow(keyDirectionMap.get(e.getKeyCode()), 1);
           } else {
             features.movePlayer(keyDirectionMap.get(e.getKeyCode()));
-
           }
           isShootMode = false;
           return;
@@ -137,6 +138,7 @@ public class DungeonSpringView extends JFrame implements DungeonView {
           features.pickItem(itemMap.get(e.getKeyCode()));
           return;
         }
+        showString("");
       }
 
       @Override
@@ -173,12 +175,18 @@ public class DungeonSpringView extends JFrame implements DungeonView {
 
   @Override
   public void showErrorMessage(String error) {
-    System.out.println("Error: " + error);
+    playerPanel.showString(error);
+//    System.out.println("Error: " + error);
 //    JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
   }
 
   @Override
   public void playSound(String s) {
     Utilities.playSound(s);
+  }
+
+  @Override
+  public void showString(String s) {
+    playerPanel.showString(s);
   }
 }

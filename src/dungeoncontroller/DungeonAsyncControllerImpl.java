@@ -4,6 +4,7 @@ import dungeonmodel.Arrow;
 import dungeonmodel.Direction;
 import dungeonmodel.DungeonModel;
 import dungeonmodel.DungeonModelImpl;
+import dungeonmodel.GameStatus;
 import dungeonmodel.HitStatus;
 import dungeonmodel.Item;
 import dungeonview.DungeonView;
@@ -23,16 +24,31 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
   public void start() {
     view.setFeatures(this);
     view.makeVisible();
-//    view.playSound("dungeonSounds\\mario.wav");
+//    view.playSound("dungeonSounds\\mario_1.wav");
   }
 
   @Override
   public void movePlayer(Direction direction) {
     try {
       model.movePlayer(direction);
+      if (model.getGameStatus() == GameStatus.GAME_CONTINUE) {
+        if(model.getCurrentLocation().containsOtyugh()) {
+          view.showString("The Otyugh in the cave is too weak to attack!\nGet out of here ASAP!!\n");
+        } else {
+          view.showString("");
+        }
+      } else if(model.getGameStatus() == GameStatus.GAME_OVER_KILLED) {
+        view.playSound("dungeonSounds\\monstereat.wav");
+        view.showString("Chomp, chomp, you are eaten by an Otyugh!!");
+      } else if(model.getGameStatus() == GameStatus.GAME_OVER_WIN) {
+        view.playSound("dungeonSounds\\win.wav");
+        view.showString("Congrats, you reached the end location.");
+      }
+
       view.refresh();
     } catch (IllegalArgumentException | IllegalStateException e) {
-      view.showErrorMessage(e.getMessage());
+//      view.showErrorMessage(e.getMessage());
+      //Ignore the message
     }
 
   }
@@ -46,6 +62,7 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
       } else {
         view.playSound("dungeonSounds\\treasure_pick.wav");
       }
+      view.showString(String.format("Picked %s.", item.getSingular()));
       view.refresh();
     } catch (IllegalArgumentException | IllegalStateException e) {
       view.showErrorMessage(e.getMessage());
@@ -57,7 +74,14 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
     try {
       HitStatus status = model.shoot(direction, distance);
       if(status == HitStatus.HIT || status == HitStatus.KILLED) {
-        view.playSound("dungeonSounds\\otyugh_echo2.wav");
+        view.playSound("dungeonSounds\\otyugh_echo3.wav");
+      }
+      if(status == HitStatus.HIT) {
+        view.showString("You hear a great howl in the distance.");
+      } else if(status == HitStatus.KILLED) {
+        view.showString("The howl ended as it was slayed.");
+      } else if(status == HitStatus.MISS) {
+        view.showString("You shoot an arrow into the darkness.");
       }
       view.refresh();
     } catch (IllegalArgumentException | IllegalStateException e) {

@@ -17,4 +17,6 @@ public interface DungeonView {
   void showErrorMessage(String error);
 
   void playSound(String s);
+
+  void showString(String s);
 }

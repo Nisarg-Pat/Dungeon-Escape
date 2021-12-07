@@ -24,14 +24,23 @@ import structureddata.PlayerDescription;
 class PlayerPanel extends JPanel {
   DungeonSpringView view;
   JButton playAgain;
+  JTextArea textArea;
+  String outputString;
 
   PlayerPanel(DungeonSpringView view) {
     this.view = view;
+    outputString = "";
+    this.setLayout(null);
+
+    textArea = new JTextArea();
+    textArea.setFont(new Font("default", Font.BOLD, 20));
+    textArea.setBorder(BorderFactory.createLineBorder(Color.BLACK,1,true));
+    textArea.setBounds(350, 10, 450, 100);
+    textArea.setLineWrap(true);
+    this.add(textArea);
 
     playAgain = new JButton("Play Again");
-    Dimension size = playAgain.getPreferredSize();
-    playAgain.setBounds(400, 50, size.width, size.height);
-    playAgain.setVisible(false);
+    playAgain.setBounds(350, 120, 100, 50);
     this.add(playAgain);
   }
 
@@ -72,17 +81,22 @@ class PlayerPanel extends JPanel {
       view.showErrorMessage(e.getMessage());
     }
 
-    if(model.getGameStatus() != GameStatus.GAME_CONTINUE) {
-      playAgain.setVisible(true);
-    }
+//    g2d.drawString(outputString, 350, 50);
+    textArea.setText(outputString);
+
+    playAgain.setVisible(model.getGameStatus() != GameStatus.GAME_CONTINUE);
   }
 
 
-  public void setFeatures(Features features) {
+  protected void setFeatures(Features features) {
     playAgain.addActionListener(l -> {
       features.resetModel();
-      playAgain.setVisible(false);
       view.requestFocus();
     });
+  }
+
+  protected void showString(String s) {
+    outputString = s;
+    this.repaint();
   }
 }
