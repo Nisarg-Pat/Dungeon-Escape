@@ -59,6 +59,7 @@ public class DungeonModelImpl implements DungeonModel {
     locationGraph.addOtyughToCaves(numOtyugh, startLocation, endLocation);
 
     player = new PlayerImpl(startLocation);
+    startLocation.setVisited(true);
     status = GameStatus.GAME_CONTINUE;
   }
 
@@ -115,7 +116,7 @@ public class DungeonModelImpl implements DungeonModel {
     Location location = locationGraph.getLocation(position);
     return new LocationDescription(location.getConnections().keySet(),
             location.getTreasureMap(), location.getPosition(),
-            location.countArrows(), location.isCave(), location.containsOtyugh());
+            location.countArrows(), location.isCave(), location.containsOtyugh(), location.isVisited());
   }
 
   @Override
@@ -131,6 +132,9 @@ public class DungeonModelImpl implements DungeonModel {
       throw new IllegalArgumentException("Direction cannot be null");
     }
     Location newLocation = player.movePlayer(direction);
+    if (!newLocation.isVisited()) {
+      newLocation.setVisited(true);
+    }
     if (newLocation.containsOtyugh()) {
       status = newLocation.getOtyugh().killPlayer();
     } else if (newLocation == endLocation) {

@@ -20,6 +20,7 @@ abstract class AbstractLocation implements Location {
   protected final Map<Direction, Location> connectedMap;
   protected final Position position;
   protected int numCrookedArrows;
+  protected boolean visited;
 
   protected AbstractLocation(int row, int column, Map<Direction, Location> connectedMap) {
     if (row < 0 || column < 0) {
@@ -28,6 +29,7 @@ abstract class AbstractLocation implements Location {
     this.position = new Position(row, column);
     this.connectedMap = connectedMap;
     this.numCrookedArrows = 0;
+    this.visited = false;
   }
 
   @Override
@@ -53,6 +55,16 @@ abstract class AbstractLocation implements Location {
   @Override
   public boolean containsOtyugh() {
     return false;
+  }
+
+  @Override
+  public boolean isVisited() {
+    return visited;
+  }
+
+  @Override
+  public void setVisited(boolean visited) {
+    this.visited = visited;
   }
 
   @Override

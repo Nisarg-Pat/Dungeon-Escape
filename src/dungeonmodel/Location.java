@@ -23,6 +23,10 @@ interface Location {
 
   boolean containsOtyugh();
 
+  boolean isVisited();
+
+  void setVisited(boolean visited);
+
   Monster getOtyugh();
 
   boolean hasEdge(Location location);

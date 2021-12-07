@@ -12,6 +12,7 @@ import javax.swing.*;
 import dungeonmodel.DungeonModel;
 import dungeonmodel.DungeonModelImpl;
 import dungeonmodel.ReadOnlyDungeonModel;
+import dungeonmodel.SmellLevel;
 import structureddata.LocationDescription;
 import structureddata.Position;
 
@@ -37,17 +38,34 @@ class DungeonPanel extends JPanel {
     int currentRow = currentLocation.getPosition().getRow();
     int currentColumn = currentLocation.getPosition().getColumn();
 
+//    for (int i = 0; i < model.getRows(); i++) {
+//      for (int j = 0; j < model.getColumns(); j++) {
+//        ImageIcon icon = new ImageIcon(Utilities.getImageName(model.getLocation(new Position(i, j)).getPossibleDirections()));
+//        Position getLocationPosition = Utilities.getLocationPosition(i, j);
+//        g2d.drawImage(icon.getImage(), getLocationPosition.getColumn(), getLocationPosition.getRow(), this);
+//      }
+//    }
+
     for (int i = 0; i < model.getRows(); i++) {
       for (int j = 0; j < model.getColumns(); j++) {
-        try {
-          BufferedImage image = ImageIO.read(new File(Utilities.getImageName(model.getLocation(new Position(i, j)).getPossibleDirections())));
-          if(i == currentRow && j == currentColumn) {
-            image = Utilities.getStenchedImage(model.detectSmell(), currentLocation.containsOtyugh(), image);
+        LocationDescription location = model.getLocation(new Position(i, j));
+        Position getLocationPosition = Utilities.getLocationPosition(i, j);
+        Image image;
+        if(location.isVisited()) {
+          image = new ImageIcon(Utilities.getImageName(location.getPossibleDirections())).getImage();
+        } else {
+          image = new ImageIcon("dungeonImages\\blank.png").getImage();
+        }
+        g2d.drawImage(image, getLocationPosition.getColumn(), getLocationPosition.getRow(), this);
+        if (i == currentRow && j == currentColumn) {
+          SmellLevel level = model.detectSmell();
+          if (level == SmellLevel.MORE_PUNGENT || currentLocation.containsOtyugh()) {
+            image = new ImageIcon("dungeonImages\\stench02.png").getImage();
+            g2d.drawImage(image, getLocationPosition.getColumn(), getLocationPosition.getRow(), this);
+          } else if (level == SmellLevel.LESS_PUNGENT) {
+            image = new ImageIcon("dungeonImages\\stench01.png").getImage();
+            g2d.drawImage(image, getLocationPosition.getColumn(), getLocationPosition.getRow(), this);
           }
-          Position getLocationPosition = Utilities.getLocationPosition(i, j);
-          g2d.drawImage(image, getLocationPosition.getColumn(), getLocationPosition.getRow(), this);
-        } catch (IOException e) {
-          e.printStackTrace();
         }
       }
     }

@@ -97,33 +97,33 @@ class Utilities {
     return new Position(row, column);
   }
 
-  protected static BufferedImage overlay(BufferedImage starting, String fpath, int offset) throws IOException {
-    BufferedImage overlay = ImageIO.read(new File(fpath));
-    int w = Math.max(starting.getWidth(), overlay.getWidth());
-    int h = Math.max(starting.getHeight(), overlay.getHeight());
-    BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
-    Graphics g = combined.getGraphics();
-    g.drawImage(starting, 0, 0, null);
-    g.drawImage(overlay, offset, offset, null);
-    return combined;
-  }
+//  protected static BufferedImage overlay(Image starting, String fpath, int offset) throws IOException {
+//    BufferedImage overlay = ImageIO.read(new File(fpath));
+//    int w = Math.max(starting.getWidth(), overlay.getWidth());
+//    int h = Math.max(starting.getHeight(), overlay.getHeight());
+//    BufferedImage combined = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+//    Graphics g = combined.getGraphics();
+//    g.drawImage(starting, 0, 0, null);
+//    g.drawImage(overlay, offset, offset, null);
+//    return combined;
+//  }
 
-  public static BufferedImage getStenchedImage(SmellLevel level, boolean containsOtyugh, BufferedImage image) {
-    try {
-      if (level == SmellLevel.LESS_PUNGENT) {
-        image = overlay(image, "dungeonImages\\stench01.png", 0);
-      } else if (level == SmellLevel.MORE_PUNGENT) {
-        image = overlay(image, "dungeonImages\\stench02.png", 0);
-      }
-      if (containsOtyugh) {
-        image = overlay(image, "dungeonImages\\stench01.png", 0);
-        image = overlay(image, "dungeonImages\\stench02.png", 0);
-      }
-    } catch (IOException e) {
-      //Empty catch to return original image.
-    }
-    return image;
-  }
+//  public static BufferedImage getStenchedImage(SmellLevel level, boolean containsOtyugh, Image image) {
+//    try {
+//      if (level == SmellLevel.LESS_PUNGENT) {
+//        image = overlay(image, "dungeonImages\\stench01.png", 0);
+//      } else if (level == SmellLevel.MORE_PUNGENT) {
+//        image = overlay(image, "dungeonImages\\stench02.png", 0);
+//      }
+//      if (containsOtyugh) {
+//        image = overlay(image, "dungeonImages\\stench01.png", 0);
+//        image = overlay(image, "dungeonImages\\stench02.png", 0);
+//      }
+//    } catch (IOException e) {
+//      //Empty catch to return original image.
+//    }
+//    return image;
+//  }
 
   public static void playSound(String s) {
     File audioFile = new File(s);

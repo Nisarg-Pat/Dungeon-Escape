@@ -21,6 +21,7 @@ public class LocationDescription {
   private final Position position;
   private final boolean isCave;
   private final boolean hasOtyugh;
+  private final boolean visited;
 
   /**
    * Constructor for LocationDescription class.
@@ -35,7 +36,7 @@ public class LocationDescription {
    */
   public LocationDescription(Set<Direction> possibleDirections,
                              Map<Treasure, Integer> treasureMap, Position position,
-                             int numArrows, boolean isCave, boolean hasOtyugh) {
+                             int numArrows, boolean isCave, boolean hasOtyugh, boolean visited) {
     if (possibleDirections == null || treasureMap == null
             || position == null) {
       throw new IllegalArgumentException("Invalid arguments.");
@@ -46,6 +47,7 @@ public class LocationDescription {
     this.numArrows = numArrows;
     this.isCave = isCave;
     this.hasOtyugh = hasOtyugh;
+    this.visited = visited;
   }
 
   /**
@@ -100,6 +102,15 @@ public class LocationDescription {
    */
   public boolean containsOtyugh() {
     return hasOtyugh;
+  }
+
+  /**
+   * Return true if the location is already visited.
+   *
+   * @return true if location is already visited.
+   */
+  public boolean isVisited() {
+    return visited;
   }
 
   @Override

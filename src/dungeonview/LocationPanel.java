@@ -14,8 +14,10 @@ import javax.swing.*;
 import dungeoncontroller.Features;
 import dungeonmodel.Arrow;
 import dungeonmodel.Item;
+import dungeonmodel.SmellLevel;
 import dungeonmodel.Treasure;
 import structureddata.LocationDescription;
+import structureddata.Position;
 
 class LocationPanel extends JPanel {
   DungeonSpringView view;
@@ -37,11 +39,19 @@ class LocationPanel extends JPanel {
     Map<Treasure, Integer> treasureMap = currentLocation.getTreasureMap();
 
     try {
-      BufferedImage image = ImageIO.read(new File(Utilities.getImageName(currentLocation.getPossibleDirections())));
-      image = Utilities.getStenchedImage(view.getModel().detectSmell(), currentLocation.containsOtyugh(), image);
+      Image image = new ImageIcon(Utilities.getImageName(currentLocation.getPossibleDirections())).getImage();
       g2d.drawImage(image, 50, 50, 128, 128, this);
+      SmellLevel level = view.getModel().detectSmell();
+      if (level == SmellLevel.MORE_PUNGENT || currentLocation.containsOtyugh()) {
+        image = new ImageIcon("dungeonImages\\stench02.png").getImage();
+        g2d.drawImage(image, 50, 50, 128, 128, this);
+      } else if (level == SmellLevel.LESS_PUNGENT || currentLocation.containsOtyugh()) {
+        image = new ImageIcon("dungeonImages\\stench01.png").getImage();
+        g2d.drawImage(image, 50, 50, 128, 128, this);
+      }
+
       if(currentLocation.containsOtyugh()) {
-        image = ImageIO.read(new File("dungeonImages\\otyugh.png"));
+        image = new ImageIcon("dungeonImages\\otyugh.png").getImage();
         g2d.drawImage(image, 75, 75, this);
       }
 
