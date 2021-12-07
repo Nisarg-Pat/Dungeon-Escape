@@ -41,6 +41,8 @@ interface Location {
 
   void addOtyugh();
 
+  void addAboleth();
+
   void removeTreasure(Treasure treasure, int amount);
 
   void removeArrow(int amount);

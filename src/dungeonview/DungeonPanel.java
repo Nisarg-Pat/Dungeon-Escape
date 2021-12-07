@@ -54,7 +54,8 @@ class DungeonPanel extends JPanel {
         if(location.isVisited()) {
           image = new ImageIcon(Utilities.getImageName(location.getPossibleDirections())).getImage();
         } else {
-          image = new ImageIcon("dungeonImages\\blank.png").getImage();
+          image = new ImageIcon(Utilities.getImageName(location.getPossibleDirections())).getImage();
+//          image = new ImageIcon("dungeonImages\\blank.png").getImage();
         }
         g2d.drawImage(image, getLocationPosition.getColumn(), getLocationPosition.getRow(), this);
         if (i == currentRow && j == currentColumn) {
@@ -67,10 +68,15 @@ class DungeonPanel extends JPanel {
             g2d.drawImage(image, getLocationPosition.getColumn(), getLocationPosition.getRow(), this);
           }
         }
+        if(location.containsAboleth()) {
+          g2d.setColor(Color.RED);
+          Position getCurrentPosition = Utilities.getPointPosition(location);
+          g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
+        }
       }
     }
 
-    g2d.setColor(Color.RED);
+    g2d.setColor(Color.GREEN);
     Position getCurrentPosition = Utilities.getPointPosition(currentLocation);
     g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
   }

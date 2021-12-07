@@ -13,9 +13,11 @@ public interface Features {
 
   void exitProgram();
 
-  void createModel(int rows, int columns, boolean isWrapped,
-                  int degreeOfInterconnectivity, int percentageItems,
-                  int numOtyugh);
+  void createNewModel(int rows, int columns, boolean isWrapped,
+                      int degreeOfInterconnectivity, int percentageItems,
+                      int numOtyugh);
 
   void resetModel();
+
+  void killMonster();
 }

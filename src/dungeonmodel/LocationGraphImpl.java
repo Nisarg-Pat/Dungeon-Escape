@@ -31,6 +31,8 @@ class LocationGraphImpl implements LocationGraph {
   private final int percentageItems;
   private int numOtyughs;
 
+  private Aboleth aboleth;
+
   protected LocationGraphImpl(int rows, int columns, boolean isWrapped,
                               int degree, int percentageItems) {
     checkArguments(rows, columns, degree, percentageItems);
@@ -45,6 +47,8 @@ class LocationGraphImpl implements LocationGraph {
     selectEdges(allEdges);
     addTreasureToCaves();
     addArrowsToLocations();
+
+    aboleth = null;
   }
 
   private void checkArguments(int rows, int columns,
@@ -292,6 +296,14 @@ class LocationGraphImpl implements LocationGraph {
     }
   }
 
+  @Override
+  public void addAbolethToRandomLocation(Location startLocation) {
+    List<Location> locations = getListOfLocations();
+    locations.remove(startLocation);
+    int index = RandomImpl.getIntInRange(0, locations.size() - 1);
+    aboleth = new Aboleth(locations.get(index));
+  }
+
   private List<Location> getListOfCaves() {
     List<Location> caves = new ArrayList<>();
     for (int i = 0; i < rows; i++) {
@@ -327,5 +339,15 @@ class LocationGraphImpl implements LocationGraph {
       visitConnections(first, visited, q, distanceData, endPosition);
     }
     return -1;
+  }
+
+  @Override
+  public void moveAboleth() {
+    aboleth.move();
+  }
+
+  @Override
+  public Aboleth getAboleth() {
+    return aboleth;
   }
 }

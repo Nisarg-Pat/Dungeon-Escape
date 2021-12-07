@@ -18,8 +18,8 @@ public class RandomImpl {
   /**
    * Gives a random integer in the specified limits.
    *
-   * @param lower lower limit
-   * @param upper upper limit
+   * @param lower lower limit (included)
+   * @param upper upper limit (included)
    * @return a random integer in the specified limits
    */
   public static int getIntInRange(int lower, int upper) {

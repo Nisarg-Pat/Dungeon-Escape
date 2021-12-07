@@ -89,4 +89,11 @@ class PlayerImpl implements Player {
   public SmellLevel detectSmell() {
     return currentLocation.getSmellLevel();
   }
+
+  @Override
+  public void killMonster(Aboleth aboleth) {
+    if(currentLocation.getPosition().equals(aboleth.getPosition())) {
+      aboleth.damage();
+    }
+  }
 }

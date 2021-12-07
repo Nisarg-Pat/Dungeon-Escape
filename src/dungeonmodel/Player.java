@@ -25,4 +25,6 @@ interface Player {
   HitStatus shootArrow(Direction direction, int distance);
 
   SmellLevel detectSmell();
+
+  void killMonster(Aboleth aboleth);
 }

@@ -40,19 +40,38 @@ class LocationPanel extends JPanel {
 
     try {
       Image image = new ImageIcon(Utilities.getImageName(currentLocation.getPossibleDirections())).getImage();
-      g2d.drawImage(image, 50, 50, 128, 128, this);
+      g2d.drawImage(image, 50, 50, 192, 192, this);
       SmellLevel level = view.getModel().detectSmell();
       if (level == SmellLevel.MORE_PUNGENT || currentLocation.containsOtyugh()) {
         image = new ImageIcon("dungeonImages\\stench02.png").getImage();
-        g2d.drawImage(image, 50, 50, 128, 128, this);
+        g2d.drawImage(image, 50, 50, 192, 192, this);
       } else if (level == SmellLevel.LESS_PUNGENT || currentLocation.containsOtyugh()) {
         image = new ImageIcon("dungeonImages\\stench01.png").getImage();
-        g2d.drawImage(image, 50, 50, 128, 128, this);
+        g2d.drawImage(image, 50, 50, 192, 192, this);
       }
 
-      if(currentLocation.containsOtyugh()) {
+      int[] changes = new int[]{0, 0};
+      if (!currentLocation.isCave()) {
+        changes = Utilities.getChanges(currentLocation.getPossibleDirections());
+      }
+      image = new ImageIcon("dungeonImages\\player.png").getImage();
+      g2d.drawImage(image, 120 + 3 * changes[1], 120 + 3 * changes[0], 48, 48, this);
+
+      if (currentLocation.containsOtyugh() && currentLocation.containsAboleth()) {
         image = new ImageIcon("dungeonImages\\otyugh.png").getImage();
-        g2d.drawImage(image, 75, 75, this);
+        g2d.drawImage(image, 82, 75, 64, 44, this);
+        image = new ImageIcon("dungeonImages\\aboleth.png").getImage();
+        g2d.drawImage(image, 160, 75, 44, 44, this);
+      }
+
+      if (currentLocation.containsOtyugh()) {
+        image = new ImageIcon("dungeonImages\\otyugh.png").getImage();
+        g2d.drawImage(image, 114, 75, 64, 44, this);
+      }
+
+      if (currentLocation.containsAboleth()) {
+        image = new ImageIcon("dungeonImages\\aboleth.png").getImage();
+        g2d.drawImage(image, 124, 75, 44, 44, this);
       }
 
       int i = 0;
@@ -65,17 +84,17 @@ class LocationPanel extends JPanel {
       for (Treasure treasure : treasureMap.keySet()) {
         image = ImageIO.read(new File(Utilities.getImageName(treasure)));
         g2d.setFont(new Font("default", Font.BOLD, 25));
-        g2d.drawString(itemMap.get(treasure) + ".", 50, 225 + i * 50);
-        g2d.drawImage(image, 100, 200 + i * 50, this);
-        g2d.drawString("x" + treasureMap.get(treasure), 150, 225 + i * 50);
+        g2d.drawString(itemMap.get(treasure) + ".", 50, 225 + i * 50 + 64);
+        g2d.drawImage(image, 100, 200 + i * 50 + 64, this);
+        g2d.drawString("x" + treasureMap.get(treasure), 150, 225 + i * 50 + 64);
         i++;
       }
       if (currentLocation.countArrows() > 0) {
         image = ImageIO.read(new File(Utilities.getImageName(Arrow.CROOKED_ARROW)));
         g2d.setFont(new Font("default", Font.BOLD, 25));
-        g2d.drawString(itemMap.get(Arrow.CROOKED_ARROW) + ".", 50, 225 + i * 50);
-        g2d.drawImage(image, 100, 200 + i * 50 + 13, 30, 7, this);
-        g2d.drawString("x" + currentLocation.countArrows(), 150, 225 + i * 50);
+        g2d.drawString(itemMap.get(Arrow.CROOKED_ARROW) + ".", 50, 225 + i * 50 + 64);
+        g2d.drawImage(image, 100, 200 + i * 50 + 13 + 64, 30, 7, this);
+        g2d.drawString("x" + currentLocation.countArrows(), 150, 225 + i * 50 + 64);
       }
     } catch (IOException e) {
       view.showErrorMessage(e.getMessage());

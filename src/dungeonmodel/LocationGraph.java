@@ -30,5 +30,11 @@ interface LocationGraph {
 
   void addOtyughToCaves(int numOtyugh, Location startLocation, Location endLocation);
 
+  void addAbolethToRandomLocation(Location startLocation);
+
   int getDistance(Position first, Position second);
+
+  void moveAboleth();
+
+  Aboleth getAboleth();
 }

@@ -155,7 +155,7 @@ class DungeonPopup extends JFrame {
       int degreeOfInterconnectivity = Integer.parseInt(degreeInputField.getText());
       int percentageItems = Integer.parseInt(itemInputField.getText());
       int numOtyughs = Integer.parseInt(otyughInputField.getText());
-      features.createModel(rows, columns, isWrapped,
+      features.createNewModel(rows, columns, isWrapped,
               degreeOfInterconnectivity, percentageItems, numOtyughs);
       this.setVisible(false);
       view.setSizes(rows, columns);

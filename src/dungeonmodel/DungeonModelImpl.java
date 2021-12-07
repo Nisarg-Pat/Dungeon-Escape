@@ -57,6 +57,7 @@ public class DungeonModelImpl implements DungeonModel {
     endLocation = startEndPositions.get(1);
 
     locationGraph.addOtyughToCaves(numOtyugh, startLocation, endLocation);
+    locationGraph.addAbolethToRandomLocation(startLocation);
 
     player = new PlayerImpl(startLocation);
     startLocation.setVisited(true);
@@ -114,9 +115,14 @@ public class DungeonModelImpl implements DungeonModel {
       throw new IllegalArgumentException("Position cannot be null.");
     }
     Location location = locationGraph.getLocation(position);
+    boolean hasAboleth = false;
+    if (locationGraph.getAboleth().isAlive()
+            && position.equals(locationGraph.getAboleth().getPosition())) {
+      hasAboleth = true;
+    }
     return new LocationDescription(location.getConnections().keySet(),
             location.getTreasureMap(), location.getPosition(),
-            location.countArrows(), location.isCave(), location.containsOtyugh(), location.isVisited());
+            location.countArrows(), location.isCave(), location.containsOtyugh(), location.isVisited(), hasAboleth);
   }
 
   @Override
@@ -218,6 +224,20 @@ public class DungeonModelImpl implements DungeonModel {
       throw new IllegalArgumentException("Invalid positions.");
     }
     return locationGraph.getDistance(first, second);
+  }
+
+  @Override
+  public void moveAboleth() {
+    if(locationGraph.getAboleth().getPosition().equals(player.getLocation().getPosition())) {
+      status = locationGraph.getAboleth().killPlayer();
+    } else {
+      locationGraph.moveAboleth();
+    }
+  }
+
+  @Override
+  public void killMonster() {
+    player.killMonster(locationGraph.getAboleth());
   }
 
   @Override

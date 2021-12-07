@@ -15,9 +15,12 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
   DungeonModel model;
   DungeonView view;
 
+  MoveAbolethThread thread;
+
   public DungeonAsyncControllerImpl(DungeonView view) {
     this.model = null;
     this.view = view;
+    this.thread = new MoveAbolethThread(model, view);
   }
 
   @Override
@@ -37,10 +40,10 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
         } else {
           view.showString("");
         }
-      } else if(model.getGameStatus() == GameStatus.GAME_OVER_KILLED) {
+      } else if (model.getGameStatus() == GameStatus.GAME_OVER_KILLED) {
         view.playSound("dungeonSounds\\monstereat.wav");
         view.showString("Chomp, chomp, you are eaten by an Otyugh!!");
-      } else if(model.getGameStatus() == GameStatus.GAME_OVER_WIN) {
+      } else if (model.getGameStatus() == GameStatus.GAME_OVER_WIN) {
         view.playSound("dungeonSounds\\win.wav");
         view.showString("Congrats, you reached the end location.");
       }
@@ -57,7 +60,7 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
   public void pickItem(Item item) {
     try {
       model.pickItem(item);
-      if(item == Arrow.CROOKED_ARROW) {
+      if (item == Arrow.CROOKED_ARROW) {
         view.playSound("dungeonSounds\\arrow_pick.wav");
       } else {
         view.playSound("dungeonSounds\\treasure_pick.wav");
@@ -73,14 +76,14 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
   public void shootArrow(Direction direction, int distance) {
     try {
       HitStatus status = model.shoot(direction, distance);
-      if(status == HitStatus.HIT || status == HitStatus.KILLED) {
+      if (status == HitStatus.HIT || status == HitStatus.KILLED) {
         view.playSound("dungeonSounds\\otyugh_echo3.wav");
       }
-      if(status == HitStatus.HIT) {
+      if (status == HitStatus.HIT) {
         view.showString("You hear a great howl in the distance.");
-      } else if(status == HitStatus.KILLED) {
+      } else if (status == HitStatus.KILLED) {
         view.showString("The howl ended as it was slayed.");
-      } else if(status == HitStatus.MISS) {
+      } else if (status == HitStatus.MISS) {
         view.showString("You shoot an arrow into the darkness.");
       }
       view.refresh();
@@ -95,22 +98,40 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
   }
 
   @Override
-  public void createModel(int rows, int columns, boolean isWrapped,
-                         int degreeOfInterconnectivity, int percentageItems,
-                         int numOtyugh) {
+  public void createNewModel(int rows, int columns, boolean isWrapped,
+                             int degree, int percentageItems, int numOtyugh) {
     RandomImpl.setSeed(RandomImpl.getIntInRange(0, 1000));
-    this.model = new DungeonModelImpl(rows, columns, isWrapped,
-            degreeOfInterconnectivity, percentageItems, numOtyugh);
-    view.setModel(model);
-    view.refresh();
+    createModel(rows, columns, isWrapped, degree, percentageItems, numOtyugh);
   }
 
   @Override
   public void resetModel() {
     RandomImpl.setSeed(RandomImpl.getSeed());
-    this.model = new DungeonModelImpl(model.getRows(), model.getColumns(), model.getWrapped(),
+    createModel(model.getRows(), model.getColumns(), model.getWrapped(),
             model.getDegree(), model.getPercentageItems(), model.countOtyughs());
+  }
+
+  @Override
+  public void killMonster() {
+    try {
+      model.killMonster();
+      thread.stop();
+      view.showString("Aboleth was killed.");
+      view.refresh();
+    } catch (IllegalArgumentException | IllegalStateException e) {
+      view.showErrorMessage(e.getMessage());
+    }
+  }
+
+  private void createModel(int rows, int columns, boolean isWrapped, int degree, int percentageItems, int numOtyugh) {
+    if (thread.isRunning()) {
+      thread.stop();
+    }
+    this.model = new DungeonModelImpl(rows, columns, isWrapped,
+            degree, percentageItems, numOtyugh);
     view.setModel(model);
+    thread = new MoveAbolethThread(model, view);
+    thread.start();
     view.refresh();
   }
 }

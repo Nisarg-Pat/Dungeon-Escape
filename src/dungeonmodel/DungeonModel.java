@@ -76,5 +76,10 @@ public interface DungeonModel extends ReadOnlyDungeonModel{
    * @return the distance between the two positions in the dungeon
    */
   int getDistance(Position first, Position second);
+
+  //TODO javadoc
+  void moveAboleth();
+
+  void killMonster();
 }
 

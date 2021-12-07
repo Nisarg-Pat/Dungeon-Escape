@@ -96,6 +96,11 @@ abstract class AbstractLocation implements Location {
   }
 
   @Override
+  public void addAboleth() {
+
+  }
+
+  @Override
   public void removeArrow(int amount) {
     if (numCrookedArrows == 0) {
       throw new IllegalStateException("Location does not have any arrows.");
