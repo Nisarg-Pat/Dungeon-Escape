@@ -73,6 +73,12 @@ class DungeonPanel extends JPanel {
           Position getCurrentPosition = Utilities.getPointPosition(location);
           g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
         }
+
+        if(location.containsThief()) {
+          g2d.setColor(Color.ORANGE);
+          Position getCurrentPosition = Utilities.getPointPosition(location);
+          g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
+        }
       }
     }
 

@@ -37,4 +37,8 @@ interface LocationGraph {
   void moveAboleth();
 
   Aboleth getAboleth(Location location);
+
+  Thief getThief(Location newLocation);
+
+  boolean stealTreasure(Player player);
 }

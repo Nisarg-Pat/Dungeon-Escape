@@ -139,6 +139,12 @@ public class LocationDescription {
     return hasKey;
   }
 
+
+  //TODO javadoc
+  public boolean containsThief() {
+    return hasThief;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {

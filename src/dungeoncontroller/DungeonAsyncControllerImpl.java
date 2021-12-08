@@ -35,10 +35,12 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
     try {
       model.movePlayer(direction);
       if (model.getGameStatus() == GameStatus.GAME_CONTINUE) {
+        view.showString("");
+        if(model.stealTreasure()) {
+          view.showString("The thief in tunnel stole some treasure and ran away.");
+        }
         if (model.getCurrentLocation().containsOtyugh()) {
           view.showString("The Otyugh in the cave is too weak to attack!\nGet out of here ASAP!!\n");
-        } else {
-          view.showString("");
         }
       } else if (model.getGameStatus() == GameStatus.GAME_OVER_KILLED) {
         view.playSound("dungeonSounds\\monstereat.wav");

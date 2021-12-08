@@ -128,7 +128,11 @@ class PlayerImpl implements Player {
       return 0;
     }
     int finalAmount = Math.max(0, initialAmount - maxAmount);
-    collectedTreasures.put(treasure, finalAmount);
+    if(finalAmount == 0) {
+      collectedTreasures.remove(treasure);
+    } else {
+      collectedTreasures.put(treasure, finalAmount);
+    }
     return finalAmount - initialAmount;
   }
 }

@@ -56,14 +56,10 @@ class LocationPanel extends JPanel {
         g2d.drawImage(image, 82, 75, 64, 44, this);
         image = new ImageIcon("dungeonImages\\aboleth.png").getImage();
         g2d.drawImage(image, 160, 75, 44, 44, this);
-      }
-
-      if (currentLocation.containsOtyugh()) {
+      } else if (currentLocation.containsOtyugh()) {
         image = new ImageIcon("dungeonImages\\otyugh.png").getImage();
         g2d.drawImage(image, 114, 75, 64, 44, this);
-      }
-
-      if (currentLocation.containsAboleth()) {
+      } else if (currentLocation.containsAboleth()) {
         image = new ImageIcon("dungeonImages\\aboleth.png").getImage();
         g2d.drawImage(image, 124, 75, 44, 44, this);
       }

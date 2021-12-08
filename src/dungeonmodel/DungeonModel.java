@@ -1,7 +1,5 @@
 package dungeonmodel;
 
-import structureddata.LocationDescription;
-import structureddata.PlayerDescription;
 import structureddata.Position;
 
 /**
@@ -36,6 +34,9 @@ public interface DungeonModel extends ReadOnlyDungeonModel{
    * @throws IllegalArgumentException if item is not valid or not present in the location.
    */
   void pickItem(Item item);
+
+  //TODO javadoc
+  boolean stealTreasure();
 
   /**
    * Shoots a {@link Arrow#CROOKED_ARROW} in the mentioned direction and distance.

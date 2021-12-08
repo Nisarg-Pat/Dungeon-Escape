@@ -49,7 +49,7 @@ public class DungeonModelImpl implements DungeonModel {
       throw new IllegalArgumentException("Number of Otyugh should be atleast 1.");
     }
     locationGraph = new LocationGraphImpl(rows, columns, isWrapped,
-            degreeOfInterconnectivity, percentageItems, 2, 1);
+            degreeOfInterconnectivity, percentageItems, 2, 2);
 
     List<Location> startEndPositions = locationGraph.getStartEndPositions();
 
@@ -154,6 +154,12 @@ public class DungeonModelImpl implements DungeonModel {
     } else {
       throw new IllegalArgumentException(String.format("%s item is not valid.", item));
     }
+  }
+
+  @Override
+  public boolean stealTreasure() {
+    checkGameStatus();
+    return locationGraph.stealTreasure(player);
   }
 
   @Override

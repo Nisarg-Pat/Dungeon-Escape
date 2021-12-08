@@ -31,8 +31,8 @@ class LocationGraphImpl implements LocationGraph {
   private final int percentageItems;
   private int numOtyughs;
 
-  private Aboleth[] aboleth;
-  private Thief[] thief;
+  private final Aboleth[] aboleth;
+  private final Thief[] thief;
 
   protected LocationGraphImpl(int rows, int columns, boolean isWrapped,
                               int degree, int percentageItems, int numAboleth, int numThief) {
@@ -321,8 +321,8 @@ class LocationGraphImpl implements LocationGraph {
   private void addThiefToRandomTunnel() {
     List<Location> locations = getListOfLocations();
     locations.removeAll(getListOfCaves());
-    int index = RandomImpl.getIntInRange(0, locations.size() - 1);
     for (int i = 0; i < thief.length; i++) {
+      int index = RandomImpl.getIntInRange(0, locations.size() - 1);
       thief[i] = new TunnelThief(locations.get(index));
     }
   }
@@ -382,5 +382,30 @@ class LocationGraphImpl implements LocationGraph {
       }
     }
     return null;
+  }
+
+  @Override
+  public Thief getThief(Location location) {
+    for (int i = 0; i < thief.length; i++) {
+      if (thief[i].getPosition() == location.getPosition()) {
+        return thief[i];
+      }
+    }
+    return null;
+  }
+
+  @Override
+  public boolean stealTreasure(Player player) {
+    if (player.getLocation().hasThief()) {
+      Thief thief = getThief(player.getLocation());
+      thief.steal(player);
+      List<Location> newLocations = getListOfLocations();
+      newLocations.removeAll(getListOfCaves());
+      newLocations.remove(player.getLocation());
+      int index = RandomImpl.getIntInRange(0, newLocations.size() - 1);
+      thief.relocate(newLocations.get(index));
+      return true;
+    }
+    return false;
   }
 }
