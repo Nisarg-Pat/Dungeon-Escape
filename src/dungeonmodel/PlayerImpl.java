@@ -12,6 +12,7 @@ class PlayerImpl implements Player {
   private final Map<Treasure, Integer> collectedTreasures;
   private Location currentLocation;
   private int numCrookedArrows;
+  private boolean hasKey;
 
   private static final int INITIAL_CROOKED_ARROWS = 3;
 
@@ -24,6 +25,7 @@ class PlayerImpl implements Player {
     this.collectedTreasures = new TreeMap<>();
     this.currentLocation = currentLocation;
     this.numCrookedArrows = INITIAL_CROOKED_ARROWS;
+    this.hasKey = false;
   }
 
   @Override
@@ -92,8 +94,22 @@ class PlayerImpl implements Player {
 
   @Override
   public void killMonster(Aboleth aboleth) {
-    if(currentLocation.getPosition().equals(aboleth.getPosition())) {
+    if (currentLocation.getPosition().equals(aboleth.getPosition())) {
       aboleth.damage();
     }
+  }
+
+  @Override
+  public void pickKey() {
+    if (!currentLocation.hasKey()) {
+      throw new IllegalArgumentException("Location does not have any key.");
+    }
+    currentLocation.setKey(false);
+    hasKey = true;
+  }
+
+  @Override
+  public boolean hasKey() {
+    return hasKey;
   }
 }

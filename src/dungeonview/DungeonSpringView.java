@@ -23,6 +23,7 @@ import dungeonmodel.Direction;
 import dungeonmodel.DungeonModel;
 import dungeonmodel.HitStatus;
 import dungeonmodel.Item;
+import dungeonmodel.Key;
 import dungeonmodel.ReadOnlyDungeonModel;
 import dungeonmodel.Treasure;
 
@@ -130,14 +131,20 @@ public class DungeonSpringView extends JFrame implements DungeonView {
         itemMap.put(KeyEvent.VK_2, Treasure.RUBY);
         itemMap.put(KeyEvent.VK_3, Treasure.SAPPHIRE);
         itemMap.put(KeyEvent.VK_4, Arrow.CROOKED_ARROW);
+        itemMap.put(KeyEvent.VK_5, Key.DOOR_KEY);
         itemMap.put(KeyEvent.VK_NUMPAD1, Treasure.DIAMOND);
         itemMap.put(KeyEvent.VK_NUMPAD2, Treasure.RUBY);
         itemMap.put(KeyEvent.VK_NUMPAD3, Treasure.SAPPHIRE);
         itemMap.put(KeyEvent.VK_NUMPAD4, Arrow.CROOKED_ARROW);
+        itemMap.put(KeyEvent.VK_NUMPAD5, Key.DOOR_KEY);
 
         if (itemMap.containsKey(e.getKeyCode())) {
           features.pickItem(itemMap.get(e.getKeyCode()));
           return;
+        }
+
+        if(e.getKeyCode() == KeyEvent.VK_D) {
+          features.killMonster();
         }
         showString("");
       }

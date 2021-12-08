@@ -35,7 +35,7 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
     try {
       model.movePlayer(direction);
       if (model.getGameStatus() == GameStatus.GAME_CONTINUE) {
-        if(model.getCurrentLocation().containsOtyugh()) {
+        if (model.getCurrentLocation().containsOtyugh()) {
           view.showString("The Otyugh in the cave is too weak to attack!\nGet out of here ASAP!!\n");
         } else {
           view.showString("");
@@ -43,11 +43,7 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
       } else if (model.getGameStatus() == GameStatus.GAME_OVER_KILLED) {
         view.playSound("dungeonSounds\\monstereat.wav");
         view.showString("Chomp, chomp, you are eaten by an Otyugh!!");
-      } else if (model.getGameStatus() == GameStatus.GAME_OVER_WIN) {
-        view.playSound("dungeonSounds\\win.wav");
-        view.showString("Congrats, you reached the end location.");
       }
-
       view.refresh();
     } catch (IllegalArgumentException | IllegalStateException e) {
 //      view.showErrorMessage(e.getMessage());
@@ -117,6 +113,18 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
       model.killMonster();
       thread.stop();
       view.showString("Aboleth was killed.");
+      view.refresh();
+    } catch (IllegalArgumentException | IllegalStateException e) {
+      view.showErrorMessage(e.getMessage());
+    }
+  }
+
+  @Override
+  public void exitDungeon() {
+    try {
+      model.exitDungeon();
+      view.playSound("dungeonSounds\\win.wav");
+      view.showString("Congrats, you reached the end location.");
       view.refresh();
     } catch (IllegalArgumentException | IllegalStateException e) {
       view.showErrorMessage(e.getMessage());

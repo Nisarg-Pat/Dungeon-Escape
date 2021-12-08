@@ -122,13 +122,14 @@ public class DungeonModelImpl implements DungeonModel {
     }
     return new LocationDescription(location.getConnections().keySet(),
             location.getTreasureMap(), location.getPosition(),
-            location.countArrows(), location.isCave(), location.containsOtyugh(), location.isVisited(), hasAboleth);
+            location.countArrows(), location.isCave(), location.containsOtyugh(),
+            location.isVisited(), hasAboleth, location.hasKey());
   }
 
   @Override
   public PlayerDescription getPlayerDescription() {
     return new PlayerDescription(player.getCollectedTreasures(), player.countArrows(),
-            player.getLocation().getPosition());
+            player.getLocation().getPosition(), player.hasKey());
   }
 
   @Override
@@ -143,8 +144,6 @@ public class DungeonModelImpl implements DungeonModel {
     }
     if (newLocation.containsOtyugh()) {
       status = newLocation.getOtyugh().killPlayer();
-    } else if (newLocation == endLocation) {
-      status = GameStatus.GAME_OVER_WIN;
     }
   }
 
@@ -155,7 +154,9 @@ public class DungeonModelImpl implements DungeonModel {
       player.pickOneArrow();
     } else if (Arrays.asList((Item[]) Treasure.values()).contains(item)) {
       player.pickOneTreasure((Treasure) item);
-    } else {
+    } else if(item == Key.DOOR_KEY) {
+      player.pickKey();
+    }else {
       throw new IllegalArgumentException(String.format("%s item is not valid.", item));
     }
   }
@@ -238,6 +239,15 @@ public class DungeonModelImpl implements DungeonModel {
   @Override
   public void killMonster() {
     player.killMonster(locationGraph.getAboleth());
+  }
+
+  @Override
+  public void exitDungeon() {
+    if(player.hasKey()) {
+      status = GameStatus.GAME_OVER_WIN;
+    } else {
+      throw new IllegalStateException("Player does not have the key.");
+    }
   }
 
   @Override

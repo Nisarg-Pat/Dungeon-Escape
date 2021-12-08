@@ -21,6 +21,7 @@ abstract class AbstractLocation implements Location {
   protected final Position position;
   protected int numCrookedArrows;
   protected boolean visited;
+  protected boolean hasKey;
 
   protected AbstractLocation(int row, int column, Map<Direction, Location> connectedMap) {
     if (row < 0 || column < 0) {
@@ -93,11 +94,6 @@ abstract class AbstractLocation implements Location {
   public void setArrow() {
     int numArrows = RandomImpl.getIntInRange(1, 3);
     this.numCrookedArrows += numArrows;
-  }
-
-  @Override
-  public void addAboleth() {
-
   }
 
   @Override
@@ -184,5 +180,15 @@ abstract class AbstractLocation implements Location {
       }
     }
     throw new IllegalArgumentException("The Locations cannot be connected");
+  }
+
+  @Override
+  public void setKey(boolean key) {
+    this.hasKey = key;
+  }
+
+  @Override
+  public boolean hasKey() {
+    return hasKey;
   }
 }

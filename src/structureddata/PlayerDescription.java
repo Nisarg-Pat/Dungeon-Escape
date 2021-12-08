@@ -14,6 +14,7 @@ public class PlayerDescription {
   private final Map<Treasure, Integer> collectedTreasures;
   private final Position position;
   private final int numArrows;
+  private final boolean hasKey;
 
   /**
    * Constructor for PlayerDescription class.
@@ -21,17 +22,19 @@ public class PlayerDescription {
    * @param collectedTreasures the collected treasures of the player
    * @param numArrows          The number of arrows collected by the player.
    * @param location           The current position of the player in the dungeon
+   * @param hasKey             True if player has Key.
    * @throws IllegalArgumentException if collectedTreasure or location is null
    *                                  or number of arrows is less than 0.
    */
   public PlayerDescription(Map<Treasure, Integer> collectedTreasures,
-                           int numArrows, Position location) {
+                           int numArrows, Position location, boolean hasKey) {
     if (collectedTreasures == null || location == null || numArrows < 0) {
       throw new IllegalArgumentException("Invalid arguments.");
     }
     this.collectedTreasures = collectedTreasures;
     this.position = location;
     this.numArrows = numArrows;
+    this.hasKey = hasKey;
   }
 
   /**
@@ -86,4 +89,7 @@ public class PlayerDescription {
             position, collectedTreasures, numArrows);
   }
 
+  public boolean hasKey() {
+    return hasKey;
+  }
 }

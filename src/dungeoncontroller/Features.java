@@ -20,4 +20,6 @@ public interface Features {
   void resetModel();
 
   void killMonster();
+
+  void exitDungeon();
 }

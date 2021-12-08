@@ -41,6 +41,20 @@ public interface ReadOnlyDungeonModel {
   int getPercentageItems();
 
   /**
+   * Gets the description of starting Cave of the dungeon.
+   *
+   * @return the description of starting cave
+   */
+  LocationDescription getStartCave();
+
+  /**
+   * Gets the description of ending Cave of the dungeon.
+   *
+   * @return the description of ending cave
+   */
+  LocationDescription getEndCave();
+
+  /**
    * Gets the description of the current location of the player.
    * Contains information about possible directions,
    * player can move from this location and the available treasures in it.

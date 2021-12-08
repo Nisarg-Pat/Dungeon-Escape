@@ -23,6 +23,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import dungeonmodel.Arrow;
 import dungeonmodel.Direction;
 import dungeonmodel.Item;
+import dungeonmodel.Key;
 import dungeonmodel.SmellLevel;
 import dungeonmodel.Treasure;
 import structureddata.LocationDescription;
@@ -64,6 +65,8 @@ class Utilities {
       return "dungeonImages\\items\\diamond.png";
     } else if (item == Arrow.CROOKED_ARROW) {
       return "dungeonImages\\items\\arrow.png";
+    } else if (item == Key.DOOR_KEY) {
+      return "dungeonImages\\items\\key.png";
     }
     return "";
   }

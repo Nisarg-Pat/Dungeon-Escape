@@ -17,13 +17,14 @@ import dungeoncontroller.Features;
 import dungeonmodel.Arrow;
 import dungeonmodel.GameStatus;
 import dungeonmodel.Item;
+import dungeonmodel.Key;
 import dungeonmodel.ReadOnlyDungeonModel;
 import dungeonmodel.Treasure;
 import structureddata.PlayerDescription;
 
 class PlayerPanel extends JPanel {
   DungeonSpringView view;
-  JButton playAgain, killMonster;
+  JButton playAgain, killMonster, openDoor;
   JTextArea textArea;
   String outputString;
 
@@ -37,11 +38,16 @@ class PlayerPanel extends JPanel {
     textArea.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
     textArea.setBounds(350, 10, 450, 100);
     textArea.setLineWrap(true);
+    textArea.setFocusable(false);
     this.add(textArea);
 
     playAgain = new JButton("Play Again");
     playAgain.setBounds(350, 120, 100, 50);
     this.add(playAgain);
+
+    openDoor = new JButton("Open Door");
+    openDoor.setBounds(500, 120, 100, 50);
+    this.add(openDoor);
 
     killMonster = new JButton("Kill Monster");
     killMonster.setBounds(350, 120, 100, 50);
@@ -66,30 +72,22 @@ class PlayerPanel extends JPanel {
     PlayerDescription player = model.getPlayerDescription();
     Map<Treasure, Integer> treasureMap = player.getCollectedTreasures();
 
+    g2d.setFont(new Font("default", Font.BOLD, 20));
     int i = 0;
-    try {
-      for (Treasure treasure : treasures) {
-        BufferedImage image = ImageIO.read(new File(Utilities.getImageName(treasure)));
-        int numberOfTreasure = treasureMap.getOrDefault(treasure, 0);
-        g2d.setFont(new Font("default", Font.BOLD, 25));
-        g2d.drawString(treasure.getStringFromNumber(numberOfTreasure) + ".", 50, 50 + i * 50);
-        g2d.drawImage(image, 200, i * 50 + 25, this);
-        g2d.drawString("x" + numberOfTreasure, 250, 50 + i * 50);
-        i++;
-      }
-      BufferedImage image = ImageIO.read(new File(Utilities.getImageName(Arrow.CROOKED_ARROW)));
-      g2d.drawString(Arrow.CROOKED_ARROW.getStringFromNumber(player.countArrows()) + ".", 50, 50 + i * 50);
-      g2d.drawImage(image, 200, i * 50 + 25 + 13, 30, 7, this);
-      g2d.drawString("x" + player.countArrows(), 250, 50 + i * 50);
-    } catch (IOException e) {
-      view.showErrorMessage(e.getMessage());
+    for (Treasure treasure : treasures) {
+      drawImage(treasure, treasureMap.getOrDefault(treasure, 0), i, g2d);
+      i++;
     }
+    drawImage(Arrow.CROOKED_ARROW, player.countArrows(), i, g2d);
+    i++;
+    drawImage(Key.DOOR_KEY, player.hasKey() ? 1 : 0, i, g2d);
+
 
 //    g2d.drawString(outputString, 350, 50);
 
-
     if (model.getGameStatus() == GameStatus.GAME_CONTINUE) {
       playAgain.setVisible(false);
+      openDoor.setVisible(model.getCurrentLocation().getPosition().equals(model.getEndCave().getPosition()));
       if (model.getCurrentLocation().containsAboleth()) {
         killMonster.setVisible(true);
         textArea.setText("Location contains an Aboleth. Kill it before it sees you.");
@@ -99,8 +97,18 @@ class PlayerPanel extends JPanel {
       }
     } else {
       playAgain.setVisible(true);
+      openDoor.setVisible(false);
+      killMonster.setVisible(false);
       textArea.setText(outputString);
     }
+  }
+
+  private void drawImage(Item item, int number, int i, Graphics2D g2d) {
+    Image image = new ImageIcon(Utilities.getImageName(item)).getImage();
+    g2d.drawString(item.getStringFromNumber(number) + ".", 50, 30 + i * 35);
+    double shrinkPercentage = (25.0)/ image.getHeight(this);
+    g2d.drawImage(image, 150, i * 35 + 12, (int) (image.getWidth(this)*shrinkPercentage), 25, this);
+    g2d.drawString("x" + number, 200, 30 + i * 35);
   }
 
 
@@ -111,6 +119,10 @@ class PlayerPanel extends JPanel {
     });
     killMonster.addActionListener(l -> {
       features.killMonster();
+      view.requestFocus();
+    });
+    openDoor.addActionListener(l -> {
+      features.exitDungeon();
       view.requestFocus();
     });
   }

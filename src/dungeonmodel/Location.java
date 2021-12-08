@@ -41,8 +41,6 @@ interface Location {
 
   void addOtyugh();
 
-  void addAboleth();
-
   void removeTreasure(Treasure treasure, int amount);
 
   void removeArrow(int amount);
@@ -54,4 +52,8 @@ interface Location {
   HitStatus shootArrowHelper(Direction direction, int distance);
 
   Direction getDirection(Position otherPosition);
+
+  void setKey(boolean key);
+
+  boolean hasKey();
 }

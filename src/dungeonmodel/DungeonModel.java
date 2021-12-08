@@ -20,20 +20,6 @@ import structureddata.Position;
 public interface DungeonModel extends ReadOnlyDungeonModel{
 
   /**
-   * Gets the description of starting Cave of the dungeon.
-   *
-   * @return the description of starting cave
-   */
-  LocationDescription getStartCave();
-
-  /**
-   * Gets the description of ending Cave of the dungeon.
-   *
-   * @return the description of ending cave
-   */
-  LocationDescription getEndCave();
-
-  /**
    * Moves the player to the location present at the specified direction from his current cave.
    *
    * @param direction The direction in which to move.
@@ -81,5 +67,7 @@ public interface DungeonModel extends ReadOnlyDungeonModel{
   void moveAboleth();
 
   void killMonster();
+
+  void exitDungeon();
 }
 

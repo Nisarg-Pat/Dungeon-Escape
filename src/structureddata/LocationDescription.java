@@ -23,6 +23,7 @@ public class LocationDescription {
   private final boolean hasOtyugh;
   private final boolean visited;
   private final boolean hasAboleth;
+  private final boolean hasKey;
 
   /**
    * Constructor for LocationDescription class.
@@ -33,12 +34,13 @@ public class LocationDescription {
    * @param numArrows          The numer of arrows in the location
    * @param isCave             whether the location is a cave
    * @param hasOtyugh          whether the location has otyugh
+   *                           //TODO JAVADOC
    * @throws IllegalArgumentException if any of the argument is null
    */
   public LocationDescription(Set<Direction> possibleDirections,
                              Map<Treasure, Integer> treasureMap, Position position,
                              int numArrows, boolean isCave, boolean hasOtyugh, boolean visited,
-                             boolean hasAboleth) {
+                             boolean hasAboleth, boolean containsKey) {
     if (possibleDirections == null || treasureMap == null
             || position == null) {
       throw new IllegalArgumentException("Invalid arguments.");
@@ -51,6 +53,7 @@ public class LocationDescription {
     this.hasOtyugh = hasOtyugh;
     this.visited = visited;
     this.hasAboleth = hasAboleth;
+    this.hasKey = containsKey;
   }
 
   /**
@@ -123,6 +126,15 @@ public class LocationDescription {
    */
   public boolean containsAboleth() {
     return hasAboleth;
+  }
+
+  /**
+   * Return true if the location contains Key.
+   *
+   * @return true if location contains Key.
+   */
+  public boolean hasKey() {
+    return hasKey;
   }
 
   @Override
