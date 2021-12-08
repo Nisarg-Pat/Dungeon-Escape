@@ -112,4 +112,23 @@ class PlayerImpl implements Player {
   public boolean hasKey() {
     return hasKey;
   }
+
+  @Override
+  public int removeTreasure(Treasure treasure, int maxAmount) {
+    if (treasure == null) {
+      throw new IllegalArgumentException("Treasure cannot be null");
+    } else if (maxAmount < 1) {
+      throw new IllegalArgumentException("Maximum amount should be > 1");
+    }
+    if (!collectedTreasures.containsKey(treasure)) {
+      return 0;
+    }
+    int initialAmount = collectedTreasures.get(treasure);
+    if (initialAmount == 0) {
+      return 0;
+    }
+    int finalAmount = Math.max(0, initialAmount - maxAmount);
+    collectedTreasures.put(treasure, finalAmount);
+    return finalAmount - initialAmount;
+  }
 }

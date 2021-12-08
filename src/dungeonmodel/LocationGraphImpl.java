@@ -31,16 +31,19 @@ class LocationGraphImpl implements LocationGraph {
   private final int percentageItems;
   private int numOtyughs;
 
-  private Aboleth aboleth;
+  private Aboleth[] aboleth;
+  private Thief[] thief;
 
   protected LocationGraphImpl(int rows, int columns, boolean isWrapped,
-                              int degree, int percentageItems) {
+                              int degree, int percentageItems, int numAboleth, int numThief) {
     checkArguments(rows, columns, degree, percentageItems);
     this.rows = rows;
     this.columns = columns;
     this.isWrapped = isWrapped;
     this.degreeOfInterconnectivity = degree;
     this.percentageItems = percentageItems;
+    aboleth = new Aboleth[numAboleth];
+    thief = new Thief[numThief];
     location = addLocations();
     List<Edge> allEdges = addEdges();
     allEdges = shuffle(allEdges);
@@ -48,8 +51,7 @@ class LocationGraphImpl implements LocationGraph {
     addTreasureToCaves();
     addArrowsToLocations();
     addKeyToRandomLocation();
-
-    aboleth = null;
+    addThiefToRandomTunnel();
   }
 
   private void checkArguments(int rows, int columns,
@@ -309,9 +311,22 @@ class LocationGraphImpl implements LocationGraph {
   public void addAbolethToRandomLocation(Location startLocation) {
     List<Location> locations = getListOfLocations();
     locations.remove(startLocation);
-    int index = RandomImpl.getIntInRange(0, locations.size() - 1);
-    aboleth = new Aboleth(locations.get(index));
+    for (int i = 0; i < aboleth.length; i++) {
+      int index = RandomImpl.getIntInRange(0, locations.size() - 1);
+      aboleth[i] = new Aboleth(locations.get(index));
+    }
   }
+
+
+  private void addThiefToRandomTunnel() {
+    List<Location> locations = getListOfLocations();
+    locations.removeAll(getListOfCaves());
+    int index = RandomImpl.getIntInRange(0, locations.size() - 1);
+    for (int i = 0; i < thief.length; i++) {
+      thief[i] = new TunnelThief(locations.get(index));
+    }
+  }
+
 
   private List<Location> getListOfCaves() {
     List<Location> caves = new ArrayList<>();
@@ -352,11 +367,20 @@ class LocationGraphImpl implements LocationGraph {
 
   @Override
   public void moveAboleth() {
-    aboleth.move();
+    for (int i = 0; i < aboleth.length; i++) {
+      if (aboleth[i].isAlive()) {
+        aboleth[i].move();
+      }
+    }
   }
 
   @Override
-  public Aboleth getAboleth() {
-    return aboleth;
+  public Aboleth getAboleth(Location location) {
+    for (int i = 0; i < aboleth.length; i++) {
+      if (aboleth[i].getPosition() == location.getPosition() && aboleth[i].isAlive()) {
+        return aboleth[i];
+      }
+    }
+    return null;
   }
 }

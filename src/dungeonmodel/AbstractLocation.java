@@ -22,6 +22,7 @@ abstract class AbstractLocation implements Location {
   protected int numCrookedArrows;
   protected boolean visited;
   protected boolean hasKey;
+  private boolean hasAboleth;
 
   protected AbstractLocation(int row, int column, Map<Direction, Location> connectedMap) {
     if (row < 0 || column < 0) {
@@ -190,5 +191,15 @@ abstract class AbstractLocation implements Location {
   @Override
   public boolean hasKey() {
     return hasKey;
+  }
+
+  @Override
+  public void setAboleth(boolean hasAboleth) {
+    this.hasAboleth = hasAboleth;
+  }
+
+  @Override
+  public boolean hasAboleth() {
+    return hasAboleth;
   }
 }

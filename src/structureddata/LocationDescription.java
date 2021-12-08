@@ -24,6 +24,7 @@ public class LocationDescription {
   private final boolean visited;
   private final boolean hasAboleth;
   private final boolean hasKey;
+  private final boolean hasThief;
 
   /**
    * Constructor for LocationDescription class.
@@ -40,7 +41,7 @@ public class LocationDescription {
   public LocationDescription(Set<Direction> possibleDirections,
                              Map<Treasure, Integer> treasureMap, Position position,
                              int numArrows, boolean isCave, boolean hasOtyugh, boolean visited,
-                             boolean hasAboleth, boolean containsKey) {
+                             boolean hasAboleth, boolean containsKey, boolean hasThief) {
     if (possibleDirections == null || treasureMap == null
             || position == null) {
       throw new IllegalArgumentException("Invalid arguments.");
@@ -54,6 +55,7 @@ public class LocationDescription {
     this.visited = visited;
     this.hasAboleth = hasAboleth;
     this.hasKey = containsKey;
+    this.hasThief = hasThief;
   }
 
   /**

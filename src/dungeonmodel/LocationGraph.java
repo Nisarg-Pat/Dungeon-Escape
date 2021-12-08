@@ -36,5 +36,5 @@ interface LocationGraph {
 
   void moveAboleth();
 
-  Aboleth getAboleth();
+  Aboleth getAboleth(Location location);
 }

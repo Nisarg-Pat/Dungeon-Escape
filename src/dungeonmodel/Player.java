@@ -31,4 +31,6 @@ interface Player {
   void pickKey();
 
   boolean hasKey();
+
+  int removeTreasure(Treasure treasure, int i);
 }

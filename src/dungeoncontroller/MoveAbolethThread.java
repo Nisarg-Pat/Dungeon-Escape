@@ -23,7 +23,7 @@ class MoveAbolethThread implements Runnable {
   @Override
   public void run() {
     try {
-      Thread.sleep(5000);
+      Thread.sleep(2000);
       while (!exit && model.getGameStatus() == GameStatus.GAME_CONTINUE) {
         model.moveAboleth();
         if(model.getGameStatus() == GameStatus.GAME_OVER_KILLED) {

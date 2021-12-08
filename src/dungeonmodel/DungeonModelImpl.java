@@ -49,7 +49,7 @@ public class DungeonModelImpl implements DungeonModel {
       throw new IllegalArgumentException("Number of Otyugh should be atleast 1.");
     }
     locationGraph = new LocationGraphImpl(rows, columns, isWrapped,
-            degreeOfInterconnectivity, percentageItems);
+            degreeOfInterconnectivity, percentageItems, 2, 1);
 
     List<Location> startEndPositions = locationGraph.getStartEndPositions();
 
@@ -115,15 +115,10 @@ public class DungeonModelImpl implements DungeonModel {
       throw new IllegalArgumentException("Position cannot be null.");
     }
     Location location = locationGraph.getLocation(position);
-    boolean hasAboleth = false;
-    if (locationGraph.getAboleth().isAlive()
-            && position.equals(locationGraph.getAboleth().getPosition())) {
-      hasAboleth = true;
-    }
     return new LocationDescription(location.getConnections().keySet(),
             location.getTreasureMap(), location.getPosition(),
             location.countArrows(), location.isCave(), location.containsOtyugh(),
-            location.isVisited(), hasAboleth, location.hasKey());
+            location.isVisited(), location.hasAboleth(), location.hasKey(), location.hasThief());
   }
 
   @Override
@@ -154,9 +149,9 @@ public class DungeonModelImpl implements DungeonModel {
       player.pickOneArrow();
     } else if (Arrays.asList((Item[]) Treasure.values()).contains(item)) {
       player.pickOneTreasure((Treasure) item);
-    } else if(item == Key.DOOR_KEY) {
+    } else if (item == Key.DOOR_KEY) {
       player.pickKey();
-    }else {
+    } else {
       throw new IllegalArgumentException(String.format("%s item is not valid.", item));
     }
   }
@@ -229,8 +224,9 @@ public class DungeonModelImpl implements DungeonModel {
 
   @Override
   public void moveAboleth() {
-    if(locationGraph.getAboleth().getPosition().equals(player.getLocation().getPosition())) {
-      status = locationGraph.getAboleth().killPlayer();
+    Aboleth currentAboleth = locationGraph.getAboleth(player.getLocation());
+    if (currentAboleth != null) {
+      status = currentAboleth.killPlayer();
     } else {
       locationGraph.moveAboleth();
     }
@@ -238,12 +234,12 @@ public class DungeonModelImpl implements DungeonModel {
 
   @Override
   public void killMonster() {
-    player.killMonster(locationGraph.getAboleth());
+    player.killMonster(locationGraph.getAboleth(player.getLocation()));
   }
 
   @Override
   public void exitDungeon() {
-    if(player.hasKey()) {
+    if (player.hasKey()) {
       status = GameStatus.GAME_OVER_WIN;
     } else {
       throw new IllegalStateException("Player does not have the key.");

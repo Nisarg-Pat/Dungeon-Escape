@@ -56,4 +56,12 @@ interface Location {
   void setKey(boolean key);
 
   boolean hasKey();
+
+  void setThief(boolean hasThief);
+
+  boolean hasThief();
+
+  void setAboleth(boolean hasAboleth);
+
+  boolean hasAboleth();
 }

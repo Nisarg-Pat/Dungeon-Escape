@@ -14,8 +14,11 @@ import java.util.TreeMap;
  */
 class Tunnel extends AbstractLocation {
 
+  private boolean hasThief;
+
   protected Tunnel(int row, int column, Map<Direction, Location> connectedMap) {
     super(row, column, connectedMap);
+    hasThief = false;
   }
 
   @Override
@@ -66,5 +69,15 @@ class Tunnel extends AbstractLocation {
       return connectedMap.get(newDirection).shootArrowHelper(newDirection, distance - 1);
     }
     return HitStatus.MISS;
+  }
+
+  @Override
+  public void setThief(boolean hasThief) {
+    this.hasThief = hasThief;
+  }
+
+  @Override
+  public boolean hasThief() {
+    return hasThief;
   }
 }

@@ -129,4 +129,14 @@ class Cave extends AbstractLocation {
     }
     return HitStatus.MISS;
   }
+
+  @Override
+  public void setThief(boolean hasThief) {
+    throw new IllegalStateException("Cave should not have any theif.");
+  }
+
+  @Override
+  public boolean hasThief() {
+    return false;
+  }
 }

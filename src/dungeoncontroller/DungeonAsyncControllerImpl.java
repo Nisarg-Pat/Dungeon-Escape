@@ -111,7 +111,6 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
   public void killMonster() {
     try {
       model.killMonster();
-      thread.stop();
       view.showString("Aboleth was killed.");
       view.refresh();
     } catch (IllegalArgumentException | IllegalStateException e) {
