@@ -108,8 +108,6 @@ class DungeonPanel extends JPanel {
       public void mouseClicked(MouseEvent e) {
         super.mouseClicked(e);
         Position coordinates = getPositionFromClick(e.getX(), e.getY());
-        System.out.println(view.getModel().getCurrentLocation().getPosition());
-        System.out.println(coordinates);
         Position currentPosition = view.getModel().getCurrentLocation().getPosition();
         Direction direction = getDirection(currentPosition, coordinates);
         if (direction != null) {
@@ -157,7 +155,6 @@ class DungeonPanel extends JPanel {
     if (y < 0) {
       y += 64 * view.getModel().getRows();
     }
-    System.out.println(y + " " + x);
     return new Position((y / 64) % view.getModel().getRows(), (x / 64) % view.getModel().getColumns());
   }
 }

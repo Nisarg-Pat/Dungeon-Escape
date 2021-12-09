@@ -81,8 +81,8 @@ class Utilities {
 
     if (!location.isCave()) {
       int[] changes = getChanges(location.getPossibleDirections());
-      row+=changes[0];
-      column+=changes[1];
+      row += changes[0];
+      column += changes[1];
     }
     return new Position(row, column);
   }
@@ -152,15 +152,8 @@ class Utilities {
 
       audioClip.start();
 
-    } catch (UnsupportedAudioFileException ex) {
-      System.out.println("The specified audio file is not supported.");
-      ex.printStackTrace();
-    } catch (LineUnavailableException ex) {
-      System.out.println("Audio line for playing back is unavailable.");
-      ex.printStackTrace();
-    } catch (IOException ex) {
-      System.out.println("Error playing the audio file.");
-      ex.printStackTrace();
+    } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+      //Ignore to not play the sound
     }
   }
 }

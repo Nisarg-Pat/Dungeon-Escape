@@ -50,7 +50,7 @@ class PlayerPanel extends JPanel {
     this.add(openDoor);
 
     killMonster = new JButton("Kill Monster");
-    killMonster.setBounds(350, 120, 100, 50);
+    killMonster.setBounds(650, 120, 120, 50);
     this.add(killMonster);
   }
 

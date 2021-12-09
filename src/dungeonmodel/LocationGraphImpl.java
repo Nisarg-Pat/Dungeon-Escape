@@ -300,7 +300,6 @@ class LocationGraphImpl implements LocationGraph {
     List<Location> locations = getListOfLocations();
     int index = RandomImpl.getIntInRange(0, locations.size() - 1);
     locations.get(index).setKey(true);
-    System.out.println(locations.get(index).getPosition());
   }
 
   @Override

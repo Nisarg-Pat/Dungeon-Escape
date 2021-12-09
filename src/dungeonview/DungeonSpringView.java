@@ -187,8 +187,6 @@ public class DungeonSpringView extends JFrame implements DungeonView {
   @Override
   public void showErrorMessage(String error) {
     playerPanel.showString(error);
-//    System.out.println("Error: " + error);
-//    JOptionPane.showMessageDialog(this, error, "Error", JOptionPane.ERROR_MESSAGE);
   }
 
   @Override

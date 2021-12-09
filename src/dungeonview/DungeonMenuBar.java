@@ -71,13 +71,15 @@ class DungeonMenuBar extends JMenuBar {
     });
     dungeonDialogueItem.addActionListener(l -> {
       dungeonDetailsDialogue = new JDialog();
-      dungeonDetailsDialogue.setLayout(new GridLayout(6, 0));
+      dungeonDetailsDialogue.setLayout(new GridLayout(8, 0));
       dungeonDetailsDialogue.add(new JTextArea(String.format("Rows: %d", view.getModel().getRows())));
       dungeonDetailsDialogue.add(new JTextArea(String.format("Columns: %d", view.getModel().getColumns())));
       dungeonDetailsDialogue.add(new JTextArea(String.format("IsWrapped: %s", view.getModel().getWrapped())));
       dungeonDetailsDialogue.add(new JTextArea(String.format("Degree of Connectivity: %d", view.getModel().getDegree())));
       dungeonDetailsDialogue.add(new JTextArea(String.format("Percentage of Caves having Treasure: %d", view.getModel().getPercentageItems())));
       dungeonDetailsDialogue.add(new JTextArea(String.format("Number of Otyughs: %d", view.getModel().countOtyughs())));
+      dungeonDetailsDialogue.add(new JTextArea(String.format("Number of Aboleths: %d", view.getModel().countAboleth())));
+      dungeonDetailsDialogue.add(new JTextArea(String.format("Number of Thieves: %d", view.getModel().countThief())));
       dungeonDetailsDialogue.pack();
       dungeonDetailsDialogue.setLocation(view.getX() + 100, view.getY() + 100);
       dungeonDetailsDialogue.setVisible(true);

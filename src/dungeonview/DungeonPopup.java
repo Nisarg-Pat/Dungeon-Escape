@@ -35,7 +35,7 @@ class DungeonPopup extends JFrame {
     JPanel rowPanel = new JPanel();
     rowPanel.setLayout(new GridLayout(1, 5));
     rowPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
-    JTextArea textArea = new JTextArea("Enter Number of Rows:");
+    JTextArea textArea = new JTextArea("Enter Number of Rows(6-100):");
     textArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
     textArea.setFocusable(false);
     rowPanel.add(textArea);
@@ -48,7 +48,7 @@ class DungeonPopup extends JFrame {
     JPanel columnPanel = new JPanel();
     columnPanel.setLayout(new GridLayout(1, 2));
     columnPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
-    textArea = new JTextArea("Enter Number of Columns:");
+    textArea = new JTextArea("Enter Number of Columns(6-100):");
     textArea.setFocusable(false);
     textArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
     columnPanel.add(textArea);
@@ -83,7 +83,7 @@ class DungeonPopup extends JFrame {
     JPanel degreePanel = new JPanel();
     degreePanel.setLayout(new GridLayout(1, 2));
     degreePanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
-    textArea = new JTextArea("Enter The Degree of Connectivity:");
+    textArea = new JTextArea("Enter The Degree of Connectivity(min 0):");
     textArea.setFocusable(false);
     textArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
     degreePanel.add(textArea);
@@ -96,7 +96,7 @@ class DungeonPopup extends JFrame {
     JPanel itemPanel = new JPanel();
     itemPanel.setLayout(new GridLayout(1, 2));
     itemPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
-    textArea = new JTextArea("Enter Percentage of Items:");
+    textArea = new JTextArea("Enter Percentage of Items(0-100):");
     textArea.setFocusable(false);
     textArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
     itemPanel.add(textArea);
@@ -109,7 +109,7 @@ class DungeonPopup extends JFrame {
     JPanel otyughPanel = new JPanel();
     otyughPanel.setLayout(new GridLayout(1, 2));
     otyughPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
-    textArea = new JTextArea("Enter Number of Otyughs:");
+    textArea = new JTextArea("Enter Number of Otyughs(min 1):");
     textArea.setFocusable(false);
     textArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
     otyughPanel.add(textArea);
@@ -122,7 +122,7 @@ class DungeonPopup extends JFrame {
     JPanel abolethPanel = new JPanel();
     abolethPanel.setLayout(new GridLayout(1, 2));
     abolethPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
-    textArea = new JTextArea("Enter Number of Aboleths:");
+    textArea = new JTextArea("Enter Number of Aboleths(0-100):");
     textArea.setFocusable(false);
     textArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
     abolethPanel.add(textArea);
@@ -135,7 +135,7 @@ class DungeonPopup extends JFrame {
     JPanel thiefPanel = new JPanel();
     thiefPanel.setLayout(new GridLayout(1, 2));
     thiefPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
-    textArea = new JTextArea("Enter Number of Thieves:");
+    textArea = new JTextArea("Enter Number of Thieves(0-100):");
     textArea.setFocusable(false);
     textArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
     thiefPanel.add(textArea);
