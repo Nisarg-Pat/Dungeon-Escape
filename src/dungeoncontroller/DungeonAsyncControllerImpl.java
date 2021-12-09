@@ -97,16 +97,16 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
 
   @Override
   public void createNewModel(int rows, int columns, boolean isWrapped,
-                             int degree, int percentageItems, int numOtyugh) {
+                             int degree, int percentageItems, int numOtyugh, int numAboleth, int numThief) {
     RandomImpl.setSeed(RandomImpl.getIntInRange(0, 1000));
-    createModel(rows, columns, isWrapped, degree, percentageItems, numOtyugh);
+    createModel(rows, columns, isWrapped, degree, percentageItems, numOtyugh, numAboleth, numThief);
   }
 
   @Override
   public void resetModel() {
     RandomImpl.setSeed(RandomImpl.getSeed());
     createModel(model.getRows(), model.getColumns(), model.getWrapped(),
-            model.getDegree(), model.getPercentageItems(), model.countOtyughs());
+            model.getDegree(), model.getPercentageItems(), model.countOtyughs(), model.countAboleth(), model.countThief());
   }
 
   @Override
@@ -132,12 +132,12 @@ public class DungeonAsyncControllerImpl implements DungeonAsyncController, Featu
     }
   }
 
-  private void createModel(int rows, int columns, boolean isWrapped, int degree, int percentageItems, int numOtyugh) {
+  private void createModel(int rows, int columns, boolean isWrapped, int degree, int percentageItems, int numOtyugh, int numAboleth, int numThief) {
     if (thread.isRunning()) {
       thread.stop();
     }
     this.model = new DungeonModelImpl(rows, columns, isWrapped,
-            degree, percentageItems, numOtyugh);
+            degree, percentageItems, numOtyugh, numAboleth, numThief);
     view.setModel(model);
     thread = new MoveAbolethThread(model, view);
     thread.start();

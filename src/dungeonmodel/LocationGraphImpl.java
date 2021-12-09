@@ -36,7 +36,7 @@ class LocationGraphImpl implements LocationGraph {
 
   protected LocationGraphImpl(int rows, int columns, boolean isWrapped,
                               int degree, int percentageItems, int numAboleth, int numThief) {
-    checkArguments(rows, columns, degree, percentageItems);
+    checkArguments(rows, columns, degree, percentageItems, numAboleth, numThief);
     this.rows = rows;
     this.columns = columns;
     this.isWrapped = isWrapped;
@@ -55,7 +55,7 @@ class LocationGraphImpl implements LocationGraph {
   }
 
   private void checkArguments(int rows, int columns,
-                              int degreeOfInterconnectivity, int percentageCavesWithTreasure) {
+                              int degreeOfInterconnectivity, int percentageCavesWithTreasure, int numAboleth, int numThief) {
     if (rows < 6 || columns < 6) {
       throw new IllegalArgumentException("Rows and columns should be minimum 6.");
     } else if (degreeOfInterconnectivity < 0) {
@@ -63,6 +63,10 @@ class LocationGraphImpl implements LocationGraph {
     } else if (percentageCavesWithTreasure < 0 || percentageCavesWithTreasure > 100) {
       throw new IllegalArgumentException(
               "Percentage of caves with treasure should be between 0 and 100.");
+    } else if (numAboleth < 0) {
+      throw new IllegalArgumentException("Number of Aboleths should be > 0");
+    } else if (numThief < 0) {
+      throw new IllegalArgumentException("Number of Thieves should be > 0");
     }
   }
 
@@ -183,6 +187,16 @@ class LocationGraphImpl implements LocationGraph {
   @Override
   public int getPercentageItems() {
     return percentageItems;
+  }
+
+  @Override
+  public int countAboleth() {
+    return aboleth.length;
+  }
+
+  @Override
+  public int countThief() {
+    return thief.length;
   }
 
   @Override

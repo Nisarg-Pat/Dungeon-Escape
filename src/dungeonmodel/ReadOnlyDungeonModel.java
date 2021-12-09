@@ -94,4 +94,10 @@ public interface ReadOnlyDungeonModel {
    * @return the smellLevel detected by the Player.
    */
   SmellLevel detectSmell();
+
+
+  //TODO javaodoc
+  int countAboleth();
+
+  int countThief();
 }

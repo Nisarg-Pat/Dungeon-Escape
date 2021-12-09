@@ -22,6 +22,10 @@ interface LocationGraph {
 
   int getPercentageItems();
 
+  int countAboleth();
+
+  int countThief();
+
   Location getLocation(Position position);
 
   boolean hasEdge(Position first, Position second);

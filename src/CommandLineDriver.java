@@ -42,7 +42,7 @@ public class CommandLineDriver {
     }
 
     DungeonModel dungeonModel = new DungeonModelImpl(rows, columns,
-            isWrapped, degreeOfConnectivity, percentageCavesWithTreasure, numOtyugh);
+            isWrapped, degreeOfConnectivity, percentageCavesWithTreasure, numOtyugh, 0, 0);
     DungeonController dungeonController = new DungeonControllerImpl(
             new InputStreamReader(System.in), System.out, dungeonModel);
     try {

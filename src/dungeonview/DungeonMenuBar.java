@@ -12,10 +12,11 @@ class DungeonMenuBar extends JMenuBar {
 
   DungeonSpringView view;
 
-  JMenu menu;
-  JMenu infoMenu;
-  JDialog dungeonDetailsDialogue, playerDetailsDialogue;
-  JMenuItem resetMenuItem, createMenuItem, quitMenuItem, dungeonDialogueItem, playerDialogueItem;
+  JMenu menu, infoMenu, cheatMenu;
+  JDialog dungeonDetailsDialogue, playerDetailsDialogue, cheatDialogue;
+  JMenuItem resetMenuItem, createMenuItem, quitMenuItem, dungeonDialogueItem, playerDialogueItem, cheatItem;
+  JButton cheatButton;
+  JTextField cheatField;
 
   DungeonMenuBar(DungeonSpringView view) {
     super();
@@ -39,8 +40,22 @@ class DungeonMenuBar extends JMenuBar {
     playerDialogueItem = new JMenuItem("Player Details");
     infoMenu.add(playerDialogueItem);
 
+    cheatMenu = new JMenu("Cheat");
+    cheatItem = new JMenuItem("Cheat Code");
+    cheatMenu.add(cheatItem);
+
+    cheatDialogue = new JDialog();
+    cheatDialogue.setLayout(new GridLayout(2, 0));
+    cheatField = new JTextField("");
+    cheatButton = new JButton("Enter");
+    cheatDialogue.add(cheatField);
+    cheatDialogue.add(cheatButton);
+    cheatDialogue.pack();
+    cheatDialogue.setLocation(view.getX() + 100, view.getY() + 100);
+
     this.add(menu);
     this.add(infoMenu);
+    this.add(cheatMenu);
   }
 
 
@@ -68,17 +83,30 @@ class DungeonMenuBar extends JMenuBar {
       dungeonDetailsDialogue.setVisible(true);
     });
     playerDialogueItem.addActionListener(l -> {
-      dungeonDetailsDialogue = new JDialog();
-      dungeonDetailsDialogue.setLayout(new GridLayout(5, 0));
+      playerDetailsDialogue = new JDialog();
+      playerDetailsDialogue.setLayout(new GridLayout(5, 0));
       PlayerDescription playerDescription = view.getModel().getPlayerDescription();
-      dungeonDetailsDialogue.add(new JTextArea(String.format("Diamonds: %d", playerDescription.getCollectedTreasures().getOrDefault(Treasure.DIAMOND, 0))));
-      dungeonDetailsDialogue.add(new JTextArea(String.format("Ruby: %d", playerDescription.getCollectedTreasures().getOrDefault(Treasure.RUBY, 0))));
-      dungeonDetailsDialogue.add(new JTextArea(String.format("Sapphire: %d", playerDescription.getCollectedTreasures().getOrDefault(Treasure.SAPPHIRE, 0))));
-      dungeonDetailsDialogue.add(new JTextArea(String.format("Arrows: %d", playerDescription.countArrows())));
-      dungeonDetailsDialogue.add(new JTextArea(String.format("Keys: %d", playerDescription.hasKey() ? 1 : 0)));
-      dungeonDetailsDialogue.pack();
-      dungeonDetailsDialogue.setLocation(view.getX() + 100, view.getY() + 100);
-      dungeonDetailsDialogue.setVisible(true);
+      playerDetailsDialogue.add(new JTextArea(String.format("Diamonds: %d", playerDescription.getCollectedTreasures().getOrDefault(Treasure.DIAMOND, 0))));
+      playerDetailsDialogue.add(new JTextArea(String.format("Ruby: %d", playerDescription.getCollectedTreasures().getOrDefault(Treasure.RUBY, 0))));
+      playerDetailsDialogue.add(new JTextArea(String.format("Sapphire: %d", playerDescription.getCollectedTreasures().getOrDefault(Treasure.SAPPHIRE, 0))));
+      playerDetailsDialogue.add(new JTextArea(String.format("Arrows: %d", playerDescription.countArrows())));
+      playerDetailsDialogue.add(new JTextArea(String.format("Keys: %d", playerDescription.hasKey() ? 1 : 0)));
+      playerDetailsDialogue.pack();
+      playerDetailsDialogue.setLocation(view.getX() + 100, view.getY() + 100);
+      playerDetailsDialogue.setVisible(true);
+    });
+    cheatItem.addActionListener(l -> {
+      cheatDialogue.setVisible(true);
+    });
+    cheatButton.addActionListener(l -> {
+      String text = cheatField.getText();
+      if (text.equals("Show Dungeon")) {
+        view.setVisibleMode(true);
+      } else if (text.equals("Dont Show Dungeon")) {
+        view.setVisibleMode(false);
+      }
+      cheatField.setText("");
+      cheatDialogue.setVisible(false);
     });
   }
 }

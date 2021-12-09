@@ -15,7 +15,7 @@ public interface Features {
 
   void createNewModel(int rows, int columns, boolean isWrapped,
                       int degreeOfInterconnectivity, int percentageItems,
-                      int numOtyugh);
+                      int numOtyugh, int numAboleth, int numThief);
 
   void resetModel();
 

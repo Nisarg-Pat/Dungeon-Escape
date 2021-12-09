@@ -44,12 +44,12 @@ public class DungeonModelImpl implements DungeonModel {
    */
   public DungeonModelImpl(int rows, int columns, boolean isWrapped,
                           int degreeOfInterconnectivity, int percentageItems,
-                          int numOtyugh) {
+                          int numOtyugh, int numAboleth, int numThief) {
     if (numOtyugh <= 0) {
       throw new IllegalArgumentException("Number of Otyugh should be atleast 1.");
     }
     locationGraph = new LocationGraphImpl(rows, columns, isWrapped,
-            degreeOfInterconnectivity, percentageItems, 2, 2);
+            degreeOfInterconnectivity, percentageItems, numAboleth, numThief);
 
     List<Location> startEndPositions = locationGraph.getStartEndPositions();
 
@@ -240,6 +240,7 @@ public class DungeonModelImpl implements DungeonModel {
 
   @Override
   public void killMonster() {
+    checkGameStatus();
     player.killMonster(locationGraph.getAboleth(player.getLocation()));
   }
 
@@ -255,6 +256,16 @@ public class DungeonModelImpl implements DungeonModel {
   @Override
   public SmellLevel detectSmell() {
     return player.detectSmell();
+  }
+
+  @Override
+  public int countAboleth() {
+    return locationGraph.countAboleth();
+  }
+
+  @Override
+  public int countThief() {
+    return locationGraph.countThief();
   }
 
   private char checkSpecial(int row, int column) {

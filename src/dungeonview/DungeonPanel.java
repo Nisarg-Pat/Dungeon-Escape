@@ -42,27 +42,18 @@ class DungeonPanel extends JPanel {
     int currentRow = currentLocation.getPosition().getRow();
     int currentColumn = currentLocation.getPosition().getColumn();
 
-//    for (int i = 0; i < model.getRows(); i++) {
-//      for (int j = 0; j < model.getColumns(); j++) {
-//        ImageIcon icon = new ImageIcon(Utilities.getImageName(model.getLocation(new Position(i, j)).getPossibleDirections()));
-//        Position getLocationPosition = Utilities.getLocationPosition(i, j);
-//        g2d.drawImage(icon.getImage(), getLocationPosition.getColumn(), getLocationPosition.getRow(), this);
-//      }
-//    }
-
     for (int i = 0; i < model.getRows(); i++) {
       for (int j = 0; j < model.getColumns(); j++) {
         LocationDescription location = model.getLocation(new Position(i, j));
         Position getLocationPosition = Utilities.getLocationPosition(i, j);
         Image image;
-        if (location.isVisited()) {
+        if (location.isVisited() || view.isVisibleMode()) {
           image = new ImageIcon(Utilities.getImageName(location.getPossibleDirections())).getImage();
         } else {
-          image = new ImageIcon(Utilities.getImageName(location.getPossibleDirections())).getImage();
-//          image = new ImageIcon("dungeonImages\\blank.png").getImage();
+          image = new ImageIcon("dungeonImages\\blank.png").getImage();
         }
         g2d.drawImage(image, getLocationPosition.getColumn(), getLocationPosition.getRow(), this);
-        if (i == currentRow && j == currentColumn) {
+        if ((i == currentRow && j == currentColumn)) {
           SmellLevel level = model.detectSmell();
           if (level == SmellLevel.MORE_PUNGENT || currentLocation.containsOtyugh()) {
             image = new ImageIcon("dungeonImages\\stench02.png").getImage();
@@ -72,16 +63,36 @@ class DungeonPanel extends JPanel {
             g2d.drawImage(image, getLocationPosition.getColumn(), getLocationPosition.getRow(), this);
           }
         }
-        if (location.containsAboleth()) {
-          g2d.setColor(Color.RED);
-          Position getCurrentPosition = Utilities.getPointPosition(location);
-          g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
-        }
+        if (view.isVisibleMode()) {
+          if (location.containsAboleth()) {
+            g2d.setColor(Color.RED);
+            Position getCurrentPosition = Utilities.getPointPosition(location);
+            g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
+          }
 
-        if (location.containsThief()) {
-          g2d.setColor(Color.ORANGE);
-          Position getCurrentPosition = Utilities.getPointPosition(location);
-          g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
+          if (location.containsOtyugh()) {
+            g2d.setColor(Color.DARK_GRAY);
+            Position getCurrentPosition = Utilities.getPointPosition(location);
+            g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
+          }
+
+          if (location.containsThief()) {
+            g2d.setColor(Color.ORANGE);
+            Position getCurrentPosition = Utilities.getPointPosition(location);
+            g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
+          }
+
+          if (location.hasKey()) {
+            g2d.setColor(Color.YELLOW);
+            Position getCurrentPosition = Utilities.getPointPosition(location);
+            g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
+          }
+
+          if (location.getPosition().equals(model.getEndCave().getPosition())) {
+            g2d.setColor(Color.BLUE);
+            Position getCurrentPosition = Utilities.getPointPosition(location);
+            g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
+          }
         }
       }
     }

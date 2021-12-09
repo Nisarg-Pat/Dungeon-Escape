@@ -29,22 +29,24 @@ import dungeonmodel.Treasure;
 
 public class DungeonSpringView extends JFrame implements DungeonView {
 
-  DungeonPopup dungeonPopup;
-  DungeonMenuBar dungeonMenuBar;
-  DungeonPanel dungeonPanel;
-  JScrollPane scrollPane;
-  LocationPanel locationPanel;
-  PlayerPanel playerPanel;
+  private final DungeonPopup dungeonPopup;
+  private final DungeonMenuBar dungeonMenuBar;
+  private final DungeonPanel dungeonPanel;
+  private final JScrollPane scrollPane;
+  private final LocationPanel locationPanel;
+  private final PlayerPanel playerPanel;
 
-  ReadOnlyDungeonModel model;
+  private ReadOnlyDungeonModel model;
 
-  boolean isShootMode;
+  private boolean isShootMode;
+  private boolean isVisibleMode;
 
   public DungeonSpringView() {
     super("Dungeon Game");
     this.setLocation(100, 100);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.isShootMode = false;
+    isVisibleMode = false;
 
     try {
       BufferedImage image = ImageIO.read(new File("dungeonImages\\logo.png"));
@@ -76,7 +78,7 @@ public class DungeonSpringView extends JFrame implements DungeonView {
 
   @Override
   public void setModel(ReadOnlyDungeonModel model) {
-    if(model == null) {
+    if (model == null) {
       throw new IllegalArgumentException("Model cannot be null.");
     }
     this.model = model;
@@ -108,7 +110,7 @@ public class DungeonSpringView extends JFrame implements DungeonView {
 
       @Override
       public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_S) {
+        if (e.getKeyCode() == KeyEvent.VK_S) {
           isShootMode = true;
           playerPanel.showString("Click on direction to shoot.");
           return;
@@ -119,7 +121,7 @@ public class DungeonSpringView extends JFrame implements DungeonView {
         keyDirectionMap.put(KeyEvent.VK_DOWN, Direction.SOUTH);
         keyDirectionMap.put(KeyEvent.VK_LEFT, Direction.WEST);
         if (keyDirectionMap.containsKey(e.getKeyCode())) {
-          if(isShootMode) {
+          if (isShootMode) {
             features.shootArrow(keyDirectionMap.get(e.getKeyCode()), 1);
           } else {
             features.movePlayer(keyDirectionMap.get(e.getKeyCode()));
@@ -144,7 +146,7 @@ public class DungeonSpringView extends JFrame implements DungeonView {
           return;
         }
 
-        if(e.getKeyCode() == KeyEvent.VK_D) {
+        if (e.getKeyCode() == KeyEvent.VK_D) {
           features.killMonster();
         }
         showString("");
@@ -174,7 +176,7 @@ public class DungeonSpringView extends JFrame implements DungeonView {
 //    setExtendedState(JFrame.MAXIMIZED_BOTH);
 //    setUndecorated(true);
     setMinimumSize(new Dimension(500, 300));
-    setSize(228 + 64 * Math.min(columns, 16) + 115 + 64, 64 * Math.min(rows, 9) + 162+210);
+    setSize(228 + 64 * Math.min(columns, 16) + 115 + 64, 64 * Math.min(rows, 9) + 162 + 210);
     scrollPane.getVerticalScrollBar().setUnitIncrement(rows);
     scrollPane.getHorizontalScrollBar().setUnitIncrement(columns);
     dungeonPanel.setPreferredSize(new Dimension(64 * columns + 100, 64 * rows + 100));
@@ -197,5 +199,14 @@ public class DungeonSpringView extends JFrame implements DungeonView {
   @Override
   public void showString(String s) {
     playerPanel.showString(s);
+  }
+
+  protected boolean isVisibleMode() {
+    return isVisibleMode;
+  }
+
+  protected void setVisibleMode(boolean visibleMode) {
+    isVisibleMode = visibleMode;
+    refresh();
   }
 }
