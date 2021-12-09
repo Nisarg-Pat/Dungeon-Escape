@@ -96,6 +96,7 @@ public class DungeonSpringView extends JFrame implements DungeonView {
   public void setFeatures(Features features) {
     dungeonPopup.setFeatures(features);
     dungeonMenuBar.setFeatures(features);
+    dungeonPanel.setFeatures(features);
     locationPanel.setFeatures(features);
     playerPanel.setFeatures(features);
 
