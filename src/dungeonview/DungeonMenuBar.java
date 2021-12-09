@@ -12,9 +12,9 @@ class DungeonMenuBar extends JMenuBar {
 
   DungeonSpringView view;
 
-  JMenu menu, infoMenu, cheatMenu;
-  JDialog dungeonDetailsDialogue, playerDetailsDialogue, cheatDialogue;
-  JMenuItem resetMenuItem, createMenuItem, quitMenuItem, dungeonDialogueItem, playerDialogueItem, cheatItem;
+  JMenu menu, infoMenu, cheatMenu, controlsMenu;
+  JDialog dungeonDetailsDialogue, playerDetailsDialogue, cheatDialogue, controlsDialogue;
+  JMenuItem resetMenuItem, createMenuItem, quitMenuItem, dungeonDialogueItem, playerDialogueItem, cheatItem, controlsItem;
   JButton cheatButton;
   JTextField cheatField;
 
@@ -53,8 +53,29 @@ class DungeonMenuBar extends JMenuBar {
     cheatDialogue.pack();
     cheatDialogue.setLocation(view.getX() + 100, view.getY() + 100);
 
+    controlsMenu = new JMenu("Controls");
+    controlsItem = new JMenuItem("Show Controls");
+    controlsMenu.add(controlsItem);
+
+    controlsDialogue = new JDialog();
+    controlsDialogue.setLayout(new GridLayout(10, 0));
+    controlsDialogue.setLocation(view.getX() + 100, view.getY() + 100);
+    controlsDialogue.add(new JTextArea("1. Use Arrow Keys or Click on Adjacent Cells to Move."));
+    controlsDialogue.add(new JTextArea(""));
+    controlsDialogue.add(new JTextArea("2. Click 1,2,3,4,5 to pick up respective items mentioned below location."));
+    controlsDialogue.add(new JTextArea(""));
+    controlsDialogue.add(new JTextArea("3. Click S and then Arrow Key and then number(1-5) to shoot an arrow."));
+    controlsDialogue.add(new JTextArea(""));
+    controlsDialogue.add(new JTextArea("4. Click D or Kill Monster button to kill the Moving Monster."));
+    controlsDialogue.add(new JTextArea(""));
+    controlsDialogue.add(new JTextArea("5. Click Open Door button to open the door. Requires a key."));
+    controlsDialogue.add(new JTextArea(""));
+    controlsDialogue.pack();
+
+
     this.add(menu);
     this.add(infoMenu);
+    this.add(controlsMenu);
     this.add(cheatMenu);
   }
 
@@ -109,6 +130,9 @@ class DungeonMenuBar extends JMenuBar {
       }
       cheatField.setText("");
       cheatDialogue.setVisible(false);
+    });
+    controlsItem.addActionListener(l -> {
+      controlsDialogue.setVisible(true);
     });
   }
 }

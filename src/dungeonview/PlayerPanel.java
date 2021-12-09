@@ -82,9 +82,6 @@ class PlayerPanel extends JPanel {
     i++;
     drawImage(Key.DOOR_KEY, player.hasKey() ? 1 : 0, i, g2d);
 
-
-//    g2d.drawString(outputString, 350, 50);
-
     if (model.getGameStatus() == GameStatus.GAME_CONTINUE) {
       playAgain.setVisible(false);
       openDoor.setVisible(model.getCurrentLocation().getPosition().equals(model.getEndCave().getPosition()));

@@ -112,6 +112,7 @@ class DungeonPanel extends JPanel {
         Direction direction = getDirection(currentPosition, coordinates);
         if (direction != null) {
           features.movePlayer(direction);
+          view.setShootMode(false);
         }
       }
     };

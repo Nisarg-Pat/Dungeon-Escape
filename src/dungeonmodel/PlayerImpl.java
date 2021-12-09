@@ -94,6 +94,9 @@ class PlayerImpl implements Player {
 
   @Override
   public void killMonster(Aboleth aboleth) {
+    if(aboleth == null) {
+      throw new IllegalArgumentException("Aboleth is null");
+    }
     if (currentLocation.getPosition().equals(aboleth.getPosition())) {
       aboleth.damage();
     }

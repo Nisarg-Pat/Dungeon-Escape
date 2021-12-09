@@ -207,4 +207,8 @@ public class DungeonSpringView extends JFrame implements DungeonView {
     isVisibleMode = visibleMode;
     refresh();
   }
+
+  protected void setShootMode(boolean value) {
+    isShootMode = value;
+  }
 }
