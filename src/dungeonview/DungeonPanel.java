@@ -63,17 +63,17 @@ class DungeonPanel extends JPanel {
           image = new ImageIcon(
                   Utilities.getImageName(location.getPossibleDirections())).getImage();
         } else {
-          image = new ImageIcon("dungeonImages\\blank.png").getImage();
+          image = new ImageIcon("res\\dungeonImages\\blank.png").getImage();
         }
         g2d.drawImage(image, getLocationPosition.getColumn(), getLocationPosition.getRow(), this);
         if ((i == currentRow && j == currentColumn)) {
           SmellLevel level = model.detectSmell();
           if (level == SmellLevel.MORE_PUNGENT || currentLocation.containsOtyugh()) {
-            image = new ImageIcon("dungeonImages\\stench02.png").getImage();
+            image = new ImageIcon("res\\dungeonImages\\stench02.png").getImage();
             g2d.drawImage(image, getLocationPosition.getColumn(),
                     getLocationPosition.getRow(), this);
           } else if (level == SmellLevel.LESS_PUNGENT) {
-            image = new ImageIcon("dungeonImages\\stench01.png").getImage();
+            image = new ImageIcon("res\\dungeonImages\\stench01.png").getImage();
             g2d.drawImage(image, getLocationPosition.getColumn(),
                     getLocationPosition.getRow(), this);
           }

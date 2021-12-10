@@ -48,14 +48,14 @@ public class DungeonAsyncControllerTest {
             "makeVisible called\n" +
             "showString called for: \n" +
             "refresh called\n" +
-            "playSound called for: dungeonSounds\\treasure_pick.wav\n" +
+            "playSound called for: res\\dungeonSounds\\treasure_pick.wav\n" +
             "showString called for: Picked Key.\n" +
             "refresh called\n" +
             "showString called for: You shoot an arrow into the darkness.\n" +
             "refresh called\n" +
             "showString called for: Aboleth was killed.\n" +
             "refresh called\n" +
-            "playSound called for: dungeonSounds\\win.wav\n" +
+            "playSound called for: res\\dungeonSounds\\win.wav\n" +
             "showString called for: Congrats, you reached the end location.\n" +
             "refresh called\n" +
             "setModel called\n" +

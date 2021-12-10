@@ -26,7 +26,7 @@ class Utilities {
     if (directionMap == null) {
       throw new IllegalArgumentException("directionMap cannot be null");
     }
-    StringBuilder sb = new StringBuilder("dungeonImages\\directions\\");
+    StringBuilder sb = new StringBuilder("res\\dungeonImages\\directions\\");
     if (directionMap.contains(Direction.NORTH)) {
       sb.append("N");
     }
@@ -45,15 +45,15 @@ class Utilities {
 
   protected static String getImageName(Item item) {
     if (item == Treasure.RUBY) {
-      return "dungeonImages\\items\\ruby.png";
+      return "res\\dungeonImages\\items\\ruby.png";
     } else if (item == Treasure.SAPPHIRE) {
-      return "dungeonImages\\items\\sapphire.png";
+      return "res\\dungeonImages\\items\\sapphire.png";
     } else if (item == Treasure.DIAMOND) {
-      return "dungeonImages\\items\\diamond.png";
+      return "res\\dungeonImages\\items\\diamond.png";
     } else if (item == Arrow.CROOKED_ARROW) {
-      return "dungeonImages\\items\\arrow.png";
+      return "res\\dungeonImages\\items\\arrow.png";
     } else if (item == Key.DOOR_KEY) {
-      return "dungeonImages\\items\\key.png";
+      return "res\\dungeonImages\\items\\key.png";
     }
     return "";
   }

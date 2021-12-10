@@ -70,7 +70,7 @@ public class DungeonSwingView extends JFrame implements DungeonView {
     isVisibleMode = false;
 
     try {
-      BufferedImage image = ImageIO.read(new File("dungeonImages\\logo.png"));
+      BufferedImage image = ImageIO.read(new File("res\\dungeonImages\\logo.png"));
       setIconImage(image);
     } catch (IOException e) {
       // Ignore Logo

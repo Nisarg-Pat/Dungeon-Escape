@@ -57,23 +57,23 @@ class LocationPanel extends JPanel {
       g2d.drawImage(image, 50, 50, 192, 192, this);
       SmellLevel level = view.getModel().detectSmell();
       if (level == SmellLevel.MORE_PUNGENT || currentLocation.containsOtyugh()) {
-        image = new ImageIcon("dungeonImages\\stench02.png").getImage();
+        image = new ImageIcon("res\\dungeonImages\\stench02.png").getImage();
         g2d.drawImage(image, 50, 50, 192, 192, this);
       } else if (level == SmellLevel.LESS_PUNGENT || currentLocation.containsOtyugh()) {
-        image = new ImageIcon("dungeonImages\\stench01.png").getImage();
+        image = new ImageIcon("res\\dungeonImages\\stench01.png").getImage();
         g2d.drawImage(image, 50, 50, 192, 192, this);
       }
 
       if (currentLocation.containsOtyugh() && currentLocation.containsAboleth()) {
-        image = new ImageIcon("dungeonImages\\otyugh.png").getImage();
+        image = new ImageIcon("res\\dungeonImages\\otyugh.png").getImage();
         g2d.drawImage(image, 82, 75, 64, 44, this);
-        image = new ImageIcon("dungeonImages\\aboleth.png").getImage();
+        image = new ImageIcon("res\\dungeonImages\\aboleth.png").getImage();
         g2d.drawImage(image, 160, 75, 44, 44, this);
       } else if (currentLocation.containsOtyugh()) {
-        image = new ImageIcon("dungeonImages\\otyugh.png").getImage();
+        image = new ImageIcon("res\\dungeonImages\\otyugh.png").getImage();
         g2d.drawImage(image, 114, 75, 64, 44, this);
       } else if (currentLocation.containsAboleth()) {
-        image = new ImageIcon("dungeonImages\\aboleth.png").getImage();
+        image = new ImageIcon("res\\dungeonImages\\aboleth.png").getImage();
         g2d.drawImage(image, 124, 75, 44, 44, this);
       }
 
@@ -82,12 +82,12 @@ class LocationPanel extends JPanel {
         changes = Utilities.getChanges(currentLocation.getPossibleDirections());
       }
       if (currentLocation.getPosition().equals(view.getModel().getEndCave().getPosition())) {
-        image = new ImageIcon("dungeonImages\\door.png").getImage();
+        image = new ImageIcon("res\\dungeonImages\\door.png").getImage();
         g2d.drawImage(image, 114, 120, 64, 64, this);
-        image = new ImageIcon("dungeonImages\\player.png").getImage();
+        image = new ImageIcon("res\\dungeonImages\\player.png").getImage();
         g2d.drawImage(image, 120 + 3 * changes[1], 180 + 3 * changes[0], 48, 48, this);
       } else {
-        image = new ImageIcon("dungeonImages\\player.png").getImage();
+        image = new ImageIcon("res\\dungeonImages\\player.png").getImage();
         g2d.drawImage(image, 120 + 3 * changes[1], 120 + 3 * changes[0], 48, 48, this);
       }
 

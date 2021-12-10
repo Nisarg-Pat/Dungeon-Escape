@@ -49,7 +49,7 @@ class DungeonPopup extends JFrame {
     this.view = view;
     setLayout(new GridLayout(12, 0));
     try {
-      BufferedImage image = ImageIO.read(new File("dungeonImages\\logo.png"));
+      BufferedImage image = ImageIO.read(new File("res\\dungeonImages\\logo.png"));
       setIconImage(image);
     } catch (IOException e) {
       // Ignore Logo

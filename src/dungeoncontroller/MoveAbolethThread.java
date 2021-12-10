@@ -34,7 +34,7 @@ class MoveAbolethThread implements Runnable {
       while (!exit && model.getGameStatus() == GameStatus.GAME_CONTINUE) {
         model.moveAboleth();
         if (model.getGameStatus() == GameStatus.GAME_OVER_KILLED) {
-          view.playSound("dungeonSounds\\monstereat.wav");
+          view.playSound("res\\dungeonSounds\\monstereat.wav");
           view.showString("Chomp, chomp, you are eaten by an Aboleth!!");
         }
         view.refresh();

@@ -92,7 +92,7 @@ public class DungeonAsyncController implements DungeonController, Features {
           pitThread.start();
         }
       } else if (model.getGameStatus() == GameStatus.GAME_OVER_KILLED) {
-        view.playSound("dungeonSounds\\monstereat.wav");
+        view.playSound("res\\dungeonSounds\\monstereat.wav");
         view.showString("Chomp, chomp, you are eaten by an Otyugh!!");
       }
       view.refresh();
@@ -110,9 +110,9 @@ public class DungeonAsyncController implements DungeonController, Features {
     try {
       model.pickItem(item);
       if (item == Arrow.CROOKED_ARROW) {
-        view.playSound("dungeonSounds\\arrow_pick.wav");
+        view.playSound("res\\dungeonSounds\\arrow_pick.wav");
       } else {
-        view.playSound("dungeonSounds\\treasure_pick.wav");
+        view.playSound("res\\dungeonSounds\\treasure_pick.wav");
       }
       view.showString(String.format("Picked %s.", item.getSingular()));
       view.refresh();
@@ -129,7 +129,7 @@ public class DungeonAsyncController implements DungeonController, Features {
     try {
       HitStatus status = model.shoot(direction, distance);
       if (status == HitStatus.HIT || status == HitStatus.KILLED) {
-        view.playSound("dungeonSounds\\otyugh_echo3.wav");
+        view.playSound("res\\dungeonSounds\\otyugh_echo3.wav");
       }
       if (status == HitStatus.HIT) {
         view.showString("You hear a great howl in the distance.");
@@ -170,7 +170,7 @@ public class DungeonAsyncController implements DungeonController, Features {
     }
     try {
       model.exitDungeon();
-      view.playSound("dungeonSounds\\win.wav");
+      view.playSound("res\\dungeonSounds\\win.wav");
       view.showString("Congrats, you reached the end location.");
       view.refresh();
     } catch (IllegalArgumentException | IllegalStateException e) {
