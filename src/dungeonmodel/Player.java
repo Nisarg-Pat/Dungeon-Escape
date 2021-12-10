@@ -26,7 +26,7 @@ interface Player {
 
   SmellLevel detectSmell();
 
-  void killMonster(Aboleth aboleth);
+  void killMonster(Monster aboleth);
 
   void pickKey();
 

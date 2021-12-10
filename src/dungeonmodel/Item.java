@@ -18,6 +18,10 @@ public interface Item {
    */
   String getPlural();
 
-  //TODO javadoc
+  /**
+   * Get the string representation depending on number of items.
+   * @param number number of items.
+   * @return the string representation depending on number of items.
+   */
   String getStringFromNumber(int number);
 }

@@ -15,4 +15,6 @@ interface Monster {
   boolean isAlive();
 
   GameStatus killPlayer();
+
+  void move();
 }

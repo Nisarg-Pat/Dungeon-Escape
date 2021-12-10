@@ -15,7 +15,7 @@ import structureddata.Position;
  * Player can collect treasures from the caves.
  * The goal of the player is to reach an end position cave.
  */
-public interface DungeonModel extends ReadOnlyDungeonModel{
+public interface DungeonModel extends ReadOnlyDungeonModel {
 
   /**
    * Moves the player to the location present at the specified direction from his current cave.
@@ -35,9 +35,6 @@ public interface DungeonModel extends ReadOnlyDungeonModel{
    */
   void pickItem(Item item);
 
-  //TODO javadoc
-  boolean stealTreasure();
-
   /**
    * Shoots a {@link Arrow#CROOKED_ARROW} in the mentioned direction and distance.
    *
@@ -49,11 +46,11 @@ public interface DungeonModel extends ReadOnlyDungeonModel{
   HitStatus shoot(Direction direction, int distance);
 
   /**
-   * Prints the current state of the dungeon.
+   * Steals the treasure from the player present in the same location.
    *
-   * @return the String representation of the state of the dungeon.
+   * @return true if treasure is stolen.
    */
-  String printDungeon();
+  boolean stealTreasure();
 
   /**
    * Gives the distance between two positions in the dungeon.
@@ -64,11 +61,26 @@ public interface DungeonModel extends ReadOnlyDungeonModel{
    */
   int getDistance(Position first, Position second);
 
-  //TODO javadoc
+  /**
+   * Move all the aboleths in the dungeons
+   */
   void moveAboleth();
 
+  /**
+   * Kill the aboleth in the current location.
+   */
   void killMonster();
 
+  /**
+   * Exit the dungeon.
+   */
   void exitDungeon();
+
+  /**
+   * Prints the current state of the dungeon.
+   *
+   * @return the String representation of the state of the dungeon.
+   */
+  String printDungeon();
 }
 

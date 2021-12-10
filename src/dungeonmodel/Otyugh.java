@@ -15,7 +15,7 @@ class Otyugh implements Monster {
   private int health;
 
   protected Otyugh(Location location) {
-    if (!location.isCave()) {
+    if (location == null || !location.isCave()) {
       throw new IllegalArgumentException("Otyugh cannot reside outside of Cave.");
     }
     this.location = location;
@@ -46,5 +46,10 @@ class Otyugh implements Monster {
       return GameStatus.GAME_OVER_KILLED;
     }
     return GameStatus.GAME_CONTINUE;
+  }
+
+  @Override
+  public void move() {
+    throw new IllegalStateException("Otyughs cannot move");
   }
 }

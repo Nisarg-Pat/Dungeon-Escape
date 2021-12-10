@@ -39,6 +39,7 @@ public class DungeonSpringView extends JFrame implements DungeonView {
   private ReadOnlyDungeonModel model;
 
   private boolean isShootMode;
+  private Direction shootDirection;
   private boolean isVisibleMode;
 
   public DungeonSpringView() {
@@ -46,7 +47,9 @@ public class DungeonSpringView extends JFrame implements DungeonView {
     this.setLocation(100, 100);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.isShootMode = false;
+    shootDirection = null;
     isVisibleMode = false;
+
 
     try {
       BufferedImage image = ImageIO.read(new File("dungeonImages\\logo.png"));
@@ -111,8 +114,12 @@ public class DungeonSpringView extends JFrame implements DungeonView {
       @Override
       public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_S) {
-          isShootMode = true;
-          playerPanel.showString("Click on direction to shoot.");
+          if (model.getPlayerDescription().countArrows() == 0) {
+            playerPanel.showString("Player does not have any arrows");
+          } else {
+            isShootMode = true;
+            playerPanel.showString("Click on direction to shoot.");
+          }
           return;
         }
         Map<Integer, Direction> keyDirectionMap = new HashMap<>();
@@ -122,12 +129,15 @@ public class DungeonSpringView extends JFrame implements DungeonView {
         keyDirectionMap.put(KeyEvent.VK_LEFT, Direction.WEST);
         if (keyDirectionMap.containsKey(e.getKeyCode())) {
           if (isShootMode) {
-            features.shootArrow(keyDirectionMap.get(e.getKeyCode()), 1);
+            shootDirection = keyDirectionMap.get(e.getKeyCode());
+            playerPanel.showString("Enter the distance(1-5)");
           } else {
             features.movePlayer(keyDirectionMap.get(e.getKeyCode()));
           }
           isShootMode = false;
           return;
+        } else {
+          isShootMode = false;
         }
         Map<Integer, Item> itemMap = new HashMap<>();
         itemMap.put(KeyEvent.VK_1, Treasure.DIAMOND);
@@ -140,12 +150,17 @@ public class DungeonSpringView extends JFrame implements DungeonView {
         itemMap.put(KeyEvent.VK_NUMPAD3, Treasure.SAPPHIRE);
         itemMap.put(KeyEvent.VK_NUMPAD4, Arrow.CROOKED_ARROW);
         itemMap.put(KeyEvent.VK_NUMPAD5, Key.DOOR_KEY);
-
         if (itemMap.containsKey(e.getKeyCode())) {
-          features.pickItem(itemMap.get(e.getKeyCode()));
+          if (shootDirection != null) {
+            features.shootArrow(shootDirection, e.getKeyCode() % 48);
+          } else {
+            features.pickItem(itemMap.get(e.getKeyCode()));
+          }
+          shootDirection = null;
           return;
+        } else {
+          shootDirection = null;
         }
-
         if (e.getKeyCode() == KeyEvent.VK_D) {
           features.killMonster();
         }

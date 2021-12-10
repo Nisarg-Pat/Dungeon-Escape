@@ -8,12 +8,21 @@ import java.util.TreeMap;
 import random.RandomImpl;
 import structureddata.Position;
 
+/**
+ * Tunnel thief representation in which thief resides in tunnels of the dungeon.
+ * After stealing from the player, thief can relocate to a different tunnel.
+ * <p>
+ * visibility: package-private
+ */
 class TunnelThief implements Thief {
-  Location location;
+  private Location location;
 
-  Map<Treasure, Integer> stolenTreasure;
+  private final Map<Treasure, Integer> stolenTreasure;
 
   TunnelThief(Location location) {
+    if (location == null || location.isCave()) {
+      throw new IllegalArgumentException("Location cannot be null or cave.");
+    }
     this.location = location;
     location.setThief(true);
     this.stolenTreasure = new TreeMap<>();
@@ -21,9 +30,12 @@ class TunnelThief implements Thief {
 
   @Override
   public void steal(Player player) {
+    if (player == null) {
+      throw new IllegalArgumentException("Player cannot be null.");
+    }
     List<Treasure> treasures = new ArrayList<>(player.getCollectedTreasures().keySet());
     if (treasures.size() > 0) {
-      int index = RandomImpl.getIntInRange(0, treasures.size()-1);
+      int index = RandomImpl.getIntInRange(0, treasures.size() - 1);
       Treasure treasure = treasures.get(index);
       int removedTreasure = player.removeTreasure(treasure, 5);
       stolenTreasure.put(treasures.get(index), stolenTreasure.getOrDefault(treasure, 0) + removedTreasure);
@@ -32,6 +44,9 @@ class TunnelThief implements Thief {
 
   @Override
   public void relocate(Location location) {
+    if (location == null || location.isCave()) {
+      throw new IllegalArgumentException("Location cannot be null or cave.");
+    }
     this.location.setThief(false);
     this.location = location;
     location.setThief(true);

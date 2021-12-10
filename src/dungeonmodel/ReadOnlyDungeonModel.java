@@ -4,6 +4,10 @@ import structureddata.LocationDescription;
 import structureddata.PlayerDescription;
 import structureddata.Position;
 
+/**
+ * Read Only version of DungeonModel.
+ * Contains all the methods that could be read from a DungeonModel.
+ */
 public interface ReadOnlyDungeonModel {
   /**
    * Gives the number of rows in the dungeon.
@@ -34,18 +38,34 @@ public interface ReadOnlyDungeonModel {
    */
   int countOtyughs();
 
-  //TODO: Generate javaDoc
+  /**
+   * Gives the degree of Interconnectivity in the dungeon.
+   *
+   * @return the degree of Interconnectivity in the dungeon.
+   */
   int getDegree();
 
-  //TODO: Generate javaDoc
+  /**
+   * Gives the percentage of caves with items in the dungeon.
+   *
+   * @return the percentage of caves with items in the dungeon.
+   */
   int getPercentageItems();
 
+
   /**
-   * Gets the description of starting Cave of the dungeon.
+   * Gives the number of aboleths in the dungeon.
    *
-   * @return the description of starting cave
+   * @return the number of aboleths in the dungeon.
    */
-  LocationDescription getStartCave();
+  int countAboleth();
+
+  /**
+   * Gives the number of thieves in the dungeon.
+   *
+   * @return the number of thieves in the dungeon.
+   */
+  int countThief();
 
   /**
    * Gets the description of ending Cave of the dungeon.
@@ -94,10 +114,4 @@ public interface ReadOnlyDungeonModel {
    * @return the smellLevel detected by the Player.
    */
   SmellLevel detectSmell();
-
-
-  //TODO javaodoc
-  int countAboleth();
-
-  int countThief();
 }

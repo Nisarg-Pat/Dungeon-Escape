@@ -21,7 +21,13 @@ import java.util.List;
  * Dungeon contains Otyugh Monsters present in a cave and giving away smell.
  * Otyughs can be killed with Crooked Arrows which can be picked and shot by the player.
  * Player initially has 3 arrows.
- * Game is over when Otyugh kills the player or player reaches end location successfully.
+ * Dungeon contains Aboleths which are moving monsters in the dungeon.
+ * Player needs to kill the aboleth before it sees you or else aboleth will kill the player.
+ * Tunnels contain thieves that can steal treasure from player.
+ * Thieves then relocate themselves to a different location after stealing the treasure.
+ * Player requires a key to open the door in end location.
+ * Key can be found randomly at any location in the dungeon.
+ * Game ends if player gets killed or player opens the door.
  */
 public class DungeonModelImpl implements DungeonModel {
   private final LocationGraph locationGraph;
@@ -39,6 +45,9 @@ public class DungeonModelImpl implements DungeonModel {
    * @param isWrapped                 Whether the dungeon is wrapped around its end
    * @param degreeOfInterconnectivity The degree of interconnectivity for the dungeon.
    * @param percentageItems           The percentage of locations having items
+   * @param numOtyugh                 Number of otyughs in the dungeon
+   * @param numAboleth                Number of aboleths in the dungeon
+   * @param numThief                  Number of thieves in the dungeon
    * @throws IllegalArgumentException if rows, columns, degree of Interconnectivity
    *                                  or percentage of caves with treasure is invalid.
    */
@@ -95,8 +104,13 @@ public class DungeonModelImpl implements DungeonModel {
   }
 
   @Override
-  public LocationDescription getStartCave() {
-    return getLocation(startLocation.getPosition());
+  public int countAboleth() {
+    return locationGraph.countAboleth();
+  }
+
+  @Override
+  public int countThief() {
+    return locationGraph.countThief();
   }
 
   @Override
@@ -230,7 +244,7 @@ public class DungeonModelImpl implements DungeonModel {
 
   @Override
   public void moveAboleth() {
-    Aboleth currentAboleth = locationGraph.getAboleth(player.getLocation());
+    Monster currentAboleth = locationGraph.getAboleth(player.getLocation());
     if (currentAboleth != null) {
       status = currentAboleth.killPlayer();
     } else {
@@ -256,16 +270,6 @@ public class DungeonModelImpl implements DungeonModel {
   @Override
   public SmellLevel detectSmell() {
     return player.detectSmell();
-  }
-
-  @Override
-  public int countAboleth() {
-    return locationGraph.countAboleth();
-  }
-
-  @Override
-  public int countThief() {
-    return locationGraph.countThief();
   }
 
   private char checkSpecial(int row, int column) {

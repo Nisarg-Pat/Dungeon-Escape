@@ -40,7 +40,7 @@ interface LocationGraph {
 
   void moveAboleth();
 
-  Aboleth getAboleth(Location location);
+  Monster getAboleth(Location location);
 
   Thief getThief(Location newLocation);
 

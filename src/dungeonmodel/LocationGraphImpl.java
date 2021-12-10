@@ -19,6 +19,7 @@ import java.util.Queue;
  * Random locations are chosen to contain arrows.
  * Random caves are chosen to contain Otyughs.
  * An Otyugh will be present in the end cave.
+ * Location Graphs can contain a number of Aboleths and Thieves in it.
  * Visibility: Package - private
  */
 class LocationGraphImpl implements LocationGraph {
@@ -31,7 +32,7 @@ class LocationGraphImpl implements LocationGraph {
   private final int percentageItems;
   private int numOtyughs;
 
-  private final Aboleth[] aboleth;
+  private final Monster[] aboleth;
   private final Thief[] thief;
 
   protected LocationGraphImpl(int rows, int columns, boolean isWrapped,
@@ -304,6 +305,9 @@ class LocationGraphImpl implements LocationGraph {
 
   @Override
   public void addOtyughToCaves(int numOtyugh, Location startLocation, Location endLocation) {
+    if (startLocation == null || endLocation == null) {
+      throw new IllegalArgumentException("Start or end location cannot be null");
+    }
     List<Location> caves = getListOfCaves();
     caves.remove(endLocation);
     caves.remove(startLocation);
@@ -322,6 +326,9 @@ class LocationGraphImpl implements LocationGraph {
 
   @Override
   public void addAbolethToRandomLocation(Location startLocation) {
+    if (startLocation == null) {
+      throw new IllegalArgumentException("Start or end location cannot be null");
+    }
     List<Location> locations = getListOfLocations();
     locations.remove(startLocation);
     for (int i = 0; i < aboleth.length; i++) {
@@ -388,7 +395,10 @@ class LocationGraphImpl implements LocationGraph {
   }
 
   @Override
-  public Aboleth getAboleth(Location location) {
+  public Monster getAboleth(Location location) {
+    if (location == null) {
+      throw new IllegalArgumentException("Location cannot be null");
+    }
     for (int i = 0; i < aboleth.length; i++) {
       if (aboleth[i].getPosition() == location.getPosition() && aboleth[i].isAlive()) {
         return aboleth[i];
@@ -399,6 +409,9 @@ class LocationGraphImpl implements LocationGraph {
 
   @Override
   public Thief getThief(Location location) {
+    if (location == null) {
+      throw new IllegalArgumentException("Location cannot be null");
+    }
     for (int i = 0; i < thief.length; i++) {
       if (thief[i].getPosition() == location.getPosition()) {
         return thief[i];
@@ -409,6 +422,9 @@ class LocationGraphImpl implements LocationGraph {
 
   @Override
   public boolean stealTreasure(Player player) {
+    if (player == null) {
+      throw new IllegalArgumentException("Player cannot be null");
+    }
     if (player.getLocation().hasThief()) {
       Thief thief = getThief(player.getLocation());
       thief.steal(player);

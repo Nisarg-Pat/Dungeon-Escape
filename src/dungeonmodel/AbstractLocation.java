@@ -22,10 +22,10 @@ abstract class AbstractLocation implements Location {
   protected int numCrookedArrows;
   protected boolean visited;
   protected boolean hasKey;
-  private boolean hasAboleth;
+  protected boolean hasAboleth;
 
   protected AbstractLocation(int row, int column, Map<Direction, Location> connectedMap) {
-    if (row < 0 || column < 0) {
+    if (row < 0 || column < 0 || connectedMap == null) {
       throw new IllegalArgumentException("Invalid argument.");
     }
     this.position = new Position(row, column);
@@ -36,7 +36,7 @@ abstract class AbstractLocation implements Location {
 
   @Override
   public Position getPosition() {
-    return position;
+    return new Position(position.getRow(), position.getColumn());
   }
 
   @Override
