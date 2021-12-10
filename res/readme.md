@@ -118,7 +118,19 @@ GUI Mode:
     4. Click D or Kill Monster button to kill the Moving Monster.
     5. Click Open Door button to open the door. Requires a key.
 
-## Description of Examples
+## Description of Examples/Sample Images
+
+Sample Images are kept in res/sample_Images. Details of each image is as follows:
+
+1) sample_1.png: The intitial popup to setup dungeon.
+2) sample_2.png: The GUI just after starting the game.
+3) sample_3.png: Player getting eaten by Aboleth.
+4) sample_4.png: Player shooting and hitting an Otyugh.
+5) sample_5.png: Player reaching the end location and opening the door.
+6) sample_6.png: Thief stealing treasure from Player.
+7) sample_7.png: Player falling in a pit.
+8) sample_8.png: Trying to open door without Key.
+9) sample_9.png: Picking an Item
 
 ## Design Changes
 

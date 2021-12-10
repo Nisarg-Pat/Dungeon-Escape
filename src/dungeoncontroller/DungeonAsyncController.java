@@ -159,7 +159,7 @@ public class DungeonAsyncController implements DungeonController, Features {
       view.showString("Aboleth was killed.");
       view.refresh();
     } catch (IllegalArgumentException | IllegalStateException e) {
-      view.showErrorMessage(e.getMessage());
+      //Ignore the catches
     }
   }
 
