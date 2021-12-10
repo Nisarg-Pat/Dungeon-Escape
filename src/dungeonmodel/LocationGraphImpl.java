@@ -31,7 +31,7 @@ class LocationGraphImpl implements LocationGraph {
   private int degreeOfInterconnectivity;
   private final int percentageItems;
   private int numOtyughs;
-  private boolean requireKey;
+  private final boolean requireKey;
 
   private final Monster[] aboleth;
   private final Thief[] thief;
@@ -404,7 +404,7 @@ class LocationGraphImpl implements LocationGraph {
       throw new IllegalArgumentException("Location cannot be null");
     }
     for (int i = 0; i < aboleth.length; i++) {
-      if (aboleth[i].getPosition() == location.getPosition() && aboleth[i].isAlive()) {
+      if (aboleth[i].getPosition().equals(location.getPosition()) && aboleth[i].isAlive()) {
         return aboleth[i];
       }
     }
@@ -417,7 +417,7 @@ class LocationGraphImpl implements LocationGraph {
       throw new IllegalArgumentException("Location cannot be null");
     }
     for (int i = 0; i < thief.length; i++) {
-      if (thief[i].getPosition() == location.getPosition()) {
+      if (thief[i].getPosition().equals(location.getPosition())) {
         return thief[i];
       }
     }

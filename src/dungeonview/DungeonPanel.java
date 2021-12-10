@@ -74,33 +74,29 @@ class DungeonPanel extends JPanel {
           }
         }
         if (view.isVisibleMode()) {
-          if (location.containsAboleth()) {
-            g2d.setColor(Color.RED);
-            Position getCurrentPosition = Utilities.getPointPosition(location);
-            g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
-          }
-
+          Position getCurrentPosition = Utilities.getPointPosition(location);
           if (location.containsOtyugh()) {
             g2d.setColor(Color.DARK_GRAY);
-            Position getCurrentPosition = Utilities.getPointPosition(location);
             g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
           }
 
           if (location.containsThief()) {
             g2d.setColor(Color.ORANGE);
-            Position getCurrentPosition = Utilities.getPointPosition(location);
-            g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
-          }
-
-          if (location.hasKey()) {
-            g2d.setColor(Color.YELLOW);
-            Position getCurrentPosition = Utilities.getPointPosition(location);
             g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
           }
 
           if (location.getPosition().equals(model.getEndCave().getPosition())) {
             g2d.setColor(Color.BLUE);
-            Position getCurrentPosition = Utilities.getPointPosition(location);
+            g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
+          }
+
+          if (location.hasKey()) {
+            g2d.setColor(Color.YELLOW);
+            g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
+          }
+
+          if (location.containsAboleth()) {
+            g2d.setColor(Color.RED);
             g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
           }
         }
@@ -120,9 +116,7 @@ class DungeonPanel extends JPanel {
       @Override
       public void mouseClicked(MouseEvent e) {
         super.mouseClicked(e);
-        Position coordinates = getPositionFromClick(e.getX(), e.getY());
-        Position currentPosition = view.getModel().getCurrentLocation().getPosition();
-        Direction direction = getDirection(currentPosition, coordinates);
+        Direction direction = getDirection(view.getModel().getCurrentLocation().getPosition(), getPositionFromClick(e.getX(), e.getY()));
         if (direction != null) {
           features.movePlayer(direction);
           view.setShootMode(false);
@@ -136,24 +130,22 @@ class DungeonPanel extends JPanel {
     if (currentPosition == null || coordinates == null) {
       throw new IllegalArgumentException("CurrentPostion or Click Coordinates cannot be null");
     }
-    int totalRows = view.getModel().getRows();
-    int totalColumns = view.getModel().getColumns();
-    int rowdiff = (currentPosition.getRow() - coordinates.getRow());
-    if (Math.abs(rowdiff) == totalRows - 1) {
-      rowdiff = -(rowdiff) / Math.abs(rowdiff);
+    int rowDiff = (currentPosition.getRow() - coordinates.getRow());
+    if (Math.abs(rowDiff) == view.getModel().getRows() - 1) {
+      rowDiff = -(rowDiff) / Math.abs(rowDiff);
     }
-    int columndiff = currentPosition.getColumn() - coordinates.getColumn();
-    if (Math.abs(columndiff) == totalColumns - 1) {
-      columndiff = -(columndiff) / Math.abs(columndiff);
+    int columnDiff = currentPosition.getColumn() - coordinates.getColumn();
+    if (Math.abs(columnDiff) == view.getModel().getColumns() - 1) {
+      columnDiff = -(columnDiff) / Math.abs(columnDiff);
     }
-    if (Math.abs(rowdiff) + Math.abs(columndiff) == 1) {
-      if (rowdiff == 1) {
+    if (Math.abs(rowDiff) + Math.abs(columnDiff) == 1) {
+      if (rowDiff == 1) {
         return Direction.NORTH;
-      } else if (rowdiff == -1) {
+      } else if (rowDiff == -1) {
         return Direction.SOUTH;
-      } else if (columndiff == 1) {
+      } else if (columnDiff == 1) {
         return Direction.WEST;
-      } else if (columndiff == -1) {
+      } else if (columnDiff == -1) {
         return Direction.EAST;
       }
     }

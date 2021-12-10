@@ -29,9 +29,24 @@ public class DungeonAsyncController implements DungeonController, Features {
    */
   public DungeonAsyncController(DungeonView view) {
     if (view == null) {
-      throw new IllegalArgumentException("View cannot be null");
+      throw new IllegalArgumentException("View cannot be null.");
     }
     this.model = null; //Intentional
+    this.thread = null; //Intentional
+    this.view = view;
+  }
+
+  /**
+   * Constructor for {@link DungeonAsyncController}.
+   *
+   * @param model The DungeonModel for the controller.
+   * @param view  The DungeonView for the controller.
+   */
+  public DungeonAsyncController(DungeonModel model, DungeonView view) {
+    if (view == null || model == null) {
+      throw new IllegalArgumentException("View or Model cannot be null.");
+    }
+    this.model = model;
     this.thread = null; //Intentional
     this.view = view;
   }

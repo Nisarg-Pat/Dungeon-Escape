@@ -1,22 +1,13 @@
 package dungeonview;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Map;
 import java.util.Set;
 
 import dungeonmodel.Arrow;
 import dungeonmodel.Direction;
 import dungeonmodel.Item;
 import dungeonmodel.Key;
-import dungeonmodel.SmellLevel;
 import dungeonmodel.Treasure;
 import structureddata.LocationDescription;
-import structureddata.PlayerDescription;
 import structureddata.Position;
 
 
@@ -34,6 +25,9 @@ class Utilities {
   private final static int IMAGE_HEIGHT = 64;
 
   protected static String getImageName(Set<Direction> directionMap) {
+    if (directionMap == null) {
+      throw new IllegalArgumentException("directionMap cannot be null");
+    }
     StringBuilder sb = new StringBuilder("dungeonImages\\directions\\");
     if (directionMap.contains(Direction.NORTH)) {
       sb.append("N");
@@ -71,6 +65,9 @@ class Utilities {
   }
 
   protected static Position getPointPosition(LocationDescription location) {
+    if (location == null) {
+      throw new IllegalArgumentException("Location cannot be null");
+    }
     int row = location.getPosition().getRow() * IMAGE_HEIGHT + Y_SPACE + 32 - 8;
     int column = location.getPosition().getColumn() * IMAGE_WIDTH + X_SPACE + 32 - 8;
 
@@ -83,6 +80,9 @@ class Utilities {
   }
 
   protected static int[] getChanges(Set<Direction> directionSet) {
+    if (directionSet == null) {
+      throw new IllegalArgumentException("directionSet cannot be null");
+    }
     int[] changes = new int[2];
     if (directionSet.contains(Direction.NORTH) && directionSet.contains(Direction.EAST)) {
       changes[0] -= 9;

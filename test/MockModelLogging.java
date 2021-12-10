@@ -79,17 +79,17 @@ public class MockModelLogging implements DungeonModel {
 
   @Override
   public void moveAboleth() {
-
+    log.append("Move Aboleth called.\n");
   }
 
   @Override
   public void killMonster() {
-
+    log.append("Kill Monster called.\n");
   }
 
   @Override
   public void exitDungeon() {
-
+    log.append("Exit Dungeon called.\n");
   }
 
   @Override

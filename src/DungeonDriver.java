@@ -18,7 +18,7 @@ import dungeonview.DungeonView;
  * It creates a view and gives control to Controller.
  * It works as an interactive Game using MVC pattern.
  */
-public class SpringDriver {
+public class DungeonDriver {
 
   /**
    * Main() method to run the driver class.
