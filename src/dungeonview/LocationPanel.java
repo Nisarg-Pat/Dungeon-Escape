@@ -31,7 +31,7 @@ class LocationPanel extends JPanel {
 
   //Intentionally kept DungeonSwingView to tightly couple DungeonPopup with DungeonSwingView
   // and access protected methods of DungeonSwingView.
-  LocationPanel(DungeonSwingView view) {
+  protected LocationPanel(DungeonSwingView view) {
     if (view == null) {
       throw new IllegalArgumentException("View cannot be null");
     }

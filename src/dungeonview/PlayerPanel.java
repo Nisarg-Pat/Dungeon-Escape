@@ -43,7 +43,7 @@ class PlayerPanel extends JPanel {
 
   //Intentionally kept DungeonSwingView to tightly couple DungeonPopup with DungeonSwingView
   // and access protected methods of DungeonSwingView.
-  PlayerPanel(DungeonSwingView view) {
+  protected PlayerPanel(DungeonSwingView view) {
     if (view == null) {
       throw new IllegalArgumentException("View cannot be null");
     }

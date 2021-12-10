@@ -18,7 +18,7 @@ class TunnelThief implements Thief {
 
   private final Map<Treasure, Integer> stolenTreasure;
 
-  TunnelThief(Location location) {
+  protected TunnelThief(Location location) {
     if (location == null || location.isCave()) {
       throw new IllegalArgumentException("Location cannot be null or cave.");
     }

@@ -2,11 +2,18 @@ import dungeoncontroller.Features;
 import dungeonmodel.ReadOnlyDungeonModel;
 import dungeonview.DungeonView;
 
+/**
+ * A Mock Logging DungeonView to check if the input from controller is sent correctly to a view.
+ * Only purpose is for testing.
+ */
 public class MockViewLogging implements DungeonView {
 
   private final StringBuilder log;
 
   public MockViewLogging(StringBuilder log) {
+    if (log == null) {
+      throw new IllegalArgumentException("Log cannot be null.");
+    }
     this.log = log;
   }
 

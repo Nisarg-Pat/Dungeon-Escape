@@ -46,6 +46,8 @@ class Cave extends AbstractLocation {
 
   @Override
   public Monster getOtyugh() {
+    //Intentionally returning mutable Otyugh as it will be called from package-package codes only,
+    // thus otyugh's state is not exposed to user.
     return otyugh;
   }
 

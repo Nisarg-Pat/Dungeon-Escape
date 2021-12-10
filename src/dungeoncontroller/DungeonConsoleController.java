@@ -141,6 +141,9 @@ public class DungeonConsoleController implements DungeonController {
   }
 
   private void appendDirections(Set<Direction> directions) throws IOException {
+    if (directions == null) {
+      throw new IllegalArgumentException("Directions cannot be null.");
+    }
     List<Direction> possibleDirections = new ArrayList<>(directions);
     int totaldirections = possibleDirections.size();
     if (!directions.isEmpty()) {
@@ -154,6 +157,9 @@ public class DungeonConsoleController implements DungeonController {
   }
 
   private void appendLocationTreasures(Map<Treasure, Integer> treasureMap) throws IOException {
+    if (treasureMap == null) {
+      throw new IllegalArgumentException("treasureMap cannot be null.");
+    }
     if (!treasureMap.isEmpty()) {
       out.append("You find ");
       appendTreasures(treasureMap);
@@ -162,6 +168,9 @@ public class DungeonConsoleController implements DungeonController {
   }
 
   private void appendTreasures(Map<Treasure, Integer> treasureMap) throws IOException {
+    if (treasureMap == null) {
+      throw new IllegalArgumentException("treasureMap cannot be null.");
+    }
     List<Treasure> treasures = new ArrayList<>(treasureMap.keySet());
     for (int i = 0; i < treasures.size(); i++) {
       Treasure treasure = treasures.get(i);
@@ -211,6 +220,9 @@ public class DungeonConsoleController implements DungeonController {
   }
 
   private void appendPlayerTreasures(Map<Treasure, Integer> collectedTreasures) throws IOException {
+    if (collectedTreasures == null) {
+      throw new IllegalArgumentException("collectedTreasures cannot be null.");
+    }
     if (collectedTreasures.isEmpty()) {
       out.append("Player has not collected any treasures.\n");
     } else {

@@ -42,7 +42,7 @@ class DungeonMenuBar extends JMenuBar {
 
   //Intentionally kept DungeonSwingView to tightly couple DungeonPopup with DungeonSwingView
   // and access protected methods of DungeonSwingView.
-  DungeonMenuBar(DungeonSwingView view) {
+  protected DungeonMenuBar(DungeonSwingView view) {
     super();
     if (view == null) {
       throw new IllegalArgumentException("View cannot be null");

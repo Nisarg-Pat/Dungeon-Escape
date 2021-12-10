@@ -7,6 +7,7 @@ import dungeonview.DungeonView;
 /**
  * A new thread to move Aboleths independent of player movement.
  * Aboleths will move every 2 seconds.
+ * Visibility: package-private
  */
 class MoveAbolethThread implements Runnable {
 

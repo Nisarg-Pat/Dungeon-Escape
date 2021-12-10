@@ -20,6 +20,9 @@ public class MockModelLogging implements DungeonModel {
   private final StringBuilder log;
 
   public MockModelLogging(StringBuilder log) {
+    if (log == null) {
+      throw new IllegalArgumentException("Log cannot be null");
+    }
     this.log = log;
   }
 

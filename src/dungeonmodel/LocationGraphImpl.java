@@ -104,6 +104,9 @@ class LocationGraphImpl implements LocationGraph {
   }
 
   private void addEdge(List<Edge> edges, int row1, int column1, int row2, int column2) {
+    if (edges == null) {
+      throw new IllegalArgumentException("Edges cannot be null");
+    }
     if (isWrapped) {
       edges.add(new Edge(row1, column1, (row2 + rows) % rows, (column2 + columns) % columns));
     } else if (row2 >= 0 && row2 < rows && column2 >= 0 && column2 < columns) {
@@ -112,6 +115,9 @@ class LocationGraphImpl implements LocationGraph {
   }
 
   private List<Edge> shuffle(List<Edge> allEdges) {
+    if (allEdges == null) {
+      throw new IllegalArgumentException("Edges cannot be null");
+    }
     int totalEdges = allEdges.size();
     List<Edge> shuffledEdges = new ArrayList<>();
     while (!allEdges.isEmpty()) {
@@ -123,6 +129,9 @@ class LocationGraphImpl implements LocationGraph {
   }
 
   private void selectEdges(List<Edge> allEdges) {
+    if (allEdges == null) {
+      throw new IllegalArgumentException("Edges cannot be null");
+    }
     List<List<Position>> parent = new ArrayList<>();
     for (int i = 0; i < rows; i++) {
       parent.add(new ArrayList<>());
@@ -149,6 +158,9 @@ class LocationGraphImpl implements LocationGraph {
   }
 
   private void union(List<List<Position>> parent, Position x, Position y) {
+    if (parent == null) {
+      throw new IllegalArgumentException("Parent cannot be null");
+    }
     Position parent_a = find(parent, x);
     Position parent_b = find(parent, y);
     if (!parent_a.equals(parent_b)) {
@@ -157,6 +169,9 @@ class LocationGraphImpl implements LocationGraph {
   }
 
   private Position find(List<List<Position>> parent, Position a) {
+    if (parent == null) {
+      throw new IllegalArgumentException("Parent cannot be null");
+    }
     if (!parent.get(a.getRow()).get(a.getColumn()).equals(a)) {
       parent.get(a.getRow()).set(a.getColumn(),
               find(parent, parent.get(a.getRow()).get(a.getColumn())));
@@ -165,6 +180,9 @@ class LocationGraphImpl implements LocationGraph {
   }
 
   private void connectLocations(Position a, Position b) {
+    if (a == null || b == null) {
+      throw new IllegalArgumentException("Positions canno be null");
+    }
     location[a.getRow()][a.getColumn()] =
             location[a.getRow()][a.getColumn()].addPath(location[b.getRow()][b.getColumn()]);
     location[b.getRow()][b.getColumn()] =
@@ -271,6 +289,9 @@ class LocationGraphImpl implements LocationGraph {
   private void visitConnections(Position startPosition, boolean[][] visited,
                                 Queue<DistanceData<Position>> q,
                                 DistanceData<Position> distanceData, Position endPosition) {
+    if (startPosition == null || q == null || distanceData == null || endPosition == null) {
+      throw new IllegalArgumentException("Any of the prameters cannot be null");
+    }
     for (Location location :
             location[endPosition.getRow()][endPosition.getColumn()].getConnections().values()) {
       if (!visited[location.getPosition().getRow()][location.getPosition().getColumn()]) {
@@ -391,6 +412,9 @@ class LocationGraphImpl implements LocationGraph {
 
   @Override
   public int getDistance(Position first, Position second) {
+    if (first == null || second == null) {
+      throw new IllegalArgumentException("Positions cannot be null");
+    }
     boolean[][] visited = new boolean[rows][columns];
     Queue<DistanceData<Position>> q = new LinkedList<>();
     q.add(new DistanceData<>(first, first, 0));
