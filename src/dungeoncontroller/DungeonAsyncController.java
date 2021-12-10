@@ -74,22 +74,19 @@ public class DungeonAsyncController implements DungeonController, Features {
                   "The Otyugh in the cave is too weak to attack!\nGet out of here ASAP!!\n");
         }
         if (model.getCurrentLocation().hasPit()) {
-          Thread pitThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-              try {
-                model.setPlayerinPit(true);
-                view.showString("You are in a pit. It will take 5 seconds to come out.");
-                view.refresh();
-                Thread.sleep(5000);
-                model.setPlayerinPit(false);
-                if (model.getGameStatus() == GameStatus.GAME_CONTINUE) {
-                  view.showString("You are out of pit and can move freely.");
-                }
-                view.refresh();
-              } catch (InterruptedException e) {
-                //Ignore catch
+          Thread pitThread = new Thread(() -> {
+            try {
+              model.setPlayerinPit(true);
+              view.showString("You are in a pit. It will take 5 seconds to come out.");
+              view.refresh();
+              Thread.sleep(5000);
+              model.setPlayerinPit(false);
+              if (model.getGameStatus() == GameStatus.GAME_CONTINUE) {
+                view.showString("You are out of pit and can move freely.");
               }
+              view.refresh();
+            } catch (InterruptedException e) {
+              //Ignore catch
             }
           });
           pitThread.start();

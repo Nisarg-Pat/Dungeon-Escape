@@ -8,6 +8,10 @@ import dungeonview.DungeonView;
 
 import static org.junit.Assert.*;
 
+/**
+ * Tests to check the methods of {@link DungeonAsyncController}.
+ * Covers the test of construction fail and testing controller method calls in isolation.
+ */
 public class DungeonAsyncControllerTest {
 
   @Test

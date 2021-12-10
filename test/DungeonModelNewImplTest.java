@@ -15,6 +15,10 @@ import structureddata.Position;
 
 import static org.junit.Assert.*;
 
+/**
+ * Updated test cases to check the updated methods of {@link DungeonModel}. Covers all the different types of
+ * scenarios that could occur in a dungeon.
+ */
 public class DungeonModelNewImplTest {
 
   private DungeonModel model;
@@ -40,6 +44,14 @@ public class DungeonModelNewImplTest {
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Number of Thieves should be > 0",
+              e.getMessage());
+    }
+
+    try {
+      new DungeonModelImpl(6, 8, true, 20, 50, 1, 1, 5, -5, true);
+      fail();
+    } catch (IllegalArgumentException e) {
+      assertEquals("Number of Pits should be >= 0",
               e.getMessage());
     }
   }
