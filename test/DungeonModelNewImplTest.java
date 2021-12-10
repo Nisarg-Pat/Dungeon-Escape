@@ -17,9 +17,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
 /**
- * Updated test cases to check the updated methods of {@link DungeonModel}. Covers all the different types of
- * scenarios that could occur in a dungeon.
+ * Updated test cases to check the updated methods of {@link DungeonModel}.
+ * Covers all the different types of scenarios that could occur in a dungeon.
  */
 public class DungeonModelNewImplTest {
 
@@ -60,19 +61,19 @@ public class DungeonModelNewImplTest {
 
   @Test
   public void testStealTreasure() {
-    assertEquals("                                                            \n" +
-            "    ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( )    \n" +
-            "     |      |      |      |                    |            \n" +
-            "    ( ) —— ( ) —— ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
-            "            |             |      |      |                   \n" +
-            "    ( )    ( ) —— (P) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
-            "     |             |                    |             |     \n" +
-            "    ( )    ( ) —— ( ) —— ( )    ( ) —— ( ) —— (&) —— ( )    \n" +
-            "     |      |             |      |      |      |      |     \n" +
-            "    ( ) —— ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( ) —— ( )    \n" +
-            "     |      |      |      |      |      |      |            \n" +
-            "    ( ) —— ( ) —— ( )    ( ) —— ( )    ( ) —— ( ) —— ( )    \n" +
-            "                                                            \n", model.printDungeon());
+    assertEquals("                                                            \n"
+                    + "    ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( )    \n"
+                    + "     |      |      |      |                    |            \n"
+                    + "    ( ) —— ( ) —— ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    \n"
+                    + "            |             |      |      |                   \n"
+                    + "    ( )    ( ) —— (P) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n"
+                    + "     |             |                    |             |     \n"
+                    + "    ( )    ( ) —— ( ) —— ( )    ( ) —— ( ) —— (&) —— ( )    \n"
+                    + "     |      |             |      |      |      |      |     \n"
+                    + "    ( ) —— ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( ) —— ( )    \n"
+                    + "     |      |      |      |      |      |      |            \n"
+                    + "    ( ) —— ( ) —— ( )    ( ) —— ( )    ( ) —— ( ) —— ( )    \n"
+                    + "                                                            \n", model.printDungeon());
 
 
     model.movePlayer(Direction.SOUTH);
@@ -125,19 +126,19 @@ public class DungeonModelNewImplTest {
 
   @Test
   public void testStealNoTreasure() {
-    assertEquals("                                                            \n" +
-            "    ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( )    \n" +
-            "     |      |      |      |                    |            \n" +
-            "    ( ) —— ( ) —— ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
-            "            |             |      |      |                   \n" +
-            "    ( )    ( ) —— (P) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
-            "     |             |                    |             |     \n" +
-            "    ( )    ( ) —— ( ) —— ( )    ( ) —— ( ) —— (&) —— ( )    \n" +
-            "     |      |             |      |      |      |      |     \n" +
-            "    ( ) —— ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( ) —— ( )    \n" +
-            "     |      |      |      |      |      |      |            \n" +
-            "    ( ) —— ( ) —— ( )    ( ) —— ( )    ( ) —— ( ) —— ( )    \n" +
-            "                                                            \n", model.printDungeon());
+    assertEquals("                                                            \n"
+            + "    ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( )    \n"
+            + "     |      |      |      |                    |            \n"
+            + "    ( ) —— ( ) —— ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    \n"
+            + "            |             |      |      |                   \n"
+            + "    ( )    ( ) —— (P) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n"
+            + "     |             |                    |             |     \n"
+            + "    ( )    ( ) —— ( ) —— ( )    ( ) —— ( ) —— (&) —— ( )    \n"
+            + "     |      |             |      |      |      |      |     \n"
+            + "    ( ) —— ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( ) —— ( )    \n"
+            + "     |      |      |      |      |      |      |            \n"
+            + "    ( ) —— ( ) —— ( )    ( ) —— ( )    ( ) —— ( ) —— ( )    \n"
+            + "                                                            \n", model.printDungeon());
 
 
     model.movePlayer(Direction.SOUTH);
@@ -167,19 +168,19 @@ public class DungeonModelNewImplTest {
 
   @Test
   public void moveAboleth() {
-    assertEquals("                                                            \n" +
-            "    ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( )    \n" +
-            "     |      |      |      |                    |            \n" +
-            "    ( ) —— ( ) —— ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
-            "            |             |      |      |                   \n" +
-            "    ( )    ( ) —— (P) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
-            "     |             |                    |             |     \n" +
-            "    ( )    ( ) —— ( ) —— ( )    ( ) —— ( ) —— (&) —— ( )    \n" +
-            "     |      |             |      |      |      |      |     \n" +
-            "    ( ) —— ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( ) —— ( )    \n" +
-            "     |      |      |      |      |      |      |            \n" +
-            "    ( ) —— ( ) —— ( )    ( ) —— ( )    ( ) —— ( ) —— ( )    \n" +
-            "                                                            \n", model.printDungeon());
+    assertEquals("                                                            \n"
+            + "    ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( )    \n"
+            + "     |      |      |      |                    |            \n"
+            + "    ( ) —— ( ) —— ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    \n"
+            + "            |             |      |      |                   \n"
+            + "    ( )    ( ) —— (P) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n"
+            + "     |             |                    |             |     \n"
+            + "    ( )    ( ) —— ( ) —— ( )    ( ) —— ( ) —— (&) —— ( )    \n"
+            + "     |      |             |      |      |      |      |     \n"
+            + "    ( ) —— ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( ) —— ( )    \n"
+            + "     |      |      |      |      |      |      |            \n"
+            + "    ( ) —— ( ) —— ( )    ( ) —— ( )    ( ) —— ( ) —— ( )    \n"
+            + "                                                            \n", model.printDungeon());
 
     assertTrue(model.getLocation(new Position(3, 5)).containsAboleth());
     model.moveAboleth();
@@ -203,19 +204,19 @@ public class DungeonModelNewImplTest {
 
   @Test
   public void killMonster() {
-    assertEquals("                                                            \n" +
-            "    ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( )    \n" +
-            "     |      |      |      |                    |            \n" +
-            "    ( ) —— ( ) —— ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
-            "            |             |      |      |                   \n" +
-            "    ( )    ( ) —— (P) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
-            "     |             |                    |             |     \n" +
-            "    ( )    ( ) —— ( ) —— ( )    ( ) —— ( ) —— (&) —— ( )    \n" +
-            "     |      |             |      |      |      |      |     \n" +
-            "    ( ) —— ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( ) —— ( )    \n" +
-            "     |      |      |      |      |      |      |            \n" +
-            "    ( ) —— ( ) —— ( )    ( ) —— ( )    ( ) —— ( ) —— ( )    \n" +
-            "                                                            \n", model.printDungeon());
+    assertEquals("                                                            \n"
+            + "    ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( )    \n"
+            + "     |      |      |      |                    |            \n"
+            + "    ( ) —— ( ) —— ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    \n"
+            + "            |             |      |      |                   \n"
+            + "    ( )    ( ) —— (P) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n"
+            + "     |             |                    |             |     \n"
+            + "    ( )    ( ) —— ( ) —— ( )    ( ) —— ( ) —— (&) —— ( )    \n"
+            + "     |      |             |      |      |      |      |     \n"
+            + "    ( ) —— ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( ) —— ( )    \n"
+            + "     |      |      |      |      |      |      |            \n"
+            + "    ( ) —— ( ) —— ( )    ( ) —— ( )    ( ) —— ( ) —— ( )    \n"
+            + "                                                            \n", model.printDungeon());
 
     assertTrue(model.getLocation(new Position(3, 5)).containsAboleth());
     model.moveAboleth();
@@ -239,19 +240,19 @@ public class DungeonModelNewImplTest {
 
   @Test
   public void openDoorWithoutKey() {
-    assertEquals("                                                            \n" +
-            "    ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( )    \n" +
-            "     |      |      |      |                    |            \n" +
-            "    ( ) —— ( ) —— ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
-            "            |             |      |      |                   \n" +
-            "    ( )    ( ) —— (P) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
-            "     |             |                    |             |     \n" +
-            "    ( )    ( ) —— ( ) —— ( )    ( ) —— ( ) —— (&) —— ( )    \n" +
-            "     |      |             |      |      |      |      |     \n" +
-            "    ( ) —— ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( ) —— ( )    \n" +
-            "     |      |      |      |      |      |      |            \n" +
-            "    ( ) —— ( ) —— ( )    ( ) —— ( )    ( ) —— ( ) —— ( )    \n" +
-            "                                                            \n", model.printDungeon());
+    assertEquals("                                                            \n"
+            + "    ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( )    \n"
+            + "     |      |      |      |                    |            \n"
+            + "    ( ) —— ( ) —— ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    \n"
+            + "            |             |      |      |                   \n"
+            + "    ( )    ( ) —— (P) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n"
+            + "     |             |                    |             |     \n"
+            + "    ( )    ( ) —— ( ) —— ( )    ( ) —— ( ) —— (&) —— ( )    \n"
+            + "     |      |             |      |      |      |      |     \n"
+            + "    ( ) —— ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( ) —— ( )    \n"
+            + "     |      |      |      |      |      |      |            \n"
+            + "    ( ) —— ( ) —— ( )    ( ) —— ( )    ( ) —— ( ) —— ( )    \n"
+            + "                                                            \n", model.printDungeon());
 
     model.movePlayer(Direction.SOUTH);
     model.movePlayer(Direction.EAST);
@@ -276,19 +277,19 @@ public class DungeonModelNewImplTest {
 
   @Test
   public void openDoorWithKey() {
-    assertEquals("                                                            \n" +
-            "    ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( )    \n" +
-            "     |      |      |      |                    |            \n" +
-            "    ( ) —— ( ) —— ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
-            "            |             |      |      |                   \n" +
-            "    ( )    ( ) —— (P) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
-            "     |             |                    |             |     \n" +
-            "    ( )    ( ) —— ( ) —— ( )    ( ) —— ( ) —— (&) —— ( )    \n" +
-            "     |      |             |      |      |      |      |     \n" +
-            "    ( ) —— ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( ) —— ( )    \n" +
-            "     |      |      |      |      |      |      |            \n" +
-            "    ( ) —— ( ) —— ( )    ( ) —— ( )    ( ) —— ( ) —— ( )    \n" +
-            "                                                            \n", model.printDungeon());
+    assertEquals("                                                            \n"
+            + "    ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( )    \n"
+            + "     |      |      |      |                    |            \n"
+            + "    ( ) —— ( ) —— ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    \n"
+            + "            |             |      |      |                   \n"
+            + "    ( )    ( ) —— (P) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n"
+            + "     |             |                    |             |     \n"
+            + "    ( )    ( ) —— ( ) —— ( )    ( ) —— ( ) —— (&) —— ( )    \n"
+            + "     |      |             |      |      |      |      |     \n"
+            + "    ( ) —— ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( ) —— ( )    \n"
+            + "     |      |      |      |      |      |      |            \n"
+            + "    ( ) —— ( ) —— ( )    ( ) —— ( )    ( ) —— ( ) —— ( )    \n"
+            + "                                                            \n", model.printDungeon());
 
     model.movePlayer(Direction.WEST);
     model.movePlayer(Direction.NORTH);
@@ -324,19 +325,19 @@ public class DungeonModelNewImplTest {
     RandomImpl.setSeed(0);
     model = new DungeonModelImpl(6, 8, false, 10, 50, 1, 1, 1, 1, true);
 
-    assertEquals("                                                            \n" +
-            "    ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( )    \n" +
-            "     |      |      |      |                    |            \n" +
-            "    ( ) —— ( ) —— ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
-            "            |             |      |      |                   \n" +
-            "    ( )    ( ) —— (P) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
-            "     |             |                    |             |     \n" +
-            "    ( )    ( ) —— ( ) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
-            "     |      |             |      |      |      |      |     \n" +
-            "    ( ) —— ( ) —— ( ) —— ( ) —— ( )    (&) —— ( ) —— ( )    \n" +
-            "     |      |      |      |      |      |      |            \n" +
-            "    ( ) —— ( ) —— ( )    ( ) —— ( )    ( ) —— ( ) —— ( )    \n" +
-            "                                                            \n", model.printDungeon());
+    assertEquals("                                                            \n"
+            + "    ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( )    \n"
+            + "     |      |      |      |                    |            \n"
+            + "    ( ) —— ( ) —— ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    \n"
+            + "            |             |      |      |                   \n"
+            + "    ( )    ( ) —— (P) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n"
+            + "     |             |                    |             |     \n"
+            + "    ( )    ( ) —— ( ) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n"
+            + "     |      |             |      |      |      |      |     \n"
+            + "    ( ) —— ( ) —— ( ) —— ( ) —— ( )    (&) —— ( ) —— ( )    \n"
+            + "     |      |      |      |      |      |      |            \n"
+            + "    ( ) —— ( ) —— ( )    ( ) —— ( )    ( ) —— ( ) —— ( )    \n"
+            + "                                                            \n", model.printDungeon());
 
     model.movePlayer(Direction.WEST);
     model.movePlayer(Direction.NORTH);

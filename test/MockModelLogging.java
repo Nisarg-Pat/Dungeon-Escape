@@ -20,7 +20,7 @@ public class MockModelLogging implements DungeonModel {
   private final StringBuilder log;
 
   /**
-   * Contructor for MockModelLogging
+   * Constructor for MockModelLogging.
    * @param log The StringBuilder for Logging
    */
   public MockModelLogging(StringBuilder log) {

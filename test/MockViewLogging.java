@@ -11,7 +11,7 @@ public class MockViewLogging implements DungeonView {
   private final StringBuilder log;
 
   /**
-   * Contructor for MockViewLogging
+   * Constructor for MockViewLogging.
    * @param log The StringBuilder for Logging
    */
   public MockViewLogging(StringBuilder log) {

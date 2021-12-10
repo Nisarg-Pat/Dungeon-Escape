@@ -40,28 +40,29 @@ public class DungeonAsyncControllerTest {
     controller.exitDungeon();
     controller.createNewModel(6, 8, false, 10, 50, 1, 1, 1, 0);
     controller.resetModel();
-    assertEquals("Move: North\n" +
-            "Pick: DOOR_KEY\n" +
-            "Shoot: Direction = North, Distance = 1\n" +
-            "Kill Monster called.\n" +
-            "Exit Dungeon called.\n", modelLog.toString());
-    assertEquals("setFeatures called\n" +
-            "makeVisible called\n" +
-            "showString called for: \n" +
-            "refresh called\n" +
-            "playSound called for: res\\dungeonSounds\\treasure_pick.wav\n" +
-            "showString called for: Picked Key.\n" +
-            "refresh called\n" +
-            "showString called for: You shoot an arrow into the darkness.\n" +
-            "refresh called\n" +
-            "showString called for: Aboleth was killed.\n" +
-            "refresh called\n" +
-            "playSound called for: res\\dungeonSounds\\win.wav\n" +
-            "showString called for: Congrats, you reached the end location.\n" +
-            "refresh called\n" +
-            "setModel called\n" +
-            "refresh called\n" +
-            "setModel called\n" +
-            "refresh called\n", viewLog.toString());
+    assertEquals("Move: North\n"
+            + "Pick: DOOR_KEY\n"
+            + "Shoot: Direction = North, Distance = 1\n"
+            + "Kill Monster called.\n"
+            + "Exit Dungeon called.\n", modelLog.toString());
+
+    assertEquals("setFeatures called\n"
+            + "makeVisible called\n"
+            + "showString called for: \n"
+            + "refresh called\n"
+            + "playSound called for: res\\dungeonSounds\\treasure_pick.wav\n"
+            + "showString called for: Picked Key.\n"
+            + "refresh called\n"
+            + "showString called for: You shoot an arrow into the darkness.\n"
+            + "refresh called\n"
+            + "showString called for: Aboleth was killed.\n"
+            + "refresh called\n"
+            + "playSound called for: res\\dungeonSounds\\win.wav\n"
+            + "showString called for: Congrats, you reached the end location.\n"
+            + "refresh called\n"
+            + "setModel called\n"
+            + "refresh called\n"
+            + "setModel called\n"
+            + "refresh called\n", viewLog.toString());
   }
 }
