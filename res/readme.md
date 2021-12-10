@@ -81,7 +81,10 @@ The game can be played in 2 modes: Console mode and GUI mode.
 3) Use the following command for console mode: java -jar Project05.jar rows columns isWrapped degree
    percentage numOtyughs.
 4) example-> java -jar Project05.jar 6 8 false 10 50 10
-5) Use the following command for GUI mode: java -jar Project05.jar
+5) Use the following command for GUI mode from the main folder: java -jar res\Project05.jar NOTE:
+   Due to the dependencies on Images and Sounds, it is required to run the command from the base
+   folder and not res folder. Calling Project05.jar from res folder will not work as it will not
+   load images and sounds.
 
 ## How to Use
 

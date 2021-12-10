@@ -19,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -177,7 +178,6 @@ public class DungeonSwingView extends JFrame implements DungeonView {
         if (e.getKeyCode() == KeyEvent.VK_D) {
           features.killMonster();
         }
-        showString("");
       }
 
       @Override
