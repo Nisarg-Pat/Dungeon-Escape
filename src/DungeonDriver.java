@@ -1,19 +1,19 @@
-import java.io.InputStreamReader;
-
 import dungeoncontroller.DungeonAsyncController;
-import dungeoncontroller.DungeonController;
 import dungeoncontroller.DungeonConsoleController;
+import dungeoncontroller.DungeonController;
 import dungeonmodel.DungeonModel;
 import dungeonmodel.DungeonModelImpl;
 import dungeonview.DungeonSwingView;
 import dungeonview.DungeonView;
 
+import java.io.InputStreamReader;
+
+
 /**
  * A Driver class to create one run of program.
  * If command line arguments are present:
  * It creates a Model and gives control to Controller.
- * It takes input from System.in and gives output at System.out
- * <p>
+ * It takes input from System.in and gives output at System.out.
  * If command line arguments are not present:
  * It creates a view and gives control to Controller.
  * It works as an interactive Game using MVC pattern.
@@ -23,7 +23,8 @@ public class DungeonDriver {
   /**
    * Main() method to run the driver class.
    *
-   * @param args arguments for main method. Should be 6 arguments if using Console based game, 0 otherwise.
+   * @param args arguments for main method. Should be 6 arguments if using Console based game,
+   *             0 otherwise.
    *             rows: Number of rows in the dungeon. Should be at least 6.
    *             columns: Number of Columns in the dungeon. Should be at least 6.
    *             isWrapped: Whether the dungeon is wrapped around its end

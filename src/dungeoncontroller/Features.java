@@ -1,7 +1,6 @@
 package dungeoncontroller;
 
 import dungeonmodel.Direction;
-import dungeonmodel.HitStatus;
 import dungeonmodel.Item;
 
 /**
@@ -67,7 +66,7 @@ public interface Features {
   void killMonster();
 
   /**
-   * Exits the dungeon and win the game
+   * Exits the dungeon and win the game.
    */
   void exitDungeon();
 }

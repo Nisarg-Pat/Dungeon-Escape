@@ -1,17 +1,16 @@
 package dungeonmodel;
 
+import random.RandomImpl;
+import structureddata.Position;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import random.RandomImpl;
-import structureddata.Position;
-
 /**
  * Tunnel thief representation in which thief resides in tunnels of the dungeon.
  * After stealing from the player, thief can relocate to a different tunnel.
- * <p>
  * visibility: package-private
  */
 class TunnelThief implements Thief {
@@ -38,7 +37,8 @@ class TunnelThief implements Thief {
       int index = RandomImpl.getIntInRange(0, treasures.size() - 1);
       Treasure treasure = treasures.get(index);
       int removedTreasure = player.removeTreasure(treasure, 5);
-      stolenTreasure.put(treasures.get(index), stolenTreasure.getOrDefault(treasure, 0) + removedTreasure);
+      stolenTreasure.put(treasures.get(index),
+              stolenTreasure.getOrDefault(treasure, 0) + removedTreasure);
     }
   }
 

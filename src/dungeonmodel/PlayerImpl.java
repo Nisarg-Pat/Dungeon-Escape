@@ -96,7 +96,7 @@ class PlayerImpl implements Player {
 
   @Override
   public void killMonster(Monster aboleth) {
-    if(aboleth == null) {
+    if (aboleth == null) {
       throw new IllegalArgumentException("Aboleth is null.");
     }
     if (currentLocation.getPosition().equals(aboleth.getPosition())) {
@@ -133,7 +133,7 @@ class PlayerImpl implements Player {
       return 0;
     }
     int finalAmount = Math.max(0, initialAmount - maxAmount);
-    if(finalAmount == 0) {
+    if (finalAmount == 0) {
       collectedTreasures.remove(treasure);
     } else {
       collectedTreasures.put(treasure, finalAmount);

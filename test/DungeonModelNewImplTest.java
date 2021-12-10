@@ -1,20 +1,15 @@
-import com.sun.source.tree.Tree;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Map;
 import java.util.TreeMap;
 
-import dungeoncontroller.DungeonAsyncController;
-import dungeoncontroller.DungeonConsoleController;
 import dungeonmodel.Direction;
 import dungeonmodel.DungeonModel;
 import dungeonmodel.DungeonModelImpl;
 import dungeonmodel.GameStatus;
 import dungeonmodel.Key;
 import dungeonmodel.Treasure;
-import dungeonview.DungeonView;
 import random.RandomImpl;
 import structureddata.Position;
 

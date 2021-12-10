@@ -38,7 +38,8 @@ class LocationGraphImpl implements LocationGraph {
   private final Thief[] thief;
 
   protected LocationGraphImpl(int rows, int columns, boolean isWrapped,
-                              int degree, int percentageItems, int numAboleth, int numThief, int numPits, boolean requireKey) {
+                              int degree, int percentageItems, int numAboleth,
+                              int numThief, int numPits, boolean requireKey) {
     checkArguments(rows, columns, degree, percentageItems, numAboleth, numThief, numPits);
     this.rows = rows;
     this.columns = columns;
@@ -63,7 +64,8 @@ class LocationGraphImpl implements LocationGraph {
   }
 
   private void checkArguments(int rows, int columns,
-                              int degreeOfInterconnectivity, int percentageCavesWithTreasure, int numAboleth, int numThief, int numPits) {
+                              int degreeOfInterconnectivity, int percentageCavesWithTreasure,
+                              int numAboleth, int numThief, int numPits) {
     if (rows < 6 || columns < 6) {
       throw new IllegalArgumentException("Rows and columns should be minimum 6.");
     } else if (degreeOfInterconnectivity < 0) {

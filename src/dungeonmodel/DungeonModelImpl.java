@@ -58,7 +58,8 @@ public class DungeonModelImpl implements DungeonModel {
    */
   public DungeonModelImpl(int rows, int columns, boolean isWrapped,
                           int degreeOfInterconnectivity, int percentageItems,
-                          int numOtyugh, int numAboleth, int numThief, int numPits, boolean requireKey) {
+                          int numOtyugh, int numAboleth, int numThief,
+                          int numPits, boolean requireKey) {
     if (numOtyugh <= 0) {
       throw new IllegalArgumentException("Number of Otyugh should be atleast 1.");
     }
@@ -93,7 +94,8 @@ public class DungeonModelImpl implements DungeonModel {
   public DungeonModelImpl(int rows, int columns, boolean isWrapped,
                           int degreeOfInterconnectivity, int percentageItems,
                           int numOtyugh) {
-    this(rows, columns, isWrapped, degreeOfInterconnectivity, percentageItems, numOtyugh, 0, 0, 0, false);
+    this(rows, columns, isWrapped, degreeOfInterconnectivity, percentageItems, numOtyugh,
+            0, 0, 0, false);
   }
 
   @Override
@@ -160,7 +162,8 @@ public class DungeonModelImpl implements DungeonModel {
     return new LocationDescription(location.getConnections().keySet(),
             location.getTreasureMap(), location.getPosition(),
             location.countArrows(), location.isCave(), location.containsOtyugh(),
-            location.isVisited(), location.hasAboleth(), location.hasKey(), location.hasThief(), location.hasPit(), location.hasPitNearby());
+            location.isVisited(), location.hasAboleth(), location.hasKey(), location.hasThief(),
+            location.hasPit(), location.hasPitNearby());
   }
 
   @Override
@@ -175,7 +178,7 @@ public class DungeonModelImpl implements DungeonModel {
     if (direction == null) {
       throw new IllegalArgumentException("Direction cannot be null");
     }
-    if(player.isFallenInPit()) {
+    if (player.isFallenInPit()) {
       throw new IllegalStateException("You are in a pit. It will take 5 seconds to come out.");
     }
     Location newLocation = player.movePlayer(direction);
@@ -192,7 +195,7 @@ public class DungeonModelImpl implements DungeonModel {
   @Override
   public void pickItem(Item item) {
     checkGameStatus();
-    if(player.isFallenInPit()) {
+    if (player.isFallenInPit()) {
       throw new IllegalStateException("You are in a pit. It will take 5 seconds to come out.");
     }
     if (item == Arrow.CROOKED_ARROW) {
@@ -215,7 +218,7 @@ public class DungeonModelImpl implements DungeonModel {
   @Override
   public HitStatus shoot(Direction direction, int distance) {
     checkGameStatus();
-    if(player.isFallenInPit()) {
+    if (player.isFallenInPit()) {
       throw new IllegalStateException("You are in a pit. It will take 5 seconds to come out.");
     }
     return player.shootArrow(direction, distance);
@@ -294,7 +297,7 @@ public class DungeonModelImpl implements DungeonModel {
   @Override
   public void killMonster() {
     checkGameStatus();
-    if(player.isFallenInPit()) {
+    if (player.isFallenInPit()) {
       throw new IllegalStateException("You are in a pit. It will take 5 seconds to come out.");
     }
     player.killMonster(locationGraph.getAboleth(player.getLocation()));
@@ -302,14 +305,14 @@ public class DungeonModelImpl implements DungeonModel {
 
   @Override
   public void setPlayerinPit(boolean pit) {
-    if(player.getLocation().hasPit()) {
+    if (player.getLocation().hasPit()) {
       player.setFallenInPit(pit);
     }
   }
 
   @Override
   public void exitDungeon() {
-    if(player.isFallenInPit()) {
+    if (player.isFallenInPit()) {
       throw new IllegalStateException("You are in a pit. It will take 5 seconds to come out.");
     }
     if (player.hasKey()) {

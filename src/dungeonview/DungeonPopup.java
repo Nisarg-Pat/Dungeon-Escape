@@ -1,15 +1,22 @@
 package dungeonview;
 
+import dungeoncontroller.Features;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-import javax.swing.*;
-
-import dungeoncontroller.Features;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  * A popup to set up the Dungeon Model. It can be used to start a new game.
@@ -31,7 +38,6 @@ class DungeonPopup extends JFrame {
   private final JTextField thiefInputField;
   private final JTextField pitInputField;
   private final JRadioButton isWrappedTrue;
-  private final JRadioButton isWrappedFalse;
 
   //Intentionally kept DungeonSwingView to tightly couple DungeonPopup with DungeonSwingView
   // and access protected methods of the view.
@@ -85,7 +91,7 @@ class DungeonPopup extends JFrame {
     textArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
     isWrappedPanel.add(textArea);
     isWrappedTrue = new JRadioButton("Yes");
-    isWrappedFalse = new JRadioButton("No");
+    JRadioButton isWrappedFalse = new JRadioButton("No");
     boolean isWrapped = view.hasModel() && view.getModel().getWrapped();
     if (isWrapped) {
       isWrappedTrue.setSelected(true);
@@ -224,7 +230,8 @@ class DungeonPopup extends JFrame {
           JOptionPane.showMessageDialog(this, "Enter valid details!");
         } else {
           features.createNewModel(rows, columns, isWrapped,
-                  degreeOfInterconnectivity, percentageItems, numOtyughs, numAboleth, numThief, numPits);
+                  degreeOfInterconnectivity, percentageItems, numOtyughs,
+                  numAboleth, numThief, numPits);
           this.setVisible(false);
           view.setSizes(rows, columns);
           view.setVisible(true);

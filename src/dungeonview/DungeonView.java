@@ -1,7 +1,6 @@
 package dungeonview;
 
 import dungeoncontroller.Features;
-import dungeonmodel.DungeonModel;
 import dungeonmodel.ReadOnlyDungeonModel;
 
 /**

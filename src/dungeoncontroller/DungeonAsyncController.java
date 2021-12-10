@@ -70,9 +70,10 @@ public class DungeonAsyncController implements DungeonController, Features {
           view.showString("The thief in tunnel stole some treasure and ran away.");
         }
         if (model.getCurrentLocation().containsOtyugh()) {
-          view.showString("The Otyugh in the cave is too weak to attack!\nGet out of here ASAP!!\n");
+          view.showString(
+                  "The Otyugh in the cave is too weak to attack!\nGet out of here ASAP!!\n");
         }
-        if(model.getCurrentLocation().hasPit()) {
+        if (model.getCurrentLocation().hasPit()) {
           Thread pitThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -82,7 +83,7 @@ public class DungeonAsyncController implements DungeonController, Features {
                 view.refresh();
                 Thread.sleep(5000);
                 model.setPlayerinPit(false);
-                if(model.getGameStatus() == GameStatus.GAME_CONTINUE) {
+                if (model.getGameStatus() == GameStatus.GAME_CONTINUE) {
                   view.showString("You are out of pit and can move freely.");
                 }
                 view.refresh();
@@ -182,19 +183,24 @@ public class DungeonAsyncController implements DungeonController, Features {
 
   @Override
   public void createNewModel(int rows, int columns, boolean isWrapped,
-                             int degree, int percentageItems, int numOtyugh, int numAboleth, int numThief, int numPits) {
+                             int degree, int percentageItems, int numOtyugh,
+                             int numAboleth, int numThief, int numPits) {
     RandomImpl.setSeed(RandomImpl.getIntInRange(0, 1000));
-    createModel(rows, columns, isWrapped, degree, percentageItems, numOtyugh, numAboleth, numThief, numPits);
+    createModel(rows, columns, isWrapped, degree, percentageItems, numOtyugh,
+            numAboleth, numThief, numPits);
   }
 
   @Override
   public void resetModel() {
     RandomImpl.setSeed(RandomImpl.getSeed());
     createModel(model.getRows(), model.getColumns(), model.getWrapped(),
-            model.getDegree(), model.getPercentageItems(), model.countOtyughs(), model.countAboleth(), model.countThief(), model.countPits());
+            model.getDegree(), model.getPercentageItems(), model.countOtyughs(),
+            model.countAboleth(), model.countThief(), model.countPits());
   }
 
-  private void createModel(int rows, int columns, boolean isWrapped, int degree, int percentageItems, int numOtyugh, int numAboleth, int numThief, int numPits) {
+  private void createModel(int rows, int columns, boolean isWrapped, int degree,
+                           int percentageItems, int numOtyugh, int numAboleth,
+                           int numThief, int numPits) {
     if (thread != null) {
       thread.stop();
     }

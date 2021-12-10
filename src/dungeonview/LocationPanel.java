@@ -1,15 +1,5 @@
 package dungeonview;
 
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
-import dungeoncontroller.Features;
 import dungeonmodel.Arrow;
 import dungeonmodel.Item;
 import dungeonmodel.Key;
@@ -17,10 +7,21 @@ import dungeonmodel.SmellLevel;
 import dungeonmodel.Treasure;
 import structureddata.LocationDescription;
 
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
 /**
  * A panel to show the details of the current location of player along with the items present,
  * any smell or any monster in the location.
- *
  * Visibility: package-private
  */
 class LocationPanel extends JPanel {
@@ -51,7 +52,8 @@ class LocationPanel extends JPanel {
     Map<Treasure, Integer> treasureMap = currentLocation.getTreasureMap();
 
     try {
-      Image image = new ImageIcon(Utilities.getImageName(currentLocation.getPossibleDirections())).getImage();
+      Image image = new ImageIcon(
+              Utilities.getImageName(currentLocation.getPossibleDirections())).getImage();
       g2d.drawImage(image, 50, 50, 192, 192, this);
       SmellLevel level = view.getModel().detectSmell();
       if (level == SmellLevel.MORE_PUNGENT || currentLocation.containsOtyugh()) {

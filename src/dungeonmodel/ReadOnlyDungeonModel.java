@@ -123,7 +123,7 @@ public interface ReadOnlyDungeonModel {
   SmellLevel detectSmell();
 
   /**
-   * Gives the number of pits in the dungeon
+   * Gives the number of pits in the dungeon.
    *
    * @return the number of pits in the dungeon
    */

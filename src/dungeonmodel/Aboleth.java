@@ -1,10 +1,10 @@
 package dungeonmodel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import random.RandomImpl;
 import structureddata.Position;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Aboleth Monster that resides in dungeon.
@@ -17,7 +17,7 @@ class Aboleth implements Monster {
   private int health;
 
   protected Aboleth(Location location) {
-    if(location == null) {
+    if (location == null) {
       throw new IllegalArgumentException("Location cannot be null");
     }
     this.location = location;

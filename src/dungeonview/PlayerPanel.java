@@ -1,12 +1,5 @@
 package dungeonview;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.*;
-
 import dungeoncontroller.Features;
 import dungeonmodel.Arrow;
 import dungeonmodel.GameStatus;
@@ -16,10 +9,24 @@ import dungeonmodel.ReadOnlyDungeonModel;
 import dungeonmodel.Treasure;
 import structureddata.PlayerDescription;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+
 /**
  * A panel to show the details of the player along with the buttons
  * that player can click like Play Again, Kill Monster and Open door whenever possible.
- * <p>
  * Visibility: package-private
  */
 class PlayerPanel extends JPanel {
@@ -75,7 +82,6 @@ class PlayerPanel extends JPanel {
     }
 
     super.paintComponent(g);
-    Graphics2D g2d = (Graphics2D) g;
 
     List<Treasure> treasures = new ArrayList<>();
     treasures.add(Treasure.DIAMOND);
@@ -86,6 +92,7 @@ class PlayerPanel extends JPanel {
     PlayerDescription player = model.getPlayerDescription();
     Map<Treasure, Integer> treasureMap = player.getCollectedTreasures();
 
+    Graphics2D g2d = (Graphics2D) g;
     g2d.setFont(new Font("default", Font.BOLD, 20));
     int i = 0;
     for (Treasure treasure : treasures) {
@@ -98,14 +105,14 @@ class PlayerPanel extends JPanel {
 
     if (model.getGameStatus() == GameStatus.GAME_CONTINUE) {
       playAgain.setVisible(false);
-      openDoor.setVisible(model.getCurrentLocation().getPosition().equals(model.getEndCave().getPosition()));
+      openDoor.setVisible(
+              model.getCurrentLocation().getPosition().equals(model.getEndCave().getPosition()));
       if (model.getCurrentLocation().containsAboleth()) {
         killMonster.setVisible(true);
         textArea.setText("Location contains an Aboleth. Kill it before it sees you.");
       } else if (model.getCurrentLocation().hasPitNearby()) {
         textArea.setText("It looks like the ground is not stable.");
-      }
-      else {
+      } else {
         killMonster.setVisible(false);
         textArea.setText(outputString);
       }
@@ -127,7 +134,8 @@ class PlayerPanel extends JPanel {
     Image image = new ImageIcon(Utilities.getImageName(item)).getImage();
     g2d.drawString(item.getStringFromNumber(number) + ".", 50, 30 + i * 35);
     double shrinkPercentage = (25.0) / image.getHeight(this);
-    g2d.drawImage(image, 150, i * 35 + 12, (int) (image.getWidth(this) * shrinkPercentage), 25, this);
+    g2d.drawImage(image, 150, i * 35 + 12,
+            (int) (image.getWidth(this) * shrinkPercentage), 25, this);
     g2d.drawString("x" + number, 200, 30 + i * 35);
   }
 

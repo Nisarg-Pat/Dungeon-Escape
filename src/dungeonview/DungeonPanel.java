@@ -1,11 +1,5 @@
 package dungeonview;
 
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.*;
-
 import dungeoncontroller.Features;
 import dungeonmodel.Direction;
 import dungeonmodel.ReadOnlyDungeonModel;
@@ -13,11 +7,19 @@ import dungeonmodel.SmellLevel;
 import structureddata.LocationDescription;
 import structureddata.Position;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
 /**
  * A panel to represent the full dungeon.
  * Locations not visited by the player is hidden.
  * Player can click on nearby possible locations to move to that location.
- * <p>
  * Visibility: package-private
  */
 class DungeonPanel extends JPanel {
@@ -58,7 +60,8 @@ class DungeonPanel extends JPanel {
         Position getLocationPosition = Utilities.getLocationPosition(i, j);
         Image image;
         if (location.isVisited() || view.isVisibleMode()) {
-          image = new ImageIcon(Utilities.getImageName(location.getPossibleDirections())).getImage();
+          image = new ImageIcon(
+                  Utilities.getImageName(location.getPossibleDirections())).getImage();
         } else {
           image = new ImageIcon("dungeonImages\\blank.png").getImage();
         }
@@ -67,10 +70,12 @@ class DungeonPanel extends JPanel {
           SmellLevel level = model.detectSmell();
           if (level == SmellLevel.MORE_PUNGENT || currentLocation.containsOtyugh()) {
             image = new ImageIcon("dungeonImages\\stench02.png").getImage();
-            g2d.drawImage(image, getLocationPosition.getColumn(), getLocationPosition.getRow(), this);
+            g2d.drawImage(image, getLocationPosition.getColumn(),
+                    getLocationPosition.getRow(), this);
           } else if (level == SmellLevel.LESS_PUNGENT) {
             image = new ImageIcon("dungeonImages\\stench01.png").getImage();
-            g2d.drawImage(image, getLocationPosition.getColumn(), getLocationPosition.getRow(), this);
+            g2d.drawImage(image, getLocationPosition.getColumn(),
+                    getLocationPosition.getRow(), this);
           }
         }
         if (view.isVisibleMode()) {
@@ -121,7 +126,8 @@ class DungeonPanel extends JPanel {
       @Override
       public void mouseClicked(MouseEvent e) {
         super.mouseClicked(e);
-        Direction direction = getDirection(view.getModel().getCurrentLocation().getPosition(), getPositionFromClick(e.getX(), e.getY()));
+        Direction direction = getDirection(view.getModel().getCurrentLocation().getPosition(),
+                getPositionFromClick(e.getX(), e.getY()));
         if (direction != null) {
           features.movePlayer(direction);
           view.setShootMode(false);
@@ -169,6 +175,7 @@ class DungeonPanel extends JPanel {
     if (y < 0) {
       y += 64 * view.getModel().getRows();
     }
-    return new Position((y / 64) % view.getModel().getRows(), (x / 64) % view.getModel().getColumns());
+    return new Position((y / 64) % view.getModel().getRows(),
+            (x / 64) % view.getModel().getColumns());
   }
 }

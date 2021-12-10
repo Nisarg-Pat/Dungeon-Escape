@@ -1,7 +1,5 @@
 package dungeonview;
 
-import java.util.Set;
-
 import dungeonmodel.Arrow;
 import dungeonmodel.Direction;
 import dungeonmodel.Item;
@@ -10,6 +8,7 @@ import dungeonmodel.Treasure;
 import structureddata.LocationDescription;
 import structureddata.Position;
 
+import java.util.Set;
 
 /**
  * A utility function for different components of View.
@@ -18,11 +17,10 @@ import structureddata.Position;
  */
 class Utilities {
 
-  private final static int X_SPACE = 50;
-  private final static int Y_SPACE = 50;
-
-  private final static int IMAGE_WIDTH = 64;
-  private final static int IMAGE_HEIGHT = 64;
+  private static final int X_SPACE = 50;
+  private static final int Y_SPACE = 50;
+  private static final int IMAGE_WIDTH = 64;
+  private static final int IMAGE_HEIGHT = 64;
 
   protected static String getImageName(Set<Direction> directionMap) {
     if (directionMap == null) {

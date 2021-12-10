@@ -1,21 +1,24 @@
 package dungeonview;
 
+import dungeoncontroller.Features;
+import dungeonmodel.Arrow;
+import dungeonmodel.Direction;
+import dungeonmodel.Item;
+import dungeonmodel.Key;
+import dungeonmodel.ReadOnlyDungeonModel;
+import dungeonmodel.Treasure;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -24,17 +27,9 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.*;
-
-import dungeoncontroller.Features;
-import dungeonmodel.Arrow;
-import dungeonmodel.Direction;
-import dungeonmodel.DungeonModel;
-import dungeonmodel.HitStatus;
-import dungeonmodel.Item;
-import dungeonmodel.Key;
-import dungeonmodel.ReadOnlyDungeonModel;
-import dungeonmodel.Treasure;
+import javax.swing.JFrame;
+import javax.swing.JScrollPane;
+import javax.swing.WindowConstants;
 
 /**
  * The Swing Implementation of the Dungeon.
@@ -126,6 +121,7 @@ public class DungeonSwingView extends JFrame implements DungeonView {
 
       @Override
       public void keyTyped(KeyEvent e) {
+        //Empty
       }
 
       @Override
@@ -186,6 +182,7 @@ public class DungeonSwingView extends JFrame implements DungeonView {
 
       @Override
       public void keyReleased(KeyEvent e) {
+        //Empty
       }
     });
   }

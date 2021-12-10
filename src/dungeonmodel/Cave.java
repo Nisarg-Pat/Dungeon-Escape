@@ -115,7 +115,7 @@ class Cave extends AbstractLocation {
 
   @Override
   public HitStatus shootArrowHelper(Direction direction, int distance) {
-    if(direction == null) {
+    if (direction == null) {
       throw new IllegalArgumentException("Direction cannot be null");
     }
     if (distance == 0) {

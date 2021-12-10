@@ -1,12 +1,17 @@
 package dungeonview;
 
-import java.awt.*;
-
-import javax.swing.*;
-
 import dungeoncontroller.Features;
 import dungeonmodel.Treasure;
 import structureddata.PlayerDescription;
+
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  * A menubar for the JavaSwingView.
@@ -21,10 +26,6 @@ class DungeonMenuBar extends JMenuBar {
   // and access protected methods of DungeonSwingView.
   private final DungeonSwingView view;
 
-  private final JMenu menu;
-  private final JMenu infoMenu;
-  private final JMenu cheatMenu;
-  private final JMenu controlsMenu;
   private JDialog dungeonDetailsDialogue;
   private JDialog playerDetailsDialogue;
   private final JDialog cheatDialogue;
@@ -43,11 +44,11 @@ class DungeonMenuBar extends JMenuBar {
   // and access protected methods of DungeonSwingView.
   DungeonMenuBar(DungeonSwingView view) {
     super();
-    if(view == null) {
+    if (view == null) {
       throw new IllegalArgumentException("View cannot be null");
     }
     this.view = view;
-    menu = new JMenu("Settings");
+    JMenu menu = new JMenu("Settings");
 
     resetMenuItem = new JMenuItem("Reset Game");
     menu.add(resetMenuItem);
@@ -58,7 +59,7 @@ class DungeonMenuBar extends JMenuBar {
     quitMenuItem = new JMenuItem("Quit");
     menu.add(quitMenuItem);
 
-    infoMenu = new JMenu("Info");
+    JMenu infoMenu = new JMenu("Info");
 
     dungeonDialogueItem = new JMenuItem("Dungeon Details");
     infoMenu.add(dungeonDialogueItem);
@@ -66,7 +67,7 @@ class DungeonMenuBar extends JMenuBar {
     playerDialogueItem = new JMenuItem("Player Details");
     infoMenu.add(playerDialogueItem);
 
-    cheatMenu = new JMenu("Cheat");
+    JMenu cheatMenu = new JMenu("Cheat");
     cheatItem = new JMenuItem("Cheat Code");
     cheatMenu.add(cheatItem);
 
@@ -79,7 +80,7 @@ class DungeonMenuBar extends JMenuBar {
     cheatDialogue.pack();
     cheatDialogue.setLocation(view.getX() + 100, view.getY() + 100);
 
-    controlsMenu = new JMenu("Controls");
+    JMenu controlsMenu = new JMenu("Controls");
     controlsItem = new JMenuItem("Show Controls");
     controlsMenu.add(controlsItem);
 
@@ -88,13 +89,17 @@ class DungeonMenuBar extends JMenuBar {
     controlsDialogue.setLocation(view.getX() + 100, view.getY() + 100);
     controlsDialogue.add(new JTextArea("1. Use Arrow Keys or Click on Adjacent Cells to Move."));
     controlsDialogue.add(new JTextArea(""));
-    controlsDialogue.add(new JTextArea("2. Click 1,2,3,4,5 to pick up respective items mentioned below location."));
+    controlsDialogue.add(new JTextArea(
+            "2. Click 1,2,3,4,5 to pick up respective items mentioned below location."));
     controlsDialogue.add(new JTextArea(""));
-    controlsDialogue.add(new JTextArea("3. Click S and then Arrow Key and then number(1-5) to shoot an arrow."));
+    controlsDialogue.add(new JTextArea(
+            "3. Click S and then Arrow Key and then number(1-5) to shoot an arrow."));
     controlsDialogue.add(new JTextArea(""));
-    controlsDialogue.add(new JTextArea("4. Click D or Kill Monster button to kill the Moving Monster."));
+    controlsDialogue.add(new JTextArea(
+            "4. Click D or Kill Monster button to kill the Moving Monster."));
     controlsDialogue.add(new JTextArea(""));
-    controlsDialogue.add(new JTextArea("5. Click Open Door button to open the door. Requires a key."));
+    controlsDialogue.add(new JTextArea(
+            "5. Click Open Door button to open the door. Requires a key."));
     controlsDialogue.add(new JTextArea(""));
     controlsDialogue.pack();
 
@@ -105,7 +110,7 @@ class DungeonMenuBar extends JMenuBar {
   }
 
   protected void setFeatures(Features features) {
-    if(features == null){
+    if (features == null) {
       throw new IllegalArgumentException("Features cannot be null.");
     }
     resetMenuItem.addActionListener(l -> {
@@ -120,14 +125,23 @@ class DungeonMenuBar extends JMenuBar {
     dungeonDialogueItem.addActionListener(l -> {
       dungeonDetailsDialogue = new JDialog();
       dungeonDetailsDialogue.setLayout(new GridLayout(8, 0));
-      dungeonDetailsDialogue.add(new JTextArea(String.format("Rows: %d", view.getModel().getRows())));
-      dungeonDetailsDialogue.add(new JTextArea(String.format("Columns: %d", view.getModel().getColumns())));
-      dungeonDetailsDialogue.add(new JTextArea(String.format("IsWrapped: %s", view.getModel().getWrapped())));
-      dungeonDetailsDialogue.add(new JTextArea(String.format("Degree of Connectivity: %d", view.getModel().getDegree())));
-      dungeonDetailsDialogue.add(new JTextArea(String.format("Percentage of Caves having Treasure: %d", view.getModel().getPercentageItems())));
-      dungeonDetailsDialogue.add(new JTextArea(String.format("Number of Otyughs: %d", view.getModel().countOtyughs())));
-      dungeonDetailsDialogue.add(new JTextArea(String.format("Number of Aboleths: %d", view.getModel().countAboleth())));
-      dungeonDetailsDialogue.add(new JTextArea(String.format("Number of Thieves: %d", view.getModel().countThief())));
+      dungeonDetailsDialogue.add(new JTextArea(
+              String.format("Rows: %d", view.getModel().getRows())));
+      dungeonDetailsDialogue.add(new JTextArea(
+              String.format("Columns: %d", view.getModel().getColumns())));
+      dungeonDetailsDialogue.add(new JTextArea(
+              String.format("IsWrapped: %s", view.getModel().getWrapped())));
+      dungeonDetailsDialogue.add(new JTextArea(
+              String.format("Degree of Connectivity: %d", view.getModel().getDegree())));
+      dungeonDetailsDialogue.add(new JTextArea(
+              String.format("Percentage of Caves having Treasure: %d",
+                      view.getModel().getPercentageItems())));
+      dungeonDetailsDialogue.add(new JTextArea(
+              String.format("Number of Otyughs: %d", view.getModel().countOtyughs())));
+      dungeonDetailsDialogue.add(new JTextArea(
+              String.format("Number of Aboleths: %d", view.getModel().countAboleth())));
+      dungeonDetailsDialogue.add(new JTextArea(
+              String.format("Number of Thieves: %d", view.getModel().countThief())));
       dungeonDetailsDialogue.pack();
       dungeonDetailsDialogue.setLocation(view.getX() + 100, view.getY() + 100);
       dungeonDetailsDialogue.setVisible(true);
@@ -136,11 +150,22 @@ class DungeonMenuBar extends JMenuBar {
       playerDetailsDialogue = new JDialog();
       playerDetailsDialogue.setLayout(new GridLayout(5, 0));
       PlayerDescription playerDescription = view.getModel().getPlayerDescription();
-      playerDetailsDialogue.add(new JTextArea(String.format("Diamonds: %d", playerDescription.getCollectedTreasures().getOrDefault(Treasure.DIAMOND, 0))));
-      playerDetailsDialogue.add(new JTextArea(String.format("Ruby: %d", playerDescription.getCollectedTreasures().getOrDefault(Treasure.RUBY, 0))));
-      playerDetailsDialogue.add(new JTextArea(String.format("Sapphire: %d", playerDescription.getCollectedTreasures().getOrDefault(Treasure.SAPPHIRE, 0))));
-      playerDetailsDialogue.add(new JTextArea(String.format("Arrows: %d", playerDescription.countArrows())));
-      playerDetailsDialogue.add(new JTextArea(String.format("Keys: %d", playerDescription.hasKey() ? 1 : 0)));
+      playerDetailsDialogue.add(new JTextArea(
+              String.format("Diamonds: %d",
+                      playerDescription.getCollectedTreasures().getOrDefault(
+                              Treasure.DIAMOND, 0))));
+      playerDetailsDialogue.add(new JTextArea(
+              String.format("Ruby: %d",
+                      playerDescription.getCollectedTreasures().getOrDefault(
+                              Treasure.RUBY, 0))));
+      playerDetailsDialogue.add(new JTextArea(
+              String.format("Sapphire: %d",
+                      playerDescription.getCollectedTreasures().getOrDefault(
+                              Treasure.SAPPHIRE, 0))));
+      playerDetailsDialogue.add(new JTextArea(
+              String.format("Arrows: %d", playerDescription.countArrows())));
+      playerDetailsDialogue.add(new JTextArea(
+              String.format("Keys: %d", playerDescription.hasKey() ? 1 : 0)));
       playerDetailsDialogue.pack();
       playerDetailsDialogue.setLocation(view.getX() + 100, view.getY() + 100);
       playerDetailsDialogue.setVisible(true);

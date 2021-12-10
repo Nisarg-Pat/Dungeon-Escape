@@ -1,14 +1,10 @@
-import org.junit.Before;
 import org.junit.Test;
 
 import dungeoncontroller.DungeonAsyncController;
-import dungeonmodel.Arrow;
 import dungeonmodel.Direction;
 import dungeonmodel.DungeonModel;
-import dungeonmodel.DungeonModelImpl;
 import dungeonmodel.Key;
 import dungeonview.DungeonView;
-import random.RandomImpl;
 
 import static org.junit.Assert.*;
 

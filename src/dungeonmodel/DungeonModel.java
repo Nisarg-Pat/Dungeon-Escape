@@ -62,7 +62,7 @@ public interface DungeonModel extends ReadOnlyDungeonModel {
   int getDistance(Position first, Position second);
 
   /**
-   * Move all the aboleths in the dungeons
+   * Move all the aboleths in the dungeons.
    */
   void moveAboleth();
 
@@ -71,6 +71,11 @@ public interface DungeonModel extends ReadOnlyDungeonModel {
    */
   void killMonster();
 
+  /**
+   * Set or unset the player in a pit if the current location has a pit.
+   *
+   * @param pit Whether to set player in a pit
+   */
   void setPlayerinPit(boolean pit);
 
   /**
