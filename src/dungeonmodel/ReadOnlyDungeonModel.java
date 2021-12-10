@@ -68,6 +68,13 @@ public interface ReadOnlyDungeonModel {
   int countThief();
 
   /**
+   * Gets the description of starting Cave of the dungeon.
+   *
+   * @return the description of starting cave
+   */
+  LocationDescription getStartCave();
+
+  /**
    * Gets the description of ending Cave of the dungeon.
    *
    * @return the description of ending cave

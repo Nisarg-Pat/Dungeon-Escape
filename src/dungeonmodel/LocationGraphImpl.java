@@ -31,18 +31,20 @@ class LocationGraphImpl implements LocationGraph {
   private int degreeOfInterconnectivity;
   private final int percentageItems;
   private int numOtyughs;
+  private boolean requireKey;
 
   private final Monster[] aboleth;
   private final Thief[] thief;
 
   protected LocationGraphImpl(int rows, int columns, boolean isWrapped,
-                              int degree, int percentageItems, int numAboleth, int numThief) {
+                              int degree, int percentageItems, int numAboleth, int numThief, boolean requireKey) {
     checkArguments(rows, columns, degree, percentageItems, numAboleth, numThief);
     this.rows = rows;
     this.columns = columns;
     this.isWrapped = isWrapped;
     this.degreeOfInterconnectivity = degree;
     this.percentageItems = percentageItems;
+    this.requireKey = requireKey;
     aboleth = new Aboleth[numAboleth];
     thief = new Thief[numThief];
     location = addLocations();
@@ -51,8 +53,10 @@ class LocationGraphImpl implements LocationGraph {
     selectEdges(allEdges);
     addTreasureToCaves();
     addArrowsToLocations();
-    addKeyToRandomLocation();
     addThiefToRandomTunnel();
+    if (requireKey) {
+      addKeyToRandomLocation();
+    }
   }
 
   private void checkArguments(int rows, int columns,
@@ -436,5 +440,10 @@ class LocationGraphImpl implements LocationGraph {
       return true;
     }
     return false;
+  }
+
+  @Override
+  public boolean requireKey() {
+    return requireKey;
   }
 }

@@ -43,7 +43,7 @@ public class SpringDriver {
     }
 
     DungeonModel dungeonModel = new DungeonModelImpl(rows, columns,
-            isWrapped, degreeOfConnectivity, percentageCavesWithTreasure, numOtyugh, 0, 0);
+            isWrapped, degreeOfConnectivity, percentageCavesWithTreasure, numOtyugh);
     DungeonController dungeonController = new DungeonConsoleController(
             new InputStreamReader(System.in), System.out, dungeonModel);
     try {

@@ -163,7 +163,7 @@ public class DungeonAsyncController implements DungeonController, Features {
       thread.stop();
     }
     this.model = new DungeonModelImpl(rows, columns, isWrapped,
-            degree, percentageItems, numOtyugh, numAboleth, numThief);
+            degree, percentageItems, numOtyugh, numAboleth, numThief, true);
     view.setModel(model);
     thread = new MoveAbolethThread(model, view);
     thread.start();

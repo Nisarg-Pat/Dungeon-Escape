@@ -45,4 +45,6 @@ interface LocationGraph {
   Thief getThief(Location newLocation);
 
   boolean stealTreasure(Player player);
+
+  boolean requireKey();
 }

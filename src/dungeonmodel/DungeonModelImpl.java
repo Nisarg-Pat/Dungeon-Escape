@@ -48,17 +48,18 @@ public class DungeonModelImpl implements DungeonModel {
    * @param numOtyugh                 Number of otyughs in the dungeon
    * @param numAboleth                Number of aboleths in the dungeon
    * @param numThief                  Number of thieves in the dungeon
+   * @param requireKey                Whether player requires a key to open door at end cave
    * @throws IllegalArgumentException if rows, columns, degree of Interconnectivity
    *                                  or percentage of caves with treasure is invalid.
    */
   public DungeonModelImpl(int rows, int columns, boolean isWrapped,
                           int degreeOfInterconnectivity, int percentageItems,
-                          int numOtyugh, int numAboleth, int numThief) {
+                          int numOtyugh, int numAboleth, int numThief, boolean requireKey) {
     if (numOtyugh <= 0) {
       throw new IllegalArgumentException("Number of Otyugh should be atleast 1.");
     }
     locationGraph = new LocationGraphImpl(rows, columns, isWrapped,
-            degreeOfInterconnectivity, percentageItems, numAboleth, numThief);
+            degreeOfInterconnectivity, percentageItems, numAboleth, numThief, requireKey);
 
     List<Location> startEndPositions = locationGraph.getStartEndPositions();
 
@@ -71,6 +72,24 @@ public class DungeonModelImpl implements DungeonModel {
     player = new PlayerImpl(startLocation);
     startLocation.setVisited(true);
     status = GameStatus.GAME_CONTINUE;
+  }
+
+  /**
+   * Creates a new dungeon with properties mentioned by the user.
+   *
+   * @param rows                      Number of rows in the dungeon. Should be at least 6.
+   * @param columns                   Number of Columns in the dungeon. Should be at least 6.
+   * @param isWrapped                 Whether the dungeon is wrapped around its end
+   * @param degreeOfInterconnectivity The degree of interconnectivity for the dungeon.
+   * @param percentageItems           The percentage of locations having items
+   * @param numOtyugh                 Number of otyughs in the dungeon
+   * @throws IllegalArgumentException if rows, columns, degree of Interconnectivity
+   *                                  or percentage of caves with treasure is invalid.
+   */
+  public DungeonModelImpl(int rows, int columns, boolean isWrapped,
+                          int degreeOfInterconnectivity, int percentageItems,
+                          int numOtyugh) {
+    this(rows, columns, isWrapped, degreeOfInterconnectivity, percentageItems, numOtyugh, 0, 0, false);
   }
 
   @Override
@@ -114,6 +133,11 @@ public class DungeonModelImpl implements DungeonModel {
   }
 
   @Override
+  public LocationDescription getStartCave() {
+    return getLocation(startLocation.getPosition());
+  }
+
+  @Override
   public LocationDescription getEndCave() {
     return getLocation(endLocation.getPosition());
   }
@@ -153,6 +177,8 @@ public class DungeonModelImpl implements DungeonModel {
     }
     if (newLocation.containsOtyugh()) {
       status = newLocation.getOtyugh().killPlayer();
+    } else if (!locationGraph.requireKey() && newLocation == endLocation) {
+      status = GameStatus.GAME_OVER_WIN;
     }
   }
 
