@@ -6,7 +6,8 @@ import dungeonmodel.DungeonModel;
 import dungeonmodel.Key;
 import dungeonview.DungeonView;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * Tests to check the methods of {@link DungeonAsyncController}.

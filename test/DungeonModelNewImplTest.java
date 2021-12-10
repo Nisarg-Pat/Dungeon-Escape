@@ -13,8 +13,10 @@ import dungeonmodel.Treasure;
 import random.RandomImpl;
 import structureddata.Position;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 /**
  * Updated test cases to check the updated methods of {@link DungeonModel}. Covers all the different types of
  * scenarios that could occur in a dungeon.

@@ -10,6 +10,10 @@ public class MockViewLogging implements DungeonView {
 
   private final StringBuilder log;
 
+  /**
+   * Contructor for MockViewLogging
+   * @param log The StringBuilder for Logging
+   */
   public MockViewLogging(StringBuilder log) {
     if (log == null) {
       throw new IllegalArgumentException("Log cannot be null.");
