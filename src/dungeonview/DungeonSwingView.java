@@ -7,7 +7,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +17,13 @@ import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
 import dungeoncontroller.Features;
@@ -27,7 +36,19 @@ import dungeonmodel.Key;
 import dungeonmodel.ReadOnlyDungeonModel;
 import dungeonmodel.Treasure;
 
-public class DungeonSpringView extends JFrame implements DungeonView {
+/**
+ * The Swing Implementation of the Dungeon.
+ * User can view the visited Dungeon, details of the current location
+ * and Actions possible by the user.
+ * Contains a menubar that can be used to create a new dungeon, reset the existing dungeon,
+ * quit the game, show details of the dungeon and player, see the controls and enter any cheat code.
+ * Contains a dungeon panel where user can see the visited dungeon.
+ * Contains a current location panel which shows the details of the current location,
+ * including all the items and monsters in the location.
+ * Contains a player panel, where player can see details of the items picked
+ * and buttons to help in the adventure.
+ */
+public class DungeonSwingView extends JFrame implements DungeonView {
 
   private final DungeonPopup dungeonPopup;
   private final DungeonMenuBar dungeonMenuBar;
@@ -42,14 +63,16 @@ public class DungeonSpringView extends JFrame implements DungeonView {
   private Direction shootDirection;
   private boolean isVisibleMode;
 
-  public DungeonSpringView() {
+  /**
+   * Constructor to create a DungeonSwingView.
+   */
+  public DungeonSwingView() {
     super("Dungeon Game");
     this.setLocation(100, 100);
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.isShootMode = false;
     shootDirection = null;
     isVisibleMode = false;
-
 
     try {
       BufferedImage image = ImageIO.read(new File("dungeonImages\\logo.png"));
@@ -89,20 +112,14 @@ public class DungeonSpringView extends JFrame implements DungeonView {
     dungeonPopup.setDefaultCloseOperation(HIDE_ON_CLOSE);
   }
 
-  protected ReadOnlyDungeonModel getModel() {
-    return model;
-  }
-
-  protected boolean hasModel() {
-    return model != null;
-  }
-
   @Override
   public void setFeatures(Features features) {
+    if (features == null) {
+      throw new IllegalArgumentException("Features cannot be null");
+    }
     dungeonPopup.setFeatures(features);
     dungeonMenuBar.setFeatures(features);
     dungeonPanel.setFeatures(features);
-    locationPanel.setFeatures(features);
     playerPanel.setFeatures(features);
 
     this.addKeyListener(new KeyListener() {
@@ -183,13 +200,39 @@ public class DungeonSpringView extends JFrame implements DungeonView {
     openPopup();
   }
 
+  @Override
+  public void showErrorMessage(String error) {
+    playerPanel.showString(error);
+  }
+
+  @Override
+  public void playSound(String path) {
+    if (path == null) {
+      throw new IllegalArgumentException("Path cannot be null.");
+    }
+    try {
+      AudioInputStream audioStream = AudioSystem.getAudioInputStream(
+              new BufferedInputStream(new FileInputStream(path)));
+      AudioFormat format = audioStream.getFormat();
+      DataLine.Info info = new DataLine.Info(Clip.class, format);
+      Clip audioClip = (Clip) AudioSystem.getLine(info);
+      audioClip.open(audioStream);
+      audioClip.start();
+    } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+      //Ignore to not play the sound.
+    }
+  }
+
+  @Override
+  public void showString(String s) {
+    playerPanel.showString(s);
+  }
+
   protected void openPopup() {
     dungeonPopup.initPopup(getX() + 200, getY() + 200);
   }
 
   protected void setSizes(int rows, int columns) {
-//    setExtendedState(JFrame.MAXIMIZED_BOTH);
-//    setUndecorated(true);
     setMinimumSize(new Dimension(500, 300));
     setSize(228 + 64 * Math.min(columns, 16) + 115 + 64, 64 * Math.min(rows, 9) + 162 + 210);
     scrollPane.getVerticalScrollBar().setUnitIncrement(rows);
@@ -199,19 +242,12 @@ public class DungeonSpringView extends JFrame implements DungeonView {
     playerPanel.setPreferredSize(new Dimension(64 * columns + 100 + 128 + 100, 210));
   }
 
-  @Override
-  public void showErrorMessage(String error) {
-    playerPanel.showString(error);
+  protected ReadOnlyDungeonModel getModel() {
+    return model;
   }
 
-  @Override
-  public void playSound(String s) {
-    Utilities.playSound(s);
-  }
-
-  @Override
-  public void showString(String s) {
-    playerPanel.showString(s);
+  protected boolean hasModel() {
+    return model != null;
   }
 
   protected boolean isVisibleMode() {

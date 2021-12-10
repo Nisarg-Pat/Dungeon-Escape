@@ -8,18 +8,44 @@ import dungeoncontroller.Features;
 import dungeonmodel.Treasure;
 import structureddata.PlayerDescription;
 
+/**
+ * A menubar for the JavaSwingView.
+ * It can be used to create a new dungeon, reset the existing dungeon,
+ * quit the game, show details of the dungeon and player, see the controls and enter any cheat code.
+ * Currently accepted cheat code: "Show Dungeon" and "Hide Dungeon".
+ * Used to show or hide all the details of the unvisited locations in the dungeon.
+ */
 class DungeonMenuBar extends JMenuBar {
 
-  DungeonSpringView view;
+  //Intentionally kept DungeonSwingView to tightly couple DungeonPopup with DungeonSwingView
+  // and access protected methods of DungeonSwingView.
+  private final DungeonSwingView view;
 
-  JMenu menu, infoMenu, cheatMenu, controlsMenu;
-  JDialog dungeonDetailsDialogue, playerDetailsDialogue, cheatDialogue, controlsDialogue;
-  JMenuItem resetMenuItem, createMenuItem, quitMenuItem, dungeonDialogueItem, playerDialogueItem, cheatItem, controlsItem;
-  JButton cheatButton;
-  JTextField cheatField;
+  private final JMenu menu;
+  private final JMenu infoMenu;
+  private final JMenu cheatMenu;
+  private final JMenu controlsMenu;
+  private JDialog dungeonDetailsDialogue;
+  private JDialog playerDetailsDialogue;
+  private final JDialog cheatDialogue;
+  private final JDialog controlsDialogue;
+  private final JMenuItem resetMenuItem;
+  private final JMenuItem createMenuItem;
+  private final JMenuItem quitMenuItem;
+  private final JMenuItem dungeonDialogueItem;
+  private final JMenuItem playerDialogueItem;
+  private final JMenuItem cheatItem;
+  private final JMenuItem controlsItem;
+  private final JButton cheatButton;
+  private final JTextField cheatField;
 
-  DungeonMenuBar(DungeonSpringView view) {
+  //Intentionally kept DungeonSwingView to tightly couple DungeonPopup with DungeonSwingView
+  // and access protected methods of DungeonSwingView.
+  DungeonMenuBar(DungeonSwingView view) {
     super();
+    if(view == null) {
+      throw new IllegalArgumentException("View cannot be null");
+    }
     this.view = view;
     menu = new JMenu("Settings");
 
@@ -72,15 +98,16 @@ class DungeonMenuBar extends JMenuBar {
     controlsDialogue.add(new JTextArea(""));
     controlsDialogue.pack();
 
-
     this.add(menu);
     this.add(infoMenu);
     this.add(controlsMenu);
     this.add(cheatMenu);
   }
 
-
   protected void setFeatures(Features features) {
+    if(features == null){
+      throw new IllegalArgumentException("Features cannot be null.");
+    }
     resetMenuItem.addActionListener(l -> {
       features.resetModel();
     });
@@ -125,7 +152,7 @@ class DungeonMenuBar extends JMenuBar {
       String text = cheatField.getText();
       if (text.equals("Show Dungeon")) {
         view.setVisibleMode(true);
-      } else if (text.equals("Dont Show Dungeon")) {
+      } else if (text.equals("Hide Dungeon")) {
         view.setVisibleMode(false);
       }
       cheatField.setText("");

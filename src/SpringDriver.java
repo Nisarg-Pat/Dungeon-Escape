@@ -5,7 +5,7 @@ import dungeoncontroller.DungeonController;
 import dungeoncontroller.DungeonControllerImpl;
 import dungeonmodel.DungeonModel;
 import dungeonmodel.DungeonModelImpl;
-import dungeonview.DungeonSpringView;
+import dungeonview.DungeonSwingView;
 import dungeonview.DungeonView;
 
 public class SpringDriver {
@@ -18,7 +18,7 @@ public class SpringDriver {
   }
 
   private static void startSpringController() {
-    DungeonView dungeonView = new DungeonSpringView();
+    DungeonView dungeonView = new DungeonSwingView();
     DungeonController dungeonController = new DungeonAsyncControllerImpl(dungeonView);
     dungeonController.start();
   }

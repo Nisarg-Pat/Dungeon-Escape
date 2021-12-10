@@ -11,16 +11,34 @@ import javax.swing.*;
 
 import dungeoncontroller.Features;
 
+/**
+ * A popup to set up the Dungeon Model. It can be used to start a new game.
+ * Visibility: package-private
+ */
 class DungeonPopup extends JFrame {
-  DungeonSpringView view;
+  //Intentionally kept DungeonSwingView to tightly couple DungeonPopup with DungeonSwingView
+  // and access protected methods of DungeonSwingView.
+  private final DungeonSwingView view;
 
-  JButton setButton;
-  JButton closeButton;
-  JTextField rowInputField, columnInputField, degreeInputField, itemInputField, otyughInputField, abolethInputField, thiefInputField;
-  JRadioButton isWrappedTrue, isWrappedFalse;
+  private final JButton setButton;
+  private final JButton closeButton;
+  private final JTextField rowInputField;
+  private final JTextField columnInputField;
+  private final JTextField degreeInputField;
+  private final JTextField itemInputField;
+  private final JTextField otyughInputField;
+  private final JTextField abolethInputField;
+  private final JTextField thiefInputField;
+  private final JRadioButton isWrappedTrue;
+  private final JRadioButton isWrappedFalse;
 
-  DungeonPopup(DungeonSpringView view) {
+  //Intentionally kept DungeonSwingView to tightly couple DungeonPopup with DungeonSwingView
+  // and access protected methods of the view.
+  protected DungeonPopup(DungeonSwingView view) {
     super();
+    if (view == null) {
+      throw new IllegalArgumentException("View cannot be null");
+    }
     this.view = view;
     setLayout(new GridLayout(11, 0));
     try {
@@ -167,6 +185,9 @@ class DungeonPopup extends JFrame {
   }
 
   protected void setFeatures(Features features) {
+    if(features == null){
+      throw new IllegalArgumentException("Features cannot be null.");
+    }
     closeButton.addActionListener(l -> {
       if (view.hasModel()) {
         this.setVisible(false);

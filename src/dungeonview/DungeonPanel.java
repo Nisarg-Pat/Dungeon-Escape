@@ -3,33 +3,43 @@ package dungeonview;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.Set;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import dungeoncontroller.Features;
 import dungeonmodel.Direction;
-import dungeonmodel.DungeonModel;
-import dungeonmodel.DungeonModelImpl;
 import dungeonmodel.ReadOnlyDungeonModel;
 import dungeonmodel.SmellLevel;
 import structureddata.LocationDescription;
 import structureddata.Position;
 
+/**
+ * A panel to represent the full dungeon.
+ * Locations not visited by the player is hidden.
+ * Player can click on nearby possible locations to move to that location.
+ * <p>
+ * Visibility: package-private
+ */
 class DungeonPanel extends JPanel {
 
-  DungeonSpringView view;
+  //Intentionally kept DungeonSwingView to tightly couple DungeonPopup with DungeonSwingView
+  // and access protected methods of DungeonSwingView.
+  private final DungeonSwingView view;
 
-  DungeonPanel(DungeonSpringView view) {
+  //Intentionally kept DungeonSwingView to tightly couple DungeonPopup with DungeonSwingView
+  // and access protected methods of DungeonSwingView.
+  DungeonPanel(DungeonSwingView view) {
+    if (view == null) {
+      throw new IllegalArgumentException("View cannot be null");
+    }
     this.view = view;
   }
 
   @Override
   protected void paintComponent(Graphics g) {
+    if (g == null) {
+      throw new IllegalArgumentException("Graphics cannot be null");
+    }
     if (view.getModel() == null) {
       throw new IllegalStateException("Model cannot be null when painting dungeon.");
     }
@@ -103,6 +113,9 @@ class DungeonPanel extends JPanel {
   }
 
   protected void setFeatures(Features features) {
+    if (features == null) {
+      throw new IllegalArgumentException("Features cannot be null.");
+    }
     MouseAdapter mouseAdapter = new MouseAdapter() {
       @Override
       public void mouseClicked(MouseEvent e) {
@@ -120,6 +133,9 @@ class DungeonPanel extends JPanel {
   }
 
   private Direction getDirection(Position currentPosition, Position coordinates) {
+    if (currentPosition == null || coordinates == null) {
+      throw new IllegalArgumentException("CurrentPostion or Click Coordinates cannot be null");
+    }
     int totalRows = view.getModel().getRows();
     int totalColumns = view.getModel().getColumns();
     int rowdiff = (currentPosition.getRow() - coordinates.getRow());

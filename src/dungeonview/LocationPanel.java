@@ -1,8 +1,6 @@
 package dungeonview;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -18,24 +16,37 @@ import dungeonmodel.Key;
 import dungeonmodel.SmellLevel;
 import dungeonmodel.Treasure;
 import structureddata.LocationDescription;
-import structureddata.Position;
 
+/**
+ * A panel to show the details of the current location of player along with the items present,
+ * any smell or any monster in the location.
+ *
+ * Visibility: package-private
+ */
 class LocationPanel extends JPanel {
-  DungeonSpringView view;
+  //Intentionally kept DungeonSwingView to tightly couple DungeonPopup with DungeonSwingView
+  // and access protected methods of DungeonSwingView.
+  private final DungeonSwingView view;
 
-  LocationPanel(DungeonSpringView view) {
+  //Intentionally kept DungeonSwingView to tightly couple DungeonPopup with DungeonSwingView
+  // and access protected methods of DungeonSwingView.
+  LocationPanel(DungeonSwingView view) {
+    if (view == null) {
+      throw new IllegalArgumentException("View cannot be null");
+    }
     this.view = view;
   }
 
   @Override
   protected void paintComponent(Graphics g) {
+    if (g == null) {
+      throw new IllegalArgumentException("Graphics cannot be null");
+    }
     if (view.getModel() == null) {
       throw new IllegalStateException("Model cannot be null when painting location.");
     }
-
     super.paintComponent(g);
     Graphics2D g2d = (Graphics2D) g;
-
     LocationDescription currentLocation = view.getModel().getCurrentLocation();
     Map<Treasure, Integer> treasureMap = currentLocation.getTreasureMap();
 
@@ -111,9 +122,5 @@ class LocationPanel extends JPanel {
     } catch (IOException e) {
       view.showErrorMessage(e.getMessage());
     }
-  }
-
-  public void setFeatures(Features features) {
-
   }
 }

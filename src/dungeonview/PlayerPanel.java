@@ -1,16 +1,10 @@
 package dungeonview;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import dungeoncontroller.Features;
@@ -22,13 +16,30 @@ import dungeonmodel.ReadOnlyDungeonModel;
 import dungeonmodel.Treasure;
 import structureddata.PlayerDescription;
 
+/**
+ * A panel to show the details of the player along with the buttons
+ * that player can click like Play Again, Kill Monster and Open door whenever possible.
+ * <p>
+ * Visibility: package-private
+ */
 class PlayerPanel extends JPanel {
-  DungeonSpringView view;
-  JButton playAgain, killMonster, openDoor;
-  JTextArea textArea;
-  String outputString;
+  //Intentionally kept DungeonSwingView to tightly couple DungeonPopup with DungeonSwingView
+  // and access protected methods of DungeonSwingView.
+  private final DungeonSwingView view;
 
-  PlayerPanel(DungeonSpringView view) {
+  private final JButton playAgain;
+  private final JButton killMonster;
+  private final JButton openDoor;
+  private final JTextArea textArea;
+
+  private String outputString;
+
+  //Intentionally kept DungeonSwingView to tightly couple DungeonPopup with DungeonSwingView
+  // and access protected methods of DungeonSwingView.
+  PlayerPanel(DungeonSwingView view) {
+    if (view == null) {
+      throw new IllegalArgumentException("View cannot be null");
+    }
     this.view = view;
     outputString = "";
     this.setLayout(null);
@@ -56,6 +67,9 @@ class PlayerPanel extends JPanel {
 
   @Override
   protected void paintComponent(Graphics g) {
+    if (g == null) {
+      throw new IllegalArgumentException("Graphics cannot be null");
+    }
     if (view.getModel() == null) {
       throw new IllegalStateException("Model cannot be null when painting player description.");
     }
@@ -101,15 +115,24 @@ class PlayerPanel extends JPanel {
   }
 
   private void drawImage(Item item, int number, int i, Graphics2D g2d) {
+    if (item == null) {
+      throw new IllegalArgumentException("Item cannot be null");
+    }
+    if (g2d == null) {
+      throw new IllegalArgumentException("Graphics cannot be null");
+    }
     Image image = new ImageIcon(Utilities.getImageName(item)).getImage();
     g2d.drawString(item.getStringFromNumber(number) + ".", 50, 30 + i * 35);
-    double shrinkPercentage = (25.0)/ image.getHeight(this);
-    g2d.drawImage(image, 150, i * 35 + 12, (int) (image.getWidth(this)*shrinkPercentage), 25, this);
+    double shrinkPercentage = (25.0) / image.getHeight(this);
+    g2d.drawImage(image, 150, i * 35 + 12, (int) (image.getWidth(this) * shrinkPercentage), 25, this);
     g2d.drawString("x" + number, 200, 30 + i * 35);
   }
 
 
   protected void setFeatures(Features features) {
+    if (features == null) {
+      throw new IllegalArgumentException("Features cannot be null.");
+    }
     playAgain.addActionListener(l -> {
       features.resetModel();
       view.requestFocus();
@@ -124,8 +147,11 @@ class PlayerPanel extends JPanel {
     });
   }
 
-  protected void showString(String s) {
-    outputString = s;
+  protected void showString(String string) {
+    if (string == null) {
+      throw new IllegalArgumentException("String to be shown cannot be null");
+    }
+    outputString = string;
     this.repaint();
   }
 }
