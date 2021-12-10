@@ -47,4 +47,6 @@ interface LocationGraph {
   boolean stealTreasure(Player player);
 
   boolean requireKey();
+
+  int countPits();
 }

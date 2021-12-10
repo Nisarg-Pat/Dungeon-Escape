@@ -64,4 +64,10 @@ interface Location {
   void setAboleth(boolean hasAboleth);
 
   boolean hasAboleth();
+
+  boolean hasPit();
+
+  void setPit(boolean pit);
+
+  boolean hasPitNearby();
 }

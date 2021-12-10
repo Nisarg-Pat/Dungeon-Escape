@@ -32,19 +32,21 @@ class LocationGraphImpl implements LocationGraph {
   private final int percentageItems;
   private int numOtyughs;
   private final boolean requireKey;
+  private int numPits;
 
   private final Monster[] aboleth;
   private final Thief[] thief;
 
   protected LocationGraphImpl(int rows, int columns, boolean isWrapped,
-                              int degree, int percentageItems, int numAboleth, int numThief, boolean requireKey) {
-    checkArguments(rows, columns, degree, percentageItems, numAboleth, numThief);
+                              int degree, int percentageItems, int numAboleth, int numThief, int numPits, boolean requireKey) {
+    checkArguments(rows, columns, degree, percentageItems, numAboleth, numThief, numPits);
     this.rows = rows;
     this.columns = columns;
     this.isWrapped = isWrapped;
     this.degreeOfInterconnectivity = degree;
     this.percentageItems = percentageItems;
     this.requireKey = requireKey;
+    this.numPits = numPits;
     aboleth = new Aboleth[numAboleth];
     thief = new Thief[numThief];
     location = addLocations();
@@ -57,10 +59,11 @@ class LocationGraphImpl implements LocationGraph {
     if (requireKey) {
       addKeyToRandomLocation();
     }
+    addPitsToRandomLocation();
   }
 
   private void checkArguments(int rows, int columns,
-                              int degreeOfInterconnectivity, int percentageCavesWithTreasure, int numAboleth, int numThief) {
+                              int degreeOfInterconnectivity, int percentageCavesWithTreasure, int numAboleth, int numThief, int numPits) {
     if (rows < 6 || columns < 6) {
       throw new IllegalArgumentException("Rows and columns should be minimum 6.");
     } else if (degreeOfInterconnectivity < 0) {
@@ -72,6 +75,8 @@ class LocationGraphImpl implements LocationGraph {
       throw new IllegalArgumentException("Number of Aboleths should be > 0");
     } else if (numThief < 0) {
       throw new IllegalArgumentException("Number of Thieves should be > 0");
+    } else if (numPits < 0) {
+      throw new IllegalArgumentException("Number of Pits should be >= 0");
     }
   }
 
@@ -352,6 +357,16 @@ class LocationGraphImpl implements LocationGraph {
   }
 
 
+  private void addPitsToRandomLocation() {
+    List<Location> locations = getListOfLocations();
+    numPits = Math.min(numPits, locations.size());
+    for (int i = 0; i < numPits; i++) {
+      int index = RandomImpl.getIntInRange(0, locations.size() - 1);
+      locations.get(index).setPit(true);
+    }
+  }
+
+
   private List<Location> getListOfCaves() {
     List<Location> caves = new ArrayList<>();
     for (int i = 0; i < rows; i++) {
@@ -445,5 +460,10 @@ class LocationGraphImpl implements LocationGraph {
   @Override
   public boolean requireKey() {
     return requireKey;
+  }
+
+  @Override
+  public int countPits() {
+    return numPits;
   }
 }

@@ -54,7 +54,7 @@ public interface Features {
    */
   void createNewModel(int rows, int columns, boolean isWrapped,
                       int degreeOfInterconnectivity, int percentageItems,
-                      int numOtyugh, int numAboleth, int numThief);
+                      int numOtyugh, int numAboleth, int numThief, int numPits);
 
   /**
    * Resets the current dungeon model.

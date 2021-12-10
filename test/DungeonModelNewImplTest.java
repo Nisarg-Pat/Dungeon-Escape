@@ -27,13 +27,13 @@ public class DungeonModelNewImplTest {
   @Before
   public void setup() {
     RandomImpl.setSeed(0);
-    model = new DungeonModelImpl(6, 8, false, 10, 50, 1, 1, 1, true);
+    model = new DungeonModelImpl(6, 8, false, 10, 50, 1, 1, 1, 0, true);
   }
 
   @Test
   public void testConstructor() {
     try {
-      new DungeonModelImpl(6, 8, true, 20, 50, 1, -1, 1, true);
+      new DungeonModelImpl(6, 8, true, 20, 50, 1, -1, 1, 0, true);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Number of Aboleths should be > 0",
@@ -41,7 +41,7 @@ public class DungeonModelNewImplTest {
     }
 
     try {
-      new DungeonModelImpl(6, 8, true, 20, 50, 1, 1, -5, true);
+      new DungeonModelImpl(6, 8, true, 20, 50, 1, 1, -5, 0, true);
       fail();
     } catch (IllegalArgumentException e) {
       assertEquals("Number of Thieves should be > 0",

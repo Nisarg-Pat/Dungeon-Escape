@@ -37,7 +37,7 @@ public class DungeonAsyncControllerTest {
     controller.shootArrow(Direction.NORTH, 1);
     controller.killMonster();
     controller.exitDungeon();
-    controller.createNewModel(6, 8, false, 10, 50, 1, 1, 1);
+    controller.createNewModel(6, 8, false, 10, 50, 1, 1, 1, 0);
     controller.resetModel();
     assertEquals("Move: North\n" +
             "Pick: DOOR_KEY\n" +

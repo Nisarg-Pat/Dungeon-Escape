@@ -72,6 +72,27 @@ public class DungeonAsyncController implements DungeonController, Features {
         if (model.getCurrentLocation().containsOtyugh()) {
           view.showString("The Otyugh in the cave is too weak to attack!\nGet out of here ASAP!!\n");
         }
+        if(model.getCurrentLocation().hasPit()) {
+          Thread pitThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+              try {
+                model.setPlayerinPit(true);
+                view.showString("You are in a pit. It will take 5 seconds to come out.");
+                view.refresh();
+                Thread.sleep(5000);
+                model.setPlayerinPit(false);
+                if(model.getGameStatus() == GameStatus.GAME_CONTINUE) {
+                  view.showString("You are out of pit and can move freely.");
+                }
+                view.refresh();
+              } catch (InterruptedException e) {
+                //Ignore catch
+              }
+            }
+          });
+          pitThread.start();
+        }
       } else if (model.getGameStatus() == GameStatus.GAME_OVER_KILLED) {
         view.playSound("dungeonSounds\\monstereat.wav");
         view.showString("Chomp, chomp, you are eaten by an Otyugh!!");
@@ -161,24 +182,24 @@ public class DungeonAsyncController implements DungeonController, Features {
 
   @Override
   public void createNewModel(int rows, int columns, boolean isWrapped,
-                             int degree, int percentageItems, int numOtyugh, int numAboleth, int numThief) {
+                             int degree, int percentageItems, int numOtyugh, int numAboleth, int numThief, int numPits) {
     RandomImpl.setSeed(RandomImpl.getIntInRange(0, 1000));
-    createModel(rows, columns, isWrapped, degree, percentageItems, numOtyugh, numAboleth, numThief);
+    createModel(rows, columns, isWrapped, degree, percentageItems, numOtyugh, numAboleth, numThief, numPits);
   }
 
   @Override
   public void resetModel() {
     RandomImpl.setSeed(RandomImpl.getSeed());
     createModel(model.getRows(), model.getColumns(), model.getWrapped(),
-            model.getDegree(), model.getPercentageItems(), model.countOtyughs(), model.countAboleth(), model.countThief());
+            model.getDegree(), model.getPercentageItems(), model.countOtyughs(), model.countAboleth(), model.countThief(), model.countPits());
   }
 
-  private void createModel(int rows, int columns, boolean isWrapped, int degree, int percentageItems, int numOtyugh, int numAboleth, int numThief) {
+  private void createModel(int rows, int columns, boolean isWrapped, int degree, int percentageItems, int numOtyugh, int numAboleth, int numThief, int numPits) {
     if (thread != null) {
       thread.stop();
     }
     this.model = new DungeonModelImpl(rows, columns, isWrapped,
-            degree, percentageItems, numOtyugh, numAboleth, numThief, true);
+            degree, percentageItems, numOtyugh, numAboleth, numThief, numPits, true);
     view.setModel(model);
     thread = new MoveAbolethThread(model, view);
     thread.start();

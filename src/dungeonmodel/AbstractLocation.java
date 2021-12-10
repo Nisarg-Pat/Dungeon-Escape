@@ -23,6 +23,7 @@ abstract class AbstractLocation implements Location {
   protected boolean visited;
   protected boolean hasKey;
   protected boolean hasAboleth;
+  protected boolean hasPit;
 
   protected AbstractLocation(int row, int column, Map<Direction, Location> connectedMap) {
     if (row < 0 || column < 0 || connectedMap == null) {
@@ -32,6 +33,9 @@ abstract class AbstractLocation implements Location {
     this.connectedMap = connectedMap;
     this.numCrookedArrows = 0;
     this.visited = false;
+    this.hasAboleth = false;
+    this.hasKey = false;
+    this.hasPit = false;
   }
 
   @Override
@@ -201,5 +205,25 @@ abstract class AbstractLocation implements Location {
   @Override
   public boolean hasAboleth() {
     return hasAboleth;
+  }
+
+  @Override
+  public boolean hasPit() {
+    return hasPit;
+  }
+
+  @Override
+  public void setPit(boolean pit) {
+    hasPit = pit;
+  }
+
+  @Override
+  public boolean hasPitNearby() {
+    for (Location adjecent : connectedMap.values()) {
+      if (adjecent.hasPit()) {
+        return true;
+      }
+    }
+    return false;
   }
 }

@@ -13,6 +13,7 @@ class PlayerImpl implements Player {
   private Location currentLocation;
   private int numCrookedArrows;
   private boolean hasKey;
+  private boolean isFallenInPit;
 
   private static final int INITIAL_CROOKED_ARROWS = 3;
 
@@ -25,6 +26,7 @@ class PlayerImpl implements Player {
     this.collectedTreasures = new TreeMap<>();
     this.currentLocation = currentLocation;
     this.numCrookedArrows = INITIAL_CROOKED_ARROWS;
+    this.isFallenInPit = false;
     this.hasKey = false;
   }
 
@@ -137,5 +139,15 @@ class PlayerImpl implements Player {
       collectedTreasures.put(treasure, finalAmount);
     }
     return finalAmount - initialAmount;
+  }
+
+  @Override
+  public boolean isFallenInPit() {
+    return isFallenInPit;
+  }
+
+  @Override
+  public void setFallenInPit(boolean fallenInPit) {
+    isFallenInPit = fallenInPit;
   }
 }

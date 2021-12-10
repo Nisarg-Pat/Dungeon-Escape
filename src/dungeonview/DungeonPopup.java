@@ -29,6 +29,7 @@ class DungeonPopup extends JFrame {
   private final JTextField otyughInputField;
   private final JTextField abolethInputField;
   private final JTextField thiefInputField;
+  private final JTextField pitInputField;
   private final JRadioButton isWrappedTrue;
   private final JRadioButton isWrappedFalse;
 
@@ -40,7 +41,7 @@ class DungeonPopup extends JFrame {
       throw new IllegalArgumentException("View cannot be null");
     }
     this.view = view;
-    setLayout(new GridLayout(11, 0));
+    setLayout(new GridLayout(12, 0));
     try {
       BufferedImage image = ImageIO.read(new File("dungeonImages\\logo.png"));
       setIconImage(image);
@@ -163,6 +164,19 @@ class DungeonPopup extends JFrame {
     thiefPanel.add(thiefInputField);
     this.add(thiefPanel);
 
+    JPanel pitPanel = new JPanel();
+    pitPanel.setLayout(new GridLayout(1, 2));
+    pitPanel.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
+    textArea = new JTextArea("Enter Number of Pits(0-100):");
+    textArea.setFocusable(false);
+    textArea.setBorder(BorderFactory.createLineBorder(Color.WHITE, 5, true));
+    pitPanel.add(textArea);
+    int numPit = view.hasModel() ? view.getModel().countThief() : 0;
+    pitInputField = new JTextField(String.valueOf(numPit));
+    pitInputField.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1, true));
+    pitPanel.add(pitInputField);
+    this.add(pitPanel);
+
     this.add(new JPanel());
 
     JPanel buttonPanel = new JPanel();
@@ -185,7 +199,7 @@ class DungeonPopup extends JFrame {
   }
 
   protected void setFeatures(Features features) {
-    if(features == null){
+    if (features == null) {
       throw new IllegalArgumentException("Features cannot be null.");
     }
     closeButton.addActionListener(l -> {
@@ -205,11 +219,12 @@ class DungeonPopup extends JFrame {
         int numOtyughs = Integer.parseInt(otyughInputField.getText());
         int numAboleth = Integer.parseInt(abolethInputField.getText());
         int numThief = Integer.parseInt(thiefInputField.getText());
-        if (rows > 100 || columns > 100 || numAboleth > 100 || numThief > 100) {
+        int numPits = Integer.parseInt(pitInputField.getText());
+        if (rows > 100 || columns > 100 || numAboleth > 100 || numThief > 100 || numOtyughs > 100) {
           JOptionPane.showMessageDialog(this, "Enter valid details!");
         } else {
           features.createNewModel(rows, columns, isWrapped,
-                  degreeOfInterconnectivity, percentageItems, numOtyughs, numAboleth, numThief);
+                  degreeOfInterconnectivity, percentageItems, numOtyughs, numAboleth, numThief, numPits);
           this.setVisible(false);
           view.setSizes(rows, columns);
           view.setVisible(true);

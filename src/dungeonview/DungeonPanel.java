@@ -99,6 +99,11 @@ class DungeonPanel extends JPanel {
             g2d.setColor(Color.RED);
             g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
           }
+
+          if (location.hasPit()) {
+            g2d.setColor(Color.MAGENTA);
+            g2d.fillOval(getCurrentPosition.getColumn(), getCurrentPosition.getRow(), 16, 16);
+          }
         }
       }
     }

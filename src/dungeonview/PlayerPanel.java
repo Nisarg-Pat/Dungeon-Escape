@@ -102,7 +102,10 @@ class PlayerPanel extends JPanel {
       if (model.getCurrentLocation().containsAboleth()) {
         killMonster.setVisible(true);
         textArea.setText("Location contains an Aboleth. Kill it before it sees you.");
-      } else {
+      } else if (model.getCurrentLocation().hasPitNearby()) {
+        textArea.setText("It looks like the ground is not stable.");
+      }
+      else {
         killMonster.setVisible(false);
         textArea.setText(outputString);
       }

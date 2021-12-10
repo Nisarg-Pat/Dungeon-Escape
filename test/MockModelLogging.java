@@ -26,13 +26,13 @@ public class MockModelLogging implements DungeonModel {
   @Override
   public LocationDescription getStartCave() {
     return new LocationDescription(new HashSet<>(), new HashMap<>(),
-            new Position(0, 0), 0, false, false, false, false, false, false);
+            new Position(0, 0), 0, false, false, false, false, false, false, false, false);
   }
 
   @Override
   public LocationDescription getEndCave() {
     return new LocationDescription(new HashSet<>(), new HashMap<>(),
-            new Position(0, 0), 0, false, false, false, false, false, false);
+            new Position(0, 0), 0, false, false, false, false, false, false, false, false);
   }
 
   @Override
@@ -43,13 +43,13 @@ public class MockModelLogging implements DungeonModel {
   @Override
   public LocationDescription getCurrentLocation() {
     return new LocationDescription(new HashSet<>(), new HashMap<>(),
-            new Position(0, 0), 0, false, false, false, false, false, false);
+            new Position(0, 0), 0, false, false, false, false, false, false, false, false);
   }
 
   @Override
   public LocationDescription getLocation(Position position) {
     return new LocationDescription(new HashSet<>(), new HashMap<>(),
-            new Position(0, 0), 0, false, false, false, false, false, false);
+            new Position(0, 0), 0, false, false, false, false, false, false, false, false);
   }
 
   @Override
@@ -88,6 +88,11 @@ public class MockModelLogging implements DungeonModel {
   }
 
   @Override
+  public void setPlayerinPit(boolean pit) {
+    log.append("Set Player in Pit called: ").append(pit).append("\n");
+  }
+
+  @Override
   public void exitDungeon() {
     log.append("Exit Dungeon called.\n");
   }
@@ -95,6 +100,11 @@ public class MockModelLogging implements DungeonModel {
   @Override
   public SmellLevel detectSmell() {
     return SmellLevel.NO_SMELL;
+  }
+
+  @Override
+  public int countPits() {
+    return 0;
   }
 
   @Override

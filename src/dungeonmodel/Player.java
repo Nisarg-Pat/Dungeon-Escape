@@ -33,4 +33,8 @@ interface Player {
   boolean hasKey();
 
   int removeTreasure(Treasure treasure, int i);
+
+  boolean isFallenInPit();
+
+  void setFallenInPit(boolean fallenInPit);
 }

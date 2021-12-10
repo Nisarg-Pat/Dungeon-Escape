@@ -25,6 +25,8 @@ public class LocationDescription {
   private final boolean hasAboleth;
   private final boolean hasKey;
   private final boolean hasThief;
+  private final boolean hasPit;
+  private final boolean hasPitNearby;
 
   /**
    * Constructor for LocationDescription class.
@@ -44,7 +46,8 @@ public class LocationDescription {
   public LocationDescription(Set<Direction> possibleDirections,
                              Map<Treasure, Integer> treasureMap, Position position,
                              int numArrows, boolean isCave, boolean hasOtyugh, boolean visited,
-                             boolean hasAboleth, boolean containsKey, boolean hasThief) {
+                             boolean hasAboleth, boolean containsKey, boolean hasThief,
+                             boolean hasPit, boolean hasPitNearby) {
     if (possibleDirections == null || treasureMap == null
             || position == null) {
       throw new IllegalArgumentException("Invalid arguments.");
@@ -59,6 +62,8 @@ public class LocationDescription {
     this.hasAboleth = hasAboleth;
     this.hasKey = containsKey;
     this.hasThief = hasThief;
+    this.hasPit = hasPit;
+    this.hasPitNearby = hasPitNearby;
   }
 
   /**
@@ -150,6 +155,24 @@ public class LocationDescription {
    */
   public boolean containsThief() {
     return hasThief;
+  }
+
+  /**
+   * Return true if the location has Pit.
+   *
+   * @return true if location has Pit.
+   */
+  public boolean hasPit() {
+    return hasPit;
+  }
+
+  /**
+   * Return true if there is a pit nearby.
+   *
+   * @return true if there is a pit nearby.
+   */
+  public boolean hasPitNearby() {
+    return hasPitNearby;
   }
 
   @Override

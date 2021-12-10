@@ -121,4 +121,11 @@ public interface ReadOnlyDungeonModel {
    * @return the smellLevel detected by the Player.
    */
   SmellLevel detectSmell();
+
+  /**
+   * Gives the number of pits in the dungeon
+   *
+   * @return the number of pits in the dungeon
+   */
+  int countPits();
 }

@@ -71,6 +71,8 @@ public interface DungeonModel extends ReadOnlyDungeonModel {
    */
   void killMonster();
 
+  void setPlayerinPit(boolean pit);
+
   /**
    * Exit the dungeon.
    */
