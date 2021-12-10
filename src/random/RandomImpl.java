@@ -55,6 +55,11 @@ public class RandomImpl {
     random.setSeed(seed);
   }
 
+  /**
+   * Gets the current seed.
+   *
+   * @return returns the current seed.
+   */
   public static long getSeed() {
     return seed;
   }

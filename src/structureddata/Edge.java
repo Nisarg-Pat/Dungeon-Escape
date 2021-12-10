@@ -10,8 +10,8 @@ public class Edge {
   /**
    * Constructor for Edge class.
    *
-   * @param firstRow    row for first location
-   * @param firstColumn column for first location
+   * @param firstRow     row for first location
+   * @param firstColumn  column for first location
    * @param secondRow    row for second location
    * @param secondColumn column for second location
    */
@@ -29,7 +29,7 @@ public class Edge {
    * @return the first position of the edge.
    */
   public Position getFirst() {
-    return first;
+    return new Position(first.getRow(), first.getColumn());
   }
 
   /**
@@ -38,7 +38,7 @@ public class Edge {
    * @return the second position of the edge.
    */
   public Position getSecond() {
-    return second;
+    return new Position(second.getRow(), second.getColumn());
   }
 
   @Override

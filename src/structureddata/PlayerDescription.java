@@ -64,6 +64,15 @@ public class PlayerDescription {
     return numArrows;
   }
 
+  /**
+   * Return true if the player has Key.
+   *
+   * @return true if player has Key.
+   */
+  public boolean hasKey() {
+    return hasKey;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -87,9 +96,5 @@ public class PlayerDescription {
     return String.format("Player Description:\nPosition: %s\n"
                     + "Treasures collected: %s\nArrows collected: %d",
             position, collectedTreasures, numArrows);
-  }
-
-  public boolean hasKey() {
-    return hasKey;
   }
 }

@@ -35,7 +35,10 @@ public class LocationDescription {
    * @param numArrows          The numer of arrows in the location
    * @param isCave             whether the location is a cave
    * @param hasOtyugh          whether the location has otyugh
-   *                           //TODO JAVADOC
+   * @param visited            whether the location is visited
+   * @param hasAboleth         whether the location has Aboleth
+   * @param containsKey        whether the location contains key
+   * @param hasThief           whether the location has a thief
    * @throws IllegalArgumentException if any of the argument is null
    */
   public LocationDescription(Set<Direction> possibleDirections,
@@ -82,7 +85,7 @@ public class LocationDescription {
    * @return the position of the location.
    */
   public Position getPosition() {
-    return position;
+    return new Position(position.getRow(), position.getColumn());
   }
 
   /**
@@ -140,7 +143,11 @@ public class LocationDescription {
   }
 
 
-  //TODO javadoc
+  /**
+   * Return true if the location contains thief
+   *
+   * @return true if location contains thief
+   */
   public boolean containsThief() {
     return hasThief;
   }
