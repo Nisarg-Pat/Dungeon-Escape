@@ -25,6 +25,9 @@ import java.util.List;
  * Player needs to kill the aboleth before it sees you or else aboleth will kill the player.
  * Tunnels contain thieves that can steal treasure from player.
  * Thieves then relocate themselves to a different location after stealing the treasure.
+ * Player can fall in a pit present in any location.
+ * Player can sense a nearby pit beforehand.
+ * Player cannot perform actions when he is in a pit.
  * Player requires a key to open the door in end location.
  * Key can be found randomly at any location in the dungeon.
  * Game ends if player gets killed or player opens the door.
@@ -163,7 +166,7 @@ public class DungeonModelImpl implements DungeonModel {
   @Override
   public PlayerDescription getPlayerDescription() {
     return new PlayerDescription(player.getCollectedTreasures(), player.countArrows(),
-            player.getLocation().getPosition(), player.hasKey());
+            player.getLocation().getPosition(), player.hasKey(), player.isFallenInPit());
   }
 
   @Override
@@ -299,7 +302,9 @@ public class DungeonModelImpl implements DungeonModel {
 
   @Override
   public void setPlayerinPit(boolean pit) {
-    player.setFallenInPit(pit);
+    if(player.getLocation().hasPit()) {
+      player.setFallenInPit(pit);
+    }
   }
 
   @Override

@@ -37,7 +37,7 @@ public class MockModelLogging implements DungeonModel {
 
   @Override
   public PlayerDescription getPlayerDescription() {
-    return new PlayerDescription(new HashMap<>(), 0, new Position(0, 0), false);
+    return new PlayerDescription(new HashMap<>(), 0, new Position(0, 0), false, false);
   }
 
   @Override

@@ -308,6 +308,83 @@ public class DungeonModelNewImplTest {
     assertEquals(GameStatus.GAME_CONTINUE, model.getGameStatus());
     model.exitDungeon();
     assertEquals(GameStatus.GAME_OVER_WIN, model.getGameStatus());
+  }
 
+  @Test
+  public void testPit() {
+    RandomImpl.setSeed(0);
+    model = new DungeonModelImpl(6, 8, false, 10, 50, 1, 1, 1, 1, true);
+
+    assertEquals("                                                            \n" +
+            "    ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    ( ) —— ( )    \n" +
+            "     |      |      |      |                    |            \n" +
+            "    ( ) —— ( ) —— ( )    ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
+            "            |             |      |      |                   \n" +
+            "    ( )    ( ) —— (P) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
+            "     |             |                    |             |     \n" +
+            "    ( )    ( ) —— ( ) —— ( )    ( ) —— ( ) —— ( ) —— ( )    \n" +
+            "     |      |             |      |      |      |      |     \n" +
+            "    ( ) —— ( ) —— ( ) —— ( ) —— ( )    (&) —— ( ) —— ( )    \n" +
+            "     |      |      |      |      |      |      |            \n" +
+            "    ( ) —— ( ) —— ( )    ( ) —— ( )    ( ) —— ( ) —— ( )    \n" +
+            "                                                            \n", model.printDungeon());
+
+    model.movePlayer(Direction.WEST);
+    model.movePlayer(Direction.NORTH);
+    model.movePlayer(Direction.WEST);
+    assertFalse(model.getCurrentLocation().hasPit());
+    assertTrue(model.getCurrentLocation().hasPitNearby());
+    model.setPlayerinPit(true);
+    assertFalse(model.getPlayerDescription().fallenInPit());
+    model.movePlayer(Direction.NORTH);
+
+    assertEquals(new Position(0, 0), model.getCurrentLocation().getPosition());
+    assertTrue(model.getCurrentLocation().hasPit());
+    assertFalse(model.getCurrentLocation().hasPitNearby());
+    model.setPlayerinPit(true);
+    assertTrue(model.getPlayerDescription().fallenInPit());
+
+    try {
+      model.movePlayer(Direction.NORTH);
+      fail();
+    } catch (IllegalStateException e) {
+      assertEquals("You are in a pit. It will take 5 seconds to come out.", e.getMessage());
+    }
+
+    try {
+      model.exitDungeon();
+      fail();
+    } catch (IllegalStateException e) {
+      assertEquals("You are in a pit. It will take 5 seconds to come out.", e.getMessage());
+    }
+
+    try {
+      model.killMonster();
+      fail();
+    } catch (IllegalStateException e) {
+      assertEquals("You are in a pit. It will take 5 seconds to come out.", e.getMessage());
+    }
+
+    try {
+      model.pickItem(Key.DOOR_KEY);
+      fail();
+    } catch (IllegalStateException e) {
+      assertEquals("You are in a pit. It will take 5 seconds to come out.", e.getMessage());
+    }
+    try {
+      model.shoot(Direction.NORTH, 2);
+      fail();
+    } catch (IllegalStateException e) {
+      assertEquals("You are in a pit. It will take 5 seconds to come out.", e.getMessage());
+    }
+
+    model.moveAboleth();
+    model.stealTreasure();
+
+    model.setPlayerinPit(false);
+    assertFalse(model.getPlayerDescription().fallenInPit());
+    model.movePlayer(Direction.SOUTH);
+    assertEquals(new Position(1, 0), model.getCurrentLocation().getPosition());
+    assertTrue(model.getCurrentLocation().hasPitNearby());
   }
 }
