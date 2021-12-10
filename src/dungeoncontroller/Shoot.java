@@ -21,6 +21,9 @@ class Shoot implements Command {
   private int distance;
 
   protected Shoot(Scanner sc, Appendable out) throws IOException {
+    if (sc == null || out == null) {
+      throw new IllegalArgumentException("Scanner or Appendable cannot be null.");
+    }
     this.sc = sc;
     this.out = out;
     takeInput();
@@ -57,6 +60,9 @@ class Shoot implements Command {
 
   @Override
   public void execute(DungeonModel model) {
+    if (model == null) {
+      throw new IllegalArgumentException("Invalid model for Command!");
+    }
     HitStatus status = model.shoot(direction, distance);
     try {
       if (status == HitStatus.KILLED) {

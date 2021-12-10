@@ -18,6 +18,9 @@ class Move implements Command {
   private Direction direction;
 
   protected Move(Scanner sc, Appendable out) throws IOException {
+    if (sc == null || out == null) {
+      throw new IllegalArgumentException("Scanner or Appendable cannot be null.");
+    }
     this.sc = sc;
     this.out = out;
     takeInput();

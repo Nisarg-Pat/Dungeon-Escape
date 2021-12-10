@@ -20,6 +20,9 @@ class Pick implements Command {
   private Item item;
 
   protected Pick(Scanner sc, Appendable out) throws IOException {
+    if (sc == null || out == null) {
+      throw new IllegalArgumentException("Scanner or Appendable cannot be null.");
+    }
     this.sc = sc;
     this.out = out;
     takeInput();

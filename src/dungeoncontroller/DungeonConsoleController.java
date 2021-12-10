@@ -18,11 +18,11 @@ import java.util.Scanner;
 import java.util.Set;
 
 /**
- * A Generic representation of {@link DungeonController}.
+ * A Console representation of {@link DungeonController}.
  * The input of this controller is a {@link Readable}.
  * The output of this controller is a {@link Appendable}.
  */
-public class DungeonControllerImpl implements DungeonController {
+public class DungeonConsoleController implements DungeonController {
 
   private final Readable in;
   private final Appendable out;
@@ -36,7 +36,7 @@ public class DungeonControllerImpl implements DungeonController {
    * @param model The {@link DungeonModel} to play the game.
    * @throws IllegalArgumentException if any of the arguments is null.
    */
-  public DungeonControllerImpl(Readable in, Appendable out, DungeonModel model) {
+  public DungeonConsoleController(Readable in, Appendable out, DungeonModel model) {
     if (in == null || out == null || model == null) {
       throw new IllegalArgumentException("The arguments to controller cannot be null.");
     }

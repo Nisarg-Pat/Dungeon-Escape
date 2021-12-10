@@ -1,8 +1,8 @@
 import java.io.InputStreamReader;
 
-import dungeoncontroller.DungeonAsyncControllerImpl;
+import dungeoncontroller.DungeonAsyncController;
 import dungeoncontroller.DungeonController;
-import dungeoncontroller.DungeonControllerImpl;
+import dungeoncontroller.DungeonConsoleController;
 import dungeonmodel.DungeonModel;
 import dungeonmodel.DungeonModelImpl;
 import dungeonview.DungeonSwingView;
@@ -19,7 +19,7 @@ public class SpringDriver {
 
   private static void startSpringController() {
     DungeonView dungeonView = new DungeonSwingView();
-    DungeonController dungeonController = new DungeonAsyncControllerImpl(dungeonView);
+    DungeonController dungeonController = new DungeonAsyncController(dungeonView);
     dungeonController.start();
   }
 
@@ -44,7 +44,7 @@ public class SpringDriver {
 
     DungeonModel dungeonModel = new DungeonModelImpl(rows, columns,
             isWrapped, degreeOfConnectivity, percentageCavesWithTreasure, numOtyugh, 0, 0);
-    DungeonController dungeonController = new DungeonControllerImpl(
+    DungeonController dungeonController = new DungeonConsoleController(
             new InputStreamReader(System.in), System.out, dungeonModel);
     try {
       dungeonController.start();

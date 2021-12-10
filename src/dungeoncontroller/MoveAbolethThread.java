@@ -4,16 +4,22 @@ import dungeonmodel.DungeonModel;
 import dungeonmodel.GameStatus;
 import dungeonview.DungeonView;
 
-//TODO javadoc
+/**
+ * A new thread to move Aboleths independent of player movement.
+ * Aboleths will move every 2 seconds.
+ */
 class MoveAbolethThread implements Runnable {
 
   private boolean exit;
 
   private final Thread thread;
-  DungeonModel model;
-  DungeonView view;
+  private final DungeonModel model;
+  private final DungeonView view;
 
-  MoveAbolethThread(DungeonModel model, DungeonView view) {
+  protected MoveAbolethThread(DungeonModel model, DungeonView view) {
+    if (model == null || view == null) {
+      throw new IllegalArgumentException("Model or view cannot be null");
+    }
     thread = new Thread(this);
     this.model = model;
     this.view = view;
@@ -26,7 +32,7 @@ class MoveAbolethThread implements Runnable {
       Thread.sleep(2000);
       while (!exit && model.getGameStatus() == GameStatus.GAME_CONTINUE) {
         model.moveAboleth();
-        if(model.getGameStatus() == GameStatus.GAME_OVER_KILLED) {
+        if (model.getGameStatus() == GameStatus.GAME_OVER_KILLED) {
           view.playSound("dungeonSounds\\monstereat.wav");
           view.showString("Chomp, chomp, you are eaten by an Aboleth!!");
         }
@@ -39,16 +45,15 @@ class MoveAbolethThread implements Runnable {
     }
   }
 
-  public void start() {
+  protected void start() {
     thread.start();
   }
 
-  // for stopping the thread
-  public void stop() {
+  protected void stop() {
     exit = true;
   }
 
-  public boolean isRunning() {
+  protected boolean isRunning() {
     return !exit;
   }
 }

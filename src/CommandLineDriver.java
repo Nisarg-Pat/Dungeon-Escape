@@ -1,5 +1,5 @@
 import dungeoncontroller.DungeonController;
-import dungeoncontroller.DungeonControllerImpl;
+import dungeoncontroller.DungeonConsoleController;
 import dungeonmodel.DungeonModel;
 import dungeonmodel.DungeonModelImpl;
 
@@ -43,7 +43,7 @@ public class CommandLineDriver {
 
     DungeonModel dungeonModel = new DungeonModelImpl(rows, columns,
             isWrapped, degreeOfConnectivity, percentageCavesWithTreasure, numOtyugh, 0, 0);
-    DungeonController dungeonController = new DungeonControllerImpl(
+    DungeonController dungeonController = new DungeonConsoleController(
             new InputStreamReader(System.in), System.out, dungeonModel);
     try {
       dungeonController.start();
