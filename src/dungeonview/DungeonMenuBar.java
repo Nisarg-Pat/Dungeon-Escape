@@ -124,7 +124,7 @@ class DungeonMenuBar extends JMenuBar {
     });
     dungeonDialogueItem.addActionListener(l -> {
       dungeonDetailsDialogue = new JDialog();
-      dungeonDetailsDialogue.setLayout(new GridLayout(8, 0));
+      dungeonDetailsDialogue.setLayout(new GridLayout(9, 0));
       dungeonDetailsDialogue.add(new JTextArea(
               String.format("Rows: %d", view.getModel().getRows())));
       dungeonDetailsDialogue.add(new JTextArea(
@@ -142,6 +142,8 @@ class DungeonMenuBar extends JMenuBar {
               String.format("Number of Aboleths: %d", view.getModel().countAboleth())));
       dungeonDetailsDialogue.add(new JTextArea(
               String.format("Number of Thieves: %d", view.getModel().countThief())));
+      dungeonDetailsDialogue.add(new JTextArea(
+              String.format("Number of Pits: %d", view.getModel().countPits())));
       dungeonDetailsDialogue.pack();
       dungeonDetailsDialogue.setLocation(view.getX() + 100, view.getY() + 100);
       dungeonDetailsDialogue.setVisible(true);
