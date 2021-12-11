@@ -127,32 +127,12 @@ public class DungeonSwingView extends JFrame implements DungeonView {
 
       @Override
       public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_S) {
-          if (model.getPlayerDescription().countArrows() == 0) {
-            playerPanel.showString("Player does not have any arrows");
-          } else {
-            isShootMode = true;
-            playerPanel.showString("Click on direction to shoot.");
-          }
-          return;
-        }
         Map<Integer, Direction> keyDirectionMap = new HashMap<>();
         keyDirectionMap.put(KeyEvent.VK_UP, Direction.NORTH);
         keyDirectionMap.put(KeyEvent.VK_RIGHT, Direction.EAST);
         keyDirectionMap.put(KeyEvent.VK_DOWN, Direction.SOUTH);
         keyDirectionMap.put(KeyEvent.VK_LEFT, Direction.WEST);
-        if (keyDirectionMap.containsKey(e.getKeyCode())) {
-          if (isShootMode) {
-            shootDirection = keyDirectionMap.get(e.getKeyCode());
-            playerPanel.showString("Enter the distance(1-5)");
-          } else {
-            features.movePlayer(keyDirectionMap.get(e.getKeyCode()));
-          }
-          isShootMode = false;
-          return;
-        } else {
-          isShootMode = false;
-        }
+
         Map<Integer, Item> itemMap = new HashMap<>();
         itemMap.put(KeyEvent.VK_1, Treasure.DIAMOND);
         itemMap.put(KeyEvent.VK_2, Treasure.RUBY);
@@ -164,19 +144,39 @@ public class DungeonSwingView extends JFrame implements DungeonView {
         itemMap.put(KeyEvent.VK_NUMPAD3, Treasure.SAPPHIRE);
         itemMap.put(KeyEvent.VK_NUMPAD4, Arrow.CROOKED_ARROW);
         itemMap.put(KeyEvent.VK_NUMPAD5, Key.DOOR_KEY);
-        if (itemMap.containsKey(e.getKeyCode())) {
-          if (shootDirection != null) {
-            features.shootArrow(shootDirection, e.getKeyCode() % 48);
-          } else {
-            features.pickItem(itemMap.get(e.getKeyCode()));
-          }
-          shootDirection = null;
+
+
+        if (e.getKeyCode() == KeyEvent.VK_S) {
+          isShootMode = true;
+          playerPanel.showString("Click on direction to shoot.");
           return;
-        } else {
-          shootDirection = null;
         }
+
         if (e.getKeyCode() == KeyEvent.VK_D) {
-          features.killMonster();
+          if (!isShootMode) {
+            features.killMonster();
+          }
+          return;
+        }
+
+        if (keyDirectionMap.containsKey(e.getKeyCode())) {
+          if (!isShootMode) {
+            features.movePlayer(keyDirectionMap.get(e.getKeyCode()));
+          } else if (shootDirection == null) {
+            shootDirection = keyDirectionMap.get(e.getKeyCode());
+            playerPanel.showString("Enter the distance(1-5)");
+          }
+          return;
+        }
+
+        if (itemMap.containsKey(e.getKeyCode())) {
+          if (!isShootMode) {
+            features.pickItem(itemMap.get(e.getKeyCode()));
+          } else if (shootDirection != null) {
+            features.shootArrow(shootDirection, e.getKeyCode() % 48);
+            shootDirection = null;
+            isShootMode = false;
+          }
         }
       }
 
@@ -256,7 +256,7 @@ public class DungeonSwingView extends JFrame implements DungeonView {
     refresh();
   }
 
-  protected void setShootMode(boolean value) {
-    isShootMode = value;
+  protected boolean getShootMode() {
+    return isShootMode;
   }
 }

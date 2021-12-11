@@ -13,6 +13,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -128,9 +129,8 @@ class DungeonPanel extends JPanel {
         super.mouseClicked(e);
         Direction direction = getDirection(view.getModel().getCurrentLocation().getPosition(),
                 getPositionFromClick(e.getX(), e.getY()));
-        if (direction != null) {
+        if (direction != null && !view.getShootMode()) {
           features.movePlayer(direction);
-          view.setShootMode(false);
         }
       }
     };
