@@ -1,4 +1,4 @@
-# Dungeon Model
+# Dungeon Game
 
 ## Overview
 
