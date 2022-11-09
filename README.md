@@ -1,8 +1,8 @@
-# Dungeon Game
+# Dungeon Escape
 
 ## Overview
 
-The following program represents a dungeon model that contains a network of tunnels and caves that
+Dungeon Escape is an escape game that contains a dungeon with a network of tunnels and caves that
 are interconnected so that player can explore the entire world by traveling from cave to cave
 through the tunnels that connect them.
 
